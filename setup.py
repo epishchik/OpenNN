@@ -10,7 +10,7 @@ from setuptools import setup, Command
 NAME = 'opennn'
 DESCRIPTION = 'Neural networks for different tasks.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
-DOWNLOAD_URL = ''  # TODO
+DOWNLOAD_URL = ''  # TODO https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56
 EMAIL = 'evgeniipishchik@mail.ru'
 AUTHOR = 'Evgenii Pishchik'
 REQUIRES_PYTHON = '>=3.6.0'
