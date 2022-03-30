@@ -2,6 +2,7 @@ import torchvision
 import torch
 
 
+# TODO проверить обучаемость на cifar10
 def cifar10(tr_part, va_part, transform):
     dataset = torchvision.datasets.CIFAR10('.', download=True, transform=transform)
     tr_part = int(tr_part * len(dataset))
