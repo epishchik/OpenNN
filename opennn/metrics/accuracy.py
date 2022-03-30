@@ -10,10 +10,6 @@ class accuracy():
             preds = preds.argmax(dim=1)
         acc = (preds == labels).sum() / np
         return acc
-    # def calc(self, preds, labels):
-    #     preds = preds.argmax(dim=1)
-    #     acc = (preds == labels).sum() / len(labels)
-    #     return acc
 
     def name(self):
         return 'accuracy'

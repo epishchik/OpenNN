@@ -14,15 +14,6 @@ class precision():
             preds = preds.argmax(dim=1)
 
         return torch.tensor(precision_score(labels.cpu(), preds.cpu(), average='micro'))
-        # TODO сделать свой precision
-        # tp = 0
-        # tpfp = 0
-        # for i in range(self.nc):
-        #     preds_i = (preds.cpu() == i).float()
-        #     labels_i = (labels.cpu() == i).float()
-        #     tp += ((preds_i == labels_i).float() * preds_i).sum()
-        #     tpfp += tp + ((preds_i != labels_i).float() * preds_i).sum()
-        # return tp / tpfp
 
     def name(self):
         return 'precision'
