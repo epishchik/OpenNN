@@ -1,9 +1,10 @@
 import yaml
 from models.alexnet import AlexNet
 from algo.traintest import train, test
+from algo.vizualize import vizualize
 from optimizers import adam
 from schedulers import steplr
-from datasets import mnist
+from datasets import mnist, cifar10, cifar100
 from losses import celoss
 from metrics import accuracy, precision
 import numpy as np
@@ -53,6 +54,8 @@ def run(yaml, transform_yaml):
     metrics = config['metrics']
     metrics_fn = []
     checkpoints = config['checkpoints']
+    if algorithm == 'test':
+        names = config['class_names']
     if 'checkpoint' in config.keys():
         checkpoint = config['checkpoint']
     else:
@@ -88,6 +91,10 @@ def run(yaml, transform_yaml):
 
     if dataset == 'mnist':
         train_data, valid_data, test_data = mnist(train_part, valid_part, transform)
+    elif dataset == 'cifar10':
+        train_data, valid_data, test_data = cifar10(train_part, valid_part, transform)
+    elif dataset == 'cifar100':
+        train_data, valid_data, test_data = cifar100(train_part, valid_part, transform)
     else:
         raise ValueError(f'no dataset {dataset}')
 
@@ -124,6 +131,8 @@ def run(yaml, transform_yaml):
         train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se)
     elif algorithm == 'test':
         test(test_dataloader, model, loss_fn, metrics_fn, logs, device)
+        for _ in range(10):
+            vizualize(valid_data, model, device, {i: names[i] for i in range(nc)})
     else:
         raise ValueError(f'no algorithm {algorithm}')
 

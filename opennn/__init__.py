@@ -5,4 +5,4 @@ from . import metrics
 from . import datasets
 from . import optimizers
 from . import pretrained
-from . import run
+from .run import run
