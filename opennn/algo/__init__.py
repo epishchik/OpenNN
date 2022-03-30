@@ -1,2 +1,2 @@
 from .traintest import train, test
-# TODO импорт из .vizualize
+from .vizualize import vizualize

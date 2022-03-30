@@ -78,20 +78,20 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         tqdm_dct['train loss'] = train_loss
         for i, metric in enumerate(train_mvct):
             tqdm_dct[f'train_{metric_names[i]}'] = metric
-            train_str += f'{metric_names[i]}: {metric} '
+            train_str += f'train_{metric_names[i]}: {metric} '
 
         tqdm_dct['valid loss'] = valid_loss
         for i, metric in enumerate(valid_mvct):
             tqdm_dct[f'valid_{metric_names[i]}'] = metric
             if i != len(valid_mvct) - 1:
-                valid_str += f'{metric_names[i]}: {metric} '
+                valid_str += f'valid_{metric_names[i]}: {metric} '
             else:
-                valid_str += f'{metric_names[i]}: {metric}\n'
+                valid_str += f'valid_{metric_names[i]}: {metric}\n'
 
         tqdm_iter.set_postfix(tqdm_dct, refresh=True)
 
         with open(logs + '/trainval.log', 'a') as in_f:
-            in_f.write(f'epoch: {epoch}/{epochs} train loss: {train_loss} valid loss: {valid_loss} ' + train_str + valid_str)
+            in_f.write(f'epoch: {epoch + 1}/{epochs} train loss: {train_loss} valid loss: {valid_loss} ' + train_str + valid_str)
 
         scheduler.step()
         tqdm_iter.refresh()
@@ -99,6 +99,11 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
 
 def test(test_dataloader, model, loss_fn, metrics, logs, device):
+    logs_folder = list(map(int, os.listdir(logs)))
+    logs_folder = max(logs_folder) + 1 if logs_folder != [] else 0
+    os.mkdir(f'{logs}/{logs_folder}', mode=0o777)
+    logs = f'{logs}/{logs_folder}'
+
     model.eval()
     test_loss = 0.0
     metric_names = [metric.name() for metric in metrics]
@@ -119,13 +124,9 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device):
 
     test_mvct = np.array(test_mvct) / len(test_dataloader)
     test_loss /= len(test_dataloader)
-
-    tqdm_dct = {}
     test_str = ''
 
-    tqdm_dct['test loss'] = test_loss
     for i, metric in enumerate(test_mvct):
-        tqdm_dct[f'{metric_names[i]}'] = metric
         if i != len(test_mvct) - 1:
             test_str += f'{metric_names[i]}: {metric} '
         else:
