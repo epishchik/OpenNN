@@ -1,12 +1,12 @@
 import yaml
-from models.alexnet import AlexNet
-from algo.traintest import train, test
-from algo.vizualize import vizualize
+from algo import train, test, vizualize
 from optimizers import adam
 from schedulers import steplr
 from datasets import mnist, cifar10, cifar100
-from losses import celoss
-from metrics import accuracy, precision
+from losses import celoss, bce, bcelogits, mse, mae
+from metrics import accuracy, precision, recall, f1_score
+from encoders import get_encoder
+from decoders import get_decoder
 import numpy as np
 import torch
 from torchvision import transforms
@@ -33,12 +33,19 @@ def transforms_lst(transform_config):
 
 def run(yaml, transform_yaml):
     torch.cuda.empty_cache()
+
     config = parse_yaml(yaml)
     transform_config = parse_yaml(transform_yaml)
     transform_lst = transforms_lst(transform_config)
     transform = transforms.Compose(transform_lst)
 
-    model_name = config['model']
+    encoder_name = config['encoder']
+    if 'decoder' in config.keys():
+        decoder_name = config['decoder']
+        decoder_mode = None
+    else:
+        decoder_name = config['multidecoder']
+        decoder_mode = 'multi_decoders'
     inc = int(config['in_channels'])
     nc = int(config['number_classes'])
     device = config['device']
@@ -54,8 +61,11 @@ def run(yaml, transform_yaml):
     metrics = config['metrics']
     metrics_fn = []
     checkpoints = config['checkpoints']
-    if algorithm == 'test':
+    if algorithm == 'test' and 'class_names' in config.keys():
         names = config['class_names']
+        viz = True
+    else:
+        viz = False
     if 'checkpoint' in config.keys():
         checkpoint = config['checkpoint']
     else:
@@ -80,10 +90,8 @@ def run(yaml, transform_yaml):
     if device != 'cpu' and device != 'cuda':
         raise ValueError(f'no device {device}')
 
-    if model_name == 'alexnet':
-        model = AlexNet(inc, nc).to(device)
-    else:
-        raise ValueError(f'no model {model_name}')
+    encoder = get_encoder(encoder_name, inc).to(device)
+    model = get_decoder(decoder_name, encoder, nc, decoder_mode, device).to(device)
 
     if checkpoint is not None:
         state_dict = torch.load(checkpoint)
@@ -108,8 +116,19 @@ def run(yaml, transform_yaml):
     else:
         raise ValueError(f'no scheduler {sched}')
 
+    one_hot = False
     if loss_fn == 'cross-entropy':
         loss_fn = celoss()
+    elif loss_fn == 'binary-cross-entropy':
+        loss_fn = bce()
+    elif loss_fn == 'binary-cross-entropy-logits':
+        loss_fn = bcelogits()
+    elif loss_fn == 'mse':
+        loss_fn = mse()
+        one_hot = True
+    elif loss_fn == 'mae':
+        loss_fn = mae()
+        one_hot = True
     else:
         raise ValueError(f'no loss function {loss_fn}')
 
@@ -120,6 +139,12 @@ def run(yaml, transform_yaml):
         elif metric == 'precision':
             prec = precision(nc)
             metrics_fn.append(prec)
+        elif metric == 'recall':
+            rec = recall(nc)
+            metrics_fn.append(rec)
+        elif metric == 'f1_score':
+            f1 = f1_score(nc)
+            metrics_fn.append(f1)
         else:
             raise ValueError(f'no metric {metric}')
 
@@ -128,11 +153,12 @@ def run(yaml, transform_yaml):
     test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=1, shuffle=False)
 
     if algorithm == 'train':
-        train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se)
+        train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se, one_hot, nc)
     elif algorithm == 'test':
-        test(test_dataloader, model, loss_fn, metrics_fn, logs, device)
-        for _ in range(10):
-            vizualize(valid_data, model, device, {i: names[i] for i in range(nc)})
+        test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, nc)
+        if viz:
+            for _ in range(10):
+                vizualize(valid_data, model, device, {i: names[i] for i in range(nc)})
     else:
         raise ValueError(f'no algorithm {algorithm}')
 
