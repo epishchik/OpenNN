@@ -1,10 +1,11 @@
 from tqdm import tqdm
 import torch
+import torch.nn.functional as F
 import numpy as np
 import os
 
 
-def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics, epochs, checkpoints, logs, device, save_every):
+def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics, epochs, checkpoints, logs, device, save_every, one_hot, nc):
     checkpoints_folder = list(map(int, os.listdir(checkpoints)))
     checkpoints_folder = max(checkpoints_folder) + 1 if checkpoints_folder != [] else 0
     os.mkdir(f'{checkpoints}/{checkpoints_folder}', mode=0o777)
@@ -32,6 +33,9 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
             imgs = imgs.to(device)
             labels = labels.to(device)
 
+            if one_hot:
+                labels = F.one_hot(labels, nc).float()
+
             preds = model(imgs)
             loss = loss_fn(preds, labels)
             for mi, metric in enumerate(metrics):
@@ -49,6 +53,9 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
                 imgs, labels = batch
                 imgs = imgs.to(device)
                 labels = labels.to(device)
+
+                if one_hot:
+                    labels = F.one_hot(labels, nc).float()
 
                 preds = model(imgs)
                 loss = loss_fn(preds, labels)
@@ -95,10 +102,10 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
         scheduler.step()
         tqdm_iter.refresh()
-    os.rename(checkpoints + '/best.pt', checkpoints + f'/best_{best_epoch}_{best_loss}.pt')
+    os.rename(checkpoints + '/best.pt', checkpoints + '/best_{}_{:.2f}.pt'.format(best_epoch, best_loss))
 
 
-def test(test_dataloader, model, loss_fn, metrics, logs, device):
+def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
     logs_folder = list(map(int, os.listdir(logs)))
     logs_folder = max(logs_folder) + 1 if logs_folder != [] else 0
     os.mkdir(f'{logs}/{logs_folder}', mode=0o777)
@@ -114,6 +121,9 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device):
             imgs, labels = batch
             imgs = imgs.to(device)
             labels = labels.to(device)
+
+            if one_hot:
+                labels = F.one_hot(labels, nc).float()
 
             preds = model(imgs)
             loss = loss_fn(preds, labels)
