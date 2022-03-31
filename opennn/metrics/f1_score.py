@@ -1,21 +1,27 @@
-class accuracy():
+from sklearn.metrics import recall_score, precision_score
+import torch
+
+
+class f1_score():
+    def __init__(self, nc):
+        self.nc = nc
+
     def calc(self, preds, labels):
-        np = 1
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
             preds = preds.argmax(dim=1).unsqueeze(1)
         elif len(shapes) > len(labels.shape):
             preds = preds.argmax(dim=1)
+
         if len(labels.shape) == 2:
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        for shape in labels.shape:
-            np *= shape
-
-        acc = (preds == labels).sum() / np
-        return acc
+        pr = precision_score(labels.detach().cpu(), preds.detach().cpu(), average='micro')
+        re = recall_score(labels.detach().cpu(), preds.detach().cpu(), average='micro')
+        f1 = 2 * re * pr / (re + pr + 1e-7)
+        return torch.tensor(f1)
 
     def name(self):
-        return 'accuracy'
+        return 'f1_score'
