@@ -15,6 +15,8 @@ checkpoints: /checkpoints
 save_every: 5
 optimizer: 'adam'
 learning_rate: 0.001
+optimizer_betas: [0.9, 0.999]
+optimizer_eps: 0.00000001
 weight_decay: 0.000001
 scheduler: steplr
 step: 15

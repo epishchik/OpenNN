@@ -1,11 +1,10 @@
 import yaml
 from algo import train, test, vizualize
-from optimizers import adam
-from schedulers import steplr
-from datasets import mnist, cifar10, cifar100
-from losses import celoss, bce, bcelogits, custombce, custombcelogits, customceloss
-from losses import mse, mae, custom_mse, custom_mae
-from metrics import accuracy, precision, recall, f1_score
+from optimizers import get_optimizer
+from schedulers import get_scheduler
+from datasets import get_dataset
+from metrics import get_metrics
+from losses import get_loss
 from encoders import get_encoder
 from decoders import get_decoder
 import numpy as np
@@ -60,7 +59,6 @@ def run(yaml, transform_yaml):
     logs = config['logs']
     loss_fn = config['loss']
     metrics = config['metrics']
-    metrics_fn = []
     checkpoints = config['checkpoints']
     if algorithm == 'test' and 'class_names' in config.keys():
         names = config['class_names']
@@ -77,13 +75,28 @@ def run(yaml, transform_yaml):
         wd = float(config['weight_decay'])
     else:
         wd = 0.0
+    if 'optimizer_eps' in config.keys():
+        opt_eps = float(config['optimizer_eps'])
+    else:
+        opt_eps = 1e-8
+    if 'optimizer_betas' in config.keys():
+        betas = tuple(list(map(float, config['optimizer_betas'])))
+    else:
+        betas = (0.9, 0.999)
     optim = config['optimizer']
     sched = config['scheduler']
-    step = int(config['step'])
+    if 'step' in config.keys():
+        step = int(config['step'])
+    else:
+        step = 10
     if 'gamma' in config.keys():
         gamma = float(config['gamma'])
     else:
         gamma = 0.1
+    if 'milestones' in config.keys():
+        milestones = list(map(int, config['milestones']))
+    else:
+        milestones = [10, 30, 70, 150]
 
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -98,68 +111,11 @@ def run(yaml, transform_yaml):
         state_dict = torch.load(checkpoint)
         model.load_state_dict(state_dict)
 
-    if dataset == 'mnist':
-        train_data, valid_data, test_data = mnist(train_part, valid_part, transform)
-    elif dataset == 'cifar10':
-        train_data, valid_data, test_data = cifar10(train_part, valid_part, transform)
-    elif dataset == 'cifar100':
-        train_data, valid_data, test_data = cifar100(train_part, valid_part, transform)
-    else:
-        raise ValueError(f'no dataset {dataset}')
-
-    if optim == 'adam':
-        optimizer = adam(model.parameters(), lr, wd)
-    else:
-        raise ValueError(f'no optimizer {optim}')
-
-    if sched == 'steplr':
-        scheduler = steplr(optimizer, step, gamma)
-    else:
-        raise ValueError(f'no scheduler {sched}')
-
-    one_hot = False
-    if loss_fn == 'ce':
-        loss_fn = celoss()
-    elif loss_fn == 'custom_ce':
-        loss_fn = customceloss()
-    elif loss_fn == 'bce':
-        loss_fn = bce()
-    elif loss_fn == 'custom_bce':
-        loss_fn = custombce()
-    elif loss_fn == 'bce_logits':
-        loss_fn = bcelogits()
-    elif loss_fn == 'custom_bce_logits':
-        loss_fn = custombcelogits()
-    elif loss_fn == 'mse':
-        loss_fn = mse()
-        one_hot = True
-    elif loss_fn == 'custom_mse':
-        loss_fn = custom_mse()
-        one_hot = True
-    elif loss_fn == 'mae':
-        loss_fn = mae()
-        one_hot = True
-    elif loss_fn == 'custom_mae':
-        loss_fn = custom_mae()
-        one_hot = True
-    else:
-        raise ValueError(f'no loss function {loss_fn}')
-
-    for metric in metrics:
-        if metric == 'accuracy':
-            acc = accuracy()
-            metrics_fn.append(acc)
-        elif metric == 'precision':
-            prec = precision(nc)
-            metrics_fn.append(prec)
-        elif metric == 'recall':
-            rec = recall(nc)
-            metrics_fn.append(rec)
-        elif metric == 'f1_score':
-            f1 = f1_score(nc)
-            metrics_fn.append(f1)
-        else:
-            raise ValueError(f'no metric {metric}')
+    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, transform)
+    optimizer = get_optimizer(optim, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=wd)
+    scheduler = get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=milestones)
+    loss_fn, one_hot = get_loss(loss_fn)
+    metrics_fn = get_metrics(metrics, nc=nc)
 
     train_dataloader = torch.utils.data.DataLoader(train_data, batch_size=bs, shuffle=True)
     valid_dataloader = torch.utils.data.DataLoader(valid_data, batch_size=bs, shuffle=False)

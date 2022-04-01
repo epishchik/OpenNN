@@ -19,7 +19,7 @@ class AlexnetFeatures(nn.Module):
         b2 = self.maxpool(self.relu(self.conv2(b1)))
         b3 = self.relu(self.conv3(b2))
         b4 = self.relu(self.conv4(b3))
-        b5 = self.avgpool(self.maxpol(self.relu(self.conv5(b4))))
+        b5 = self.avgpool(self.maxpool(self.relu(self.conv5(b4))))
         return b5
 
     def out_features(self):
