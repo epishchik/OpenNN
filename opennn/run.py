@@ -13,12 +13,26 @@ from torchvision import transforms
 
 
 def parse_yaml(config):
+    '''
+    Parameterts
+    -----------
+    config : str
+        path to .yaml config file.
+    '''
     with open(config, 'r') as stream:
         data = yaml.safe_load(stream)
     return data
 
 
 def transforms_lst(transform_config):
+    '''
+    Transforms dict into list of torchvision.transforms.
+
+    Parameterts
+    -----------
+    transform_config : dict[str, Any]
+        dict from .yaml config file.
+    '''
     lst = []
     for el in transform_config.keys():
         if el == 'tensor' and transform_config['tensor'] == 'yes':
@@ -32,6 +46,16 @@ def transforms_lst(transform_config):
 
 
 def run(yaml, transform_yaml):
+    '''
+    Parse .yaml config and transforms .yaml config and generate full train/test pipeline.
+
+    Parameterts
+    -----------
+    yaml : str
+        main .yaml config with all basic parameters.
+    transform_yaml : str
+        help .yaml config with sequential transforms for image preprocessing.
+    '''
     torch.cuda.empty_cache()
 
     config = parse_yaml(yaml)
