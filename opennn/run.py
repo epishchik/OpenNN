@@ -3,7 +3,8 @@ from algo import train, test, vizualize
 from optimizers import adam
 from schedulers import steplr
 from datasets import mnist, cifar10, cifar100
-from losses import celoss, bce, bcelogits, mse, mae
+from losses import celoss, bce, bcelogits, custombce, custombcelogits, customceloss
+from losses import mse, mae, custom_mse, custom_mae
 from metrics import accuracy, precision, recall, f1_score
 from encoders import get_encoder
 from decoders import get_decoder
@@ -117,17 +118,29 @@ def run(yaml, transform_yaml):
         raise ValueError(f'no scheduler {sched}')
 
     one_hot = False
-    if loss_fn == 'cross-entropy':
+    if loss_fn == 'ce':
         loss_fn = celoss()
-    elif loss_fn == 'binary-cross-entropy':
+    elif loss_fn == 'custom_ce':
+        loss_fn = customceloss()
+    elif loss_fn == 'bce':
         loss_fn = bce()
-    elif loss_fn == 'binary-cross-entropy-logits':
+    elif loss_fn == 'custom_bce':
+        loss_fn = custombce()
+    elif loss_fn == 'bce_logits':
         loss_fn = bcelogits()
+    elif loss_fn == 'custom_bce_logits':
+        loss_fn = custombcelogits()
     elif loss_fn == 'mse':
         loss_fn = mse()
         one_hot = True
+    elif loss_fn == 'custom_mse':
+        loss_fn = custom_mse()
+        one_hot = True
     elif loss_fn == 'mae':
         loss_fn = mae()
+        one_hot = True
+    elif loss_fn == 'custom_mae':
+        loss_fn = custom_mae()
         one_hot = True
     else:
         raise ValueError(f'no loss function {loss_fn}')
