@@ -10,16 +10,16 @@ valid_part: 0.2
 seed: 42
 batch_size: 32
 epochs: 10
-logs: '/logs'
-checkpoints: '/checkpoints'
+logs: /logs
+checkpoints: /checkpoints
 save_every: 15
 optimizer: 'adam'
 learning_rate: 0.001
 weight_decay: 0.000001
-scheduler: 'steplr'
+scheduler: steplr
 step: 15
 gamma: 0.5
 metrics: ['accuracy', 'precision', 'recall', 'f1_score']
 loss: cross-entropy
 class_names: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-checkpoint: '/checkpoints/best_0.05.pt'
+checkpoint: /checkpoints/best_0.05.pt
