@@ -18,7 +18,7 @@
 #### 1. Straight install.
 ##### 1.1 Install torch with cuda.
 ```bash
-pip3 install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
+pip install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 ##### 1.2 Install opennn.
 ```bash
