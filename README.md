@@ -55,28 +55,28 @@ docker build .
 - CIFAR-100 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](opennn/datasets/cifar.py)]
 
 ### Losses <a name="losses"></a>
-- Cross-Entropy [pytorch, custom] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)] [[code](opennn/losses/celoss.py)]
-- Binary-Cross-Entropy [pytorch, custom] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html)] [[code](opennn/losses/bceloss.py)]
-- Binary-Cross-Entropy-With-Logits [pytorch, custom] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)] [[code](opennn/losses/bceloss.py)]
-- Mean-Squared-Error [pytorch, custom] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)] [[code](opennn/losses/meanloss.py)]
-- Mean-Absolute-Error [pytorch, custom] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html)] [[code](opennn/losses/meanloss.py)]
+- Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)] [[code](opennn/losses/celoss.py)]
+- Binary-Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html)] [[code](opennn/losses/bceloss.py)]
+- Binary-Cross-Entropy-With-Logits [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)] [[code](opennn/losses/bceloss.py)]
+- Mean-Squared-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)] [[code](opennn/losses/meanloss.py)]
+- Mean-Absolute-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html)] [[code](opennn/losses/meanloss.py)]
 
 ### Metrics <a name="metrics"></a>
-- Accuracy [custom] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)] [[code](opennn/metrics/accuracy.py)]
-- Precision [sklearn] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score)] [[code](opennn/metrics/precision.py)]
-- Recall [sklearn] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score)] [[code](opennn/metrics/recall.py)]
-- F1 [sklearn] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score)] [[code](opennn/metrics/f1_score.py)]
+- Accuracy [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/metrics)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)] [[code](opennn/metrics/accuracy.py)]
+- Precision [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score)] [[code](opennn/metrics/precision.py)]
+- Recall [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score)] [[code](opennn/metrics/recall.py)]
+- F1 [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score)] [[code](opennn/metrics/f1_score.py)]
 
 ### Optimizers <a name="optimizers"></a>
-- Adam [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam)] [[code](opennn/optimizers/adam.py)]
-- AdamW [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html#torch.optim.AdamW)] [[code](opennn/optimizers/adam.py)]
-- Adamax [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adamax.html#torch.optim.Adamax)] [[code](opennn/optimizers/adam.py)]
-- RAdam [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.RAdam.html#torch.optim.RAdam)] [[code](opennn/optimizers/adam.py)]
-- NAdam [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.NAdam.html#torch.optim.NAdam)] [[code](opennn/optimizers/adam.py)]
+- Adam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam)] [[code](opennn/optimizers/adam.py)]
+- AdamW [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html#torch.optim.AdamW)] [[code](opennn/optimizers/adam.py)]
+- Adamax [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adamax.html#torch.optim.Adamax)] [[code](opennn/optimizers/adam.py)]
+- RAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.RAdam.html#torch.optim.RAdam)] [[code](opennn/optimizers/adam.py)]
+- NAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.NAdam.html#torch.optim.NAdam)] [[code](opennn/optimizers/adam.py)]
 
 ### Schedulers <a name="schedulers"></a>
-- StepLR [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](opennn/schedulers/steplr.py)]
-- MultiStepLR [pytorch] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](opennn/schedulers/steplr.py)]
+- StepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](opennn/schedulers/steplr.py)]
+- MultiStepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](opennn/schedulers/steplr.py)]
 
 ### Examples <a name="examples"></a>
   
