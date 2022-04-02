@@ -3,10 +3,42 @@ import torch
 
 
 class precision():
+    '''
+    Class used to calculate precision metric.
+
+    Attributes
+    ----------
+    nc : int
+        classes number.
+
+    Methods
+    -------
+    calc(preds, labels)
+        calculate metric.
+
+    name()
+        return metric name.
+    '''
     def __init__(self, nc):
+        '''
+        Parameters
+        ----------
+        nc : int
+            classes number.
+        '''
         self.nc = nc
 
     def calc(self, preds, labels):
+        '''
+        Calculate precision metric.
+
+        Parameterts
+        -----------
+        preds : torch.tensor
+            model predictions.
+        labels : torch.tensor
+            ground-truth labels.
+        '''
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
@@ -21,4 +53,7 @@ class precision():
         return torch.tensor(precision_score(labels.detach().cpu(), preds.detach().cpu(), average='micro'))
 
     def name(self):
+        '''
+        Return metric name.
+        '''
         return 'precision'

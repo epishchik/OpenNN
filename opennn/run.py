@@ -35,7 +35,7 @@ def transforms_lst(transform_config):
     '''
     lst = []
     for el in transform_config.keys():
-        if el == 'tensor' and transform_config['tensor'] == 'yes':
+        if el == 'tensor' and transform_config['tensor']:
             lst.append(transforms.ToTensor())
         elif el == 'resize':
             size = int(transform_config['resize'])
@@ -55,6 +55,88 @@ def run(yaml, transform_yaml):
         main .yaml config with all basic parameters.
     transform_yaml : str
         help .yaml config with sequential transforms for image preprocessing.
+
+    Config Attributes
+    -----------------
+    encoder : str
+        [lenet, alexnet, googlenet, resnet18, resnet34, resnet50, resnet101, resnet152]
+
+    decoder : str, optional
+        [lenet, alexnet]
+
+    multidecoder : list[decoder], optional
+
+    algorithm : str
+        [train, test]
+
+    device : str
+        [cpu, cuda]
+
+    in_channels : int
+
+    number_classes : int
+
+    dataset : str
+        [mnist, cifar10, cifar100]
+
+    train_part : float
+        [0.0 - 1.0]
+
+    valid_part : float
+        [0.0 - 1.0]
+
+    seed : int
+
+    batch_size : int
+
+    epochs : int
+
+    logs : str
+
+    checkpoints : str
+
+    save_every : int
+
+    optimizer : str
+        [adam, adamw, adamax, radam, nadam]
+
+    learning_rate : float
+
+    optimizer_betas : list[float, float], optional
+
+    optimizer_eps : float, optional
+
+    weight_decay : float, optional
+
+    scheduler : str
+        [steplr, multisteplr]
+
+    step : int, optional
+
+    gamma : float, optional
+
+    milestones : list[int], optional
+
+    metrics : list[str]
+        str : [accuracy, precision, recall, f1_score]
+        len(str) : [1 - 4]
+
+    loss : str
+        [ce, custom_ce, bce, custom_bce, bce_logits, custom_bce_logits, mse, custom_mse, mae, custom_mae]
+
+    class_names : list[str], optional
+        if specify 10 random images will be vizualized.
+
+    checkpoint : str
+        if specify this checkpoint will be loaded into model.
+
+
+    Transform Config Attributes
+    ---------------------------
+    tensor : bool
+
+    resize : int
+
     '''
     torch.cuda.empty_cache()
 
@@ -69,7 +151,7 @@ def run(yaml, transform_yaml):
         decoder_mode = None
     else:
         decoder_name = config['multidecoder']
-        decoder_mode = 'multi_decoders'
+        decoder_mode = 'multidecoder'
     inc = int(config['in_channels'])
     nc = int(config['number_classes'])
     device = config['device']
@@ -154,7 +236,3 @@ def run(yaml, transform_yaml):
                 vizualize(valid_data, model, device, {i: names[i] for i in range(nc)})
     else:
         raise ValueError(f'no algorithm {algorithm}')
-
-
-if __name__ == '__main__':
-    run('C:/Users/SuperPC/Downloads/OpenNN/experiments/config.yaml', 'C:/Users/SuperPC/Downloads/OpenNN/experiments/transform.yaml')

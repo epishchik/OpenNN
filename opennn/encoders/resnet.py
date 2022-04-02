@@ -2,7 +2,26 @@ from torch import nn
 
 
 class ResidualBlock1(nn.Module):
+    '''
+    Residual block class type 1.
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+    '''
     def __init__(self, inc, outc):
+        '''
+        Create residual block type 1 layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels.
+
+        outc : int
+            number of output channels.
+        '''
         super().__init__()
         if outc == inc:
             self.conv1 = nn.Conv2d(inc, outc, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
@@ -16,6 +35,14 @@ class ResidualBlock1(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         b1 = self.relu(self.bn1(self.conv1(x)))
         b2 = self.bn2(self.conv2(b1))
         if self.downsample is not None:
@@ -24,7 +51,26 @@ class ResidualBlock1(nn.Module):
 
 
 class ResidualBlock2(nn.Module):
+    '''
+    Residual block class type 2.
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+    '''
     def __init__(self, inc, outc):
+        '''
+        Create residual block type 2 layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels.
+
+        outc : int
+            number of output channels.
+        '''
         super().__init__()
         self.conv1 = nn.Conv2d(inc, outc, kernel_size=(1, 1), stride=(1, 1), bias=False)
         self.bn1 = nn.BatchNorm2d(outc)
@@ -40,6 +86,14 @@ class ResidualBlock2(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         b1 = self.bn1(self.conv1(x))
         b2 = self.bn2(self.conv2(b1))
         b3 = self.relu(self.bn3(self.conv3(b2)))
@@ -48,37 +102,71 @@ class ResidualBlock2(nn.Module):
         return x + b3
 
 
-class Bottleneck(nn.Module):
-    def __init__(self, inc):
-        super().__init__()
-        outc = int(inc / 4)
-        self.conv1 = nn.Conv2d(inc, outc, kernel_size=(1, 1), stride=(1, 1), bias=False)
-        self.bn1 = nn.BatchNorm2d(outc)
-        self.conv2 = nn.Conv2d(outc, outc, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        self.bn2 = nn.BatchNorm2d(outc)
-        self.conv3 = nn.Conv2d(outc, inc, kernel_size=(1, 1), stride=(1, 1), bias=False)
-        self.bn3 = nn.BatchNorm2d(inc)
-        self.relu = nn.ReLU()
-
-    def forward(self, x):
-        b1 = self.bn1(self.conv1(x))
-        b2 = self.bn2(self.conv2(b1))
-        b3 = self.relu(self.bn3(self.conv3(b2)))
-        return b3
-
-
 class Downsample(nn.Module):
+    '''
+    Downsample block class.
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+    '''
     def __init__(self, inc, outc, stride=(2, 2)):
+        '''
+        Create downsample block layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels.
+
+        outc : int
+            number of output channels.
+
+        stride: tuple(int, int), int, optional
+            stride for convolution layer.
+        '''
         super().__init__()
         self.conv = nn.Conv2d(inc, outc, kernel_size=(1, 1), stride=stride, bias=False)
         self.bn = nn.BatchNorm2d(outc)
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         return self.bn(self.conv(x))
 
 
 class Resnet18Features(nn.Module):
+    '''
+    Class used to calculate features using resnet18 architecture.
+    https://arxiv.org/pdf/1512.03385.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create resnet18 encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 512
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -96,6 +184,14 @@ class Resnet18Features(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock12(self.resblock11(pr))
         b2 = self.resblock22(self.resblock21(b1))
@@ -105,11 +201,43 @@ class Resnet18Features(nn.Module):
         return b5
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'resnet18'
 
 
 class Resnet34Features(nn.Module):
+    '''
+    Class used to calculate features using resnet34 architecture.
+    https://arxiv.org/pdf/1512.03385.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create resnet34 encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 512
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -135,6 +263,14 @@ class Resnet34Features(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
         b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
@@ -144,11 +280,43 @@ class Resnet34Features(nn.Module):
         return b5
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'resnet34'
 
 
 class Resnet50Features(nn.Module):
+    '''
+    Class used to calculate features using resnet50 architecture.
+    https://arxiv.org/pdf/1512.03385.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create resnet50 encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 2048
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -174,6 +342,14 @@ class Resnet50Features(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
         b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
@@ -183,11 +359,43 @@ class Resnet50Features(nn.Module):
         return b5
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'resnet50'
 
 
 class Resnet101Features(nn.Module):
+    '''
+    Class used to calculate features using resnet101 architecture.
+    https://arxiv.org/pdf/1512.03385.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create resnet101 encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 2048
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -230,6 +438,14 @@ class Resnet101Features(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
         b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
@@ -242,11 +458,43 @@ class Resnet101Features(nn.Module):
         return b8
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'resnet101'
 
 
 class Resnet152Features(nn.Module):
+    '''
+    Class used to calculate features using resnet152 architecture.
+    https://arxiv.org/pdf/1512.03385.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create resnet152 encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 2048
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
@@ -306,6 +554,14 @@ class Resnet152Features(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
         b2 = self.resblock28(self.resblock27(self.resblock26(self.resblock25(self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))))))
@@ -320,4 +576,13 @@ class Resnet152Features(nn.Module):
         return b10
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'resnet152'

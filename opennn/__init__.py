@@ -3,7 +3,6 @@ from . import losses
 from . import metrics
 from . import datasets
 from . import optimizers
-from . import pretrained
 from . import encoders
 from . import decoders
 from .run import run

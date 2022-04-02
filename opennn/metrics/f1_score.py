@@ -3,10 +3,42 @@ import torch
 
 
 class f1_score():
+    '''
+    Class used to calculate f1 metric.
+
+    Attributes
+    ----------
+    nc : int
+        classes number.
+
+    Methods
+    -------
+    calc(preds, labels)
+        calculate metric.
+
+    name()
+        return metric name.
+    '''
     def __init__(self, nc):
+        '''
+        Parameters
+        ----------
+        nc : int
+            classes number.
+        '''
         self.nc = nc
 
     def calc(self, preds, labels):
+        '''
+        Calculate f1 metric.
+
+        Parameterts
+        -----------
+        preds : torch.tensor
+            model predictions.
+        labels : torch.tensor
+            ground-truth labels.
+        '''
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
@@ -24,4 +56,7 @@ class f1_score():
         return torch.tensor(f1)
 
     def name(self):
+        '''
+        Return metric name.
+        '''
         return 'f1_score'

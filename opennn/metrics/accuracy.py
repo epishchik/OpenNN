@@ -1,5 +1,26 @@
 class accuracy():
+    '''
+    Class used to calculate accuracy metric.
+
+    Methods
+    -------
+    calc(preds, labels)
+        calculate metric.
+
+    name()
+        return metric name.
+    '''
     def calc(self, preds, labels):
+        '''
+        Calculate accuracy metric.
+
+        Parameterts
+        -----------
+        preds : torch.tensor
+            model predictions.
+        labels : torch.tensor
+            ground-truth labels.
+        '''
         np = 1
         shapes = preds.shape
 
@@ -18,4 +39,7 @@ class accuracy():
         return acc
 
     def name(self):
+        '''
+        Return metric name.
+        '''
         return 'accuracy'

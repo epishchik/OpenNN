@@ -6,6 +6,53 @@ import os
 
 
 def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics, epochs, checkpoints, logs, device, save_every, one_hot, nc):
+    '''
+    Train pipeline.
+
+    Parameterts
+    -----------
+    train_dataloader : torch.utils.data.DataLoader
+        train dataloader.
+
+    valid_dataloader : torch.utils.data.DataLoader
+        valid dataloader.
+
+    model : Any
+        pytorch model.
+
+    optimizer : torch.optim.Optimizer
+        optimizer for this model.
+
+    scheduler : torch.optim.lr_scheduler
+        scheduler for this optimizer.
+
+    loss_fn : Any
+        loss function.
+
+    metrics : list[Any]
+        list of metric functions.
+
+    epochs : int
+        epochs number.
+
+    checkpoints : str
+        folder for checkpoints.
+
+    logs : str
+        folder for logs.
+
+    device : str
+        device ['cpu', 'cuda'].
+
+    save_every : int
+        every save_every epoch save model weights.
+
+    one_hot : bool
+        one_hot for labels.
+
+    nc : int
+        classes number.
+    '''
     checkpoints_folder = list(map(int, os.listdir(checkpoints)))
     checkpoints_folder = max(checkpoints_folder) + 1 if checkpoints_folder != [] else 0
     os.mkdir(f'{checkpoints}/{checkpoints_folder}', mode=0o777)
@@ -106,6 +153,35 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
 
 def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
+    '''
+    Test pipeline.
+
+    Parameterts
+    -----------
+    test_dataloader : torch.utils.data.DataLoader
+        test dataloader.
+
+    model : Any
+        pytorch model.
+
+    loss_fn : Any
+        loss function.
+
+    metrics : list[Any]
+        list of metric functions.
+
+    logs : str
+        folder for logs.
+
+    device : str
+        device ['cpu', 'cuda'].
+
+    one_hot : bool
+        one_hot for labels.
+
+    nc : int
+        classes number.
+    '''
     logs_folder = list(map(int, os.listdir(logs)))
     logs_folder = max(logs_folder) + 1 if logs_folder != [] else 0
     os.mkdir(f'{logs}/{logs_folder}', mode=0o777)

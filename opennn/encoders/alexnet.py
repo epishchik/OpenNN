@@ -2,7 +2,30 @@ from torch import nn
 
 
 class AlexnetFeatures(nn.Module):
+    '''
+    Class used to calculate features using alexnet architecture.
+    https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf
+
+    Methods
+    -------
+    forward(x)
+        calculate features from input image x.
+
+    out_features()
+        return number of output features, needed for decoders input channels.
+
+    name()
+        return name of encoder.
+    '''
     def __init__(self, inc):
+        '''
+        Create alexnet encoder layers.
+
+        Parameters
+        ----------
+        inc : int
+            number of input channels [1, 3, 4].
+        '''
         super().__init__()
         self.features = 9216
         self.conv1 = nn.Conv2d(inc, 64, kernel_size=(11, 11), stride=(4, 4), padding=(2, 2))
@@ -15,6 +38,14 @@ class AlexnetFeatures(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self, x):
+        '''
+        Calculate features from input image x.
+
+        Parameterts
+        -----------
+        x : torch.tensor
+            input image.
+        '''
         b1 = self.maxpool(self.relu(self.conv1(x)))
         b2 = self.maxpool(self.relu(self.conv2(b1)))
         b3 = self.relu(self.conv3(b2))
@@ -23,4 +54,13 @@ class AlexnetFeatures(nn.Module):
         return b5
 
     def out_features(self):
+        '''
+        Return number of output features, needed for decoders input channels.
+        '''
         return self.features
+
+    def name(self):
+        '''
+        Return name of encoder.
+        '''
+        return 'alexnet'

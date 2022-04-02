@@ -2,6 +2,16 @@ from metrics import accuracy, precision, recall, f1_score
 
 
 def get_metrics(metrics, nc=None):
+    '''
+    Return list of metrics by names.
+
+    Parameterts
+    -----------
+    metrics : list[str]
+        list of metrics names.
+    nc : int
+        number classes.
+    '''
     metrics_fn = []
     for metric in metrics:
         if metric == 'accuracy':

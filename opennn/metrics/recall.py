@@ -3,10 +3,42 @@ import torch
 
 
 class recall():
+    '''
+    Class used to calculate recall metric.
+
+    Attributes
+    ----------
+    nc : int
+        classes number.
+
+    Methods
+    -------
+    calc(preds, labels)
+        calculate metric.
+
+    name()
+        return metric name.
+    '''
     def __init__(self, nc):
+        '''
+        Parameters
+        ----------
+        nc : int
+            classes number.
+        '''
         self.nc = nc
 
     def calc(self, preds, labels):
+        '''
+        Calculate recall metric.
+
+        Parameterts
+        -----------
+        preds : torch.tensor
+            model predictions.
+        labels : torch.tensor
+            ground-truth labels.
+        '''
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
@@ -21,4 +53,7 @@ class recall():
         return torch.tensor(recall_score(labels.detach().cpu(), preds.detach().cpu(), average='micro'))
 
     def name(self):
+        '''
+        Return metric name.
+        '''
         return 'recall'

@@ -4,6 +4,14 @@ from .meanloss import mse, mae, custom_mse, custom_mae
 
 
 def get_loss(loss_fn):
+    '''
+    Return loss_fn object by name and one_hot flag.
+
+    Parameterts
+    -----------
+    loss_fn : str
+        name of loss function.
+    '''
     one_hot = False
     if loss_fn == 'ce':
         loss_fn = celoss()

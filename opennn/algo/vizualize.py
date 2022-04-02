@@ -5,6 +5,20 @@ import matplotlib.pyplot as plt
 
 
 def vizualize(dataset, model, device, class_name):
+    '''
+    Vizualize one image.
+
+    Parameterts
+    -----------
+    dataset : list[torch.tensor, int]
+        dataset.
+
+    device : str
+        device ['cpu', 'cuda'].
+
+    class_name : list[str]
+        name for all classes.
+    '''
     model.eval()
     ind = random.randint(0, len(dataset) - 1)
 

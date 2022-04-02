@@ -3,6 +3,20 @@ import torch
 
 
 def mnist(tr_part, va_part, transform):
+    '''
+    Return splited into train, val, test parts mnist dataset.
+
+    Parameterts
+    -----------
+    tr_part : float
+        percent of train data.
+
+    va_part : float
+        percent of valid data.
+
+    transform : torchvision.transforms
+        torchvision transforms object with augmentations.
+    '''
     dataset = torchvision.datasets.MNIST('.', download=True, transform=transform)
     tr_part = int(tr_part * len(dataset))
     va_part = int(va_part * len(dataset))
