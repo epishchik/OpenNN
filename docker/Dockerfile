@@ -7,7 +7,7 @@ RUN apt-get install -y python3-pip
 RUN pip3 install -U pip
 RUN apt-get update
 
-COPY ../configs /configs
+COPY ../configs /app/configs
 
 RUN pip install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
 RUN pip install -U opennn
