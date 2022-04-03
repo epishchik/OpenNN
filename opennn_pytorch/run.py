@@ -1,12 +1,12 @@
 import yaml
-from algo import train, test, vizualize
-from optimizers import get_optimizer
-from schedulers import get_scheduler
-from datasets import get_dataset
-from metrics import get_metrics
-from losses import get_loss
-from encoders import get_encoder
-from decoders import get_decoder
+from opennn_pytorch.algo import train, test, vizualize
+from opennn_pytorch.optimizers import get_optimizer
+from opennn_pytorch.schedulers import get_scheduler
+from opennn_pytorch.datasets import get_dataset
+from opennn_pytorch.metrics import get_metrics
+from opennn_pytorch.losses import get_loss
+from opennn_pytorch.encoders import get_encoder
+from opennn_pytorch.decoders import get_decoder
 import numpy as np
 import torch
 from torchvision import transforms
