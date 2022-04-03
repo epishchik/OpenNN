@@ -106,5 +106,3 @@ class VGG11Features(nn.Module):
         Return name of encoder.
         '''
         return 'vgg11'
-
-# TODO добавить vgg-16 и vgg-19

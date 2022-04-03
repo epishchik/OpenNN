@@ -1,22 +1,13 @@
 import yaml
 
-# from opennn_pytorch.algo import train, test, vizualize
-# from opennn_pytorch.optimizers import get_optimizer
-# from opennn_pytorch.schedulers import get_scheduler
-# from opennn_pytorch.datasets import get_dataset
-# from opennn_pytorch.metrics import get_metrics
-# from opennn_pytorch.losses import get_loss
-# from opennn_pytorch.encoders import get_encoder
-# from opennn_pytorch.decoders import get_decoder
-# TODO заменить
-from algo import train, test, vizualize
-from optimizers import get_optimizer
-from schedulers import get_scheduler
-from datasets import get_dataset
-from metrics import get_metrics
-from losses import get_loss
-from encoders import get_encoder
-from decoders import get_decoder
+from opennn_pytorch.algo import train, test, vizualize
+from opennn_pytorch.optimizers import get_optimizer
+from opennn_pytorch.schedulers import get_scheduler
+from opennn_pytorch.datasets import get_dataset
+from opennn_pytorch.metrics import get_metrics
+from opennn_pytorch.losses import get_loss
+from opennn_pytorch.encoders import get_encoder
+from opennn_pytorch.decoders import get_decoder
 
 import numpy as np
 import torch
@@ -260,8 +251,3 @@ def run(yaml, transform_yaml):
                 vizualize(valid_data, model, device, {i: names[i] for i in range(nc)}, test_logs + f'/vizualize/{i}')
     else:
         raise ValueError(f'no algorithm {algorithm}')
-
-
-if __name__ == '__main__':
-    run('C:/Users/SuperPC/Downloads/OpenNN/experiments/config.yaml', 'C:/Users/SuperPC/Downloads/OpenNN/experiments/transform.yaml')
-# TODO удалить
