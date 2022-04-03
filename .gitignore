@@ -14,3 +14,4 @@ dist/*
 build/*
 test.py
 CUSTOM*/*
+setup.sh
