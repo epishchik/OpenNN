@@ -2,6 +2,7 @@ from .alexnet import AlexnetFeatures
 from .lenet import LenetFeatures
 from .resnet import Resnet18Features, Resnet34Features, Resnet50Features, Resnet101Features, Resnet152Features
 from .googlenet import GoognetNoAuxFeatures
+from .mobilenet import MobilenetFeatures
 
 
 def get_encoder(name, inc):
@@ -32,5 +33,7 @@ def get_encoder(name, inc):
         return Resnet152Features(inc)
     elif name == 'googlenet':
         return GoognetNoAuxFeatures(inc)
+    elif name == 'mobilenet':
+        return MobilenetFeatures(inc)
     else:
         raise ValueError(f'no encoder {name}')
