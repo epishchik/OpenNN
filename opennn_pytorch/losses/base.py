@@ -19,12 +19,16 @@ def get_loss(loss_fn):
         loss_fn = customceloss()
     elif loss_fn == 'bce':
         loss_fn = bce()
+        one_hot = True
     elif loss_fn == 'custom_bce':
         loss_fn = custombce()
+        one_hot = True
     elif loss_fn == 'bce_logits':
         loss_fn = bcelogits()
+        one_hot = True
     elif loss_fn == 'custom_bce_logits':
         loss_fn = custombcelogits()
+        one_hot = True
     elif loss_fn == 'mse':
         loss_fn = mse()
         one_hot = True

@@ -5,6 +5,8 @@ device: cuda
 in_channels: 1
 number_classes: 10
 dataset: mnist
+images: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/imgs  # specify path to folder with images, only for custom dataset.
+annotation: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/dataset.yaml  # specify path to yaml file with labels - images specification, only for custom dataset.
 train_part: 0.7
 valid_part: 0.2
 seed: 42

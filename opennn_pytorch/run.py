@@ -21,6 +21,7 @@ from decoders import get_decoder
 import numpy as np
 import torch
 from torchvision import transforms
+import os
 
 
 def parse_yaml(config):
@@ -88,7 +89,13 @@ def run(yaml, transform_yaml):
     number_classes : int
 
     dataset : str
-        [mnist, cifar10, cifar100]
+        [mnist, cifar10, cifar100, custom]
+
+    images : str
+        specify path to folder with images, only for custom dataset.
+
+    annotation : str
+        specify path to yaml file with labels - images specification, only for custom dataset.
 
     train_part : float
         [0.0 - 1.0]
@@ -168,6 +175,10 @@ def run(yaml, transform_yaml):
     device = config['device']
     algorithm = config['algorithm']
     dataset = config['dataset']
+    if dataset == 'custom':
+        datafiles = (config['images'], config['annotation'])
+    else:
+        datafiles = None
     train_part = float(config['train_part'])
     valid_part = float(config['valid_part'])
     seed = int(config['seed'])
@@ -228,7 +239,7 @@ def run(yaml, transform_yaml):
         state_dict = torch.load(checkpoint)
         model.load_state_dict(state_dict)
 
-    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, transform)
+    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, transform, datafiles)
     optimizer = get_optimizer(optim, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=wd)
     scheduler = get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=milestones)
     loss_fn, one_hot = get_loss(loss_fn)
@@ -241,10 +252,12 @@ def run(yaml, transform_yaml):
     if algorithm == 'train':
         train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se, one_hot, nc)
     elif algorithm == 'test':
-        test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, nc)
+        test_logs = test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, nc)
         if viz:
-            for _ in range(10):
-                vizualize(valid_data, model, device, {i: names[i] for i in range(nc)})
+            os.mkdir(test_logs + '/vizualize', 0o777)
+            for i in range(10):
+                os.mkdir(test_logs + f'/vizualize/{i}', 0o777)
+                vizualize(valid_data, model, device, {i: names[i] for i in range(nc)}, test_logs + f'/vizualize/{i}')
     else:
         raise ValueError(f'no algorithm {algorithm}')
 

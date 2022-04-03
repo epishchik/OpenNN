@@ -220,3 +220,5 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
 
     with open(logs + '/test.log', 'a') as in_f:
         in_f.write(f'test loss: {test_loss} ' + test_str)
+
+    return logs

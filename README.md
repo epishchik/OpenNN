@@ -184,10 +184,12 @@ test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=1, shuffle=F
 if algorithm == 'train':
   opennn_pytorch.algo.train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, save_every, one_hot, number_classes)
 elif algorithm == 'test':
-  opennn_pytorch.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
+  test_logs = opennn_pytorch.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
   if viz:
-    for _ in range(10):
-      opennn_pytorch.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)})
+    os.mkdir(test_logs + '/vizualize', 0o777)
+    for i in range(10):
+      os.mkdir(test_logs + f'/vizualize/{i}', 0o777)
+      opennn_pytorch.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)}, test_logs + f'/vizualize/{i}')
 ```
 
 ### Citation <a name="citing"></a>

@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def vizualize(dataset, model, device, class_name):
+def vizualize(dataset, model, device, class_name, save_path):
     '''
     Vizualize one image.
 
@@ -18,6 +18,9 @@ def vizualize(dataset, model, device, class_name):
 
     class_name : list[str]
         name for all classes.
+
+    save_path : str
+        path to save output
     '''
     model.eval()
     ind = random.randint(0, len(dataset) - 1)
@@ -32,7 +35,8 @@ def vizualize(dataset, model, device, class_name):
     else:
         img = np.moveaxis(img[0].cpu().numpy(), [0, 1, 2], [2, 0, 1])
 
-    _ = plt.imshow(img)
-    plt.show()
-    print(f'Предсказанный класс {class_name[pred.item()]}')
-    print(f'Правильный класс {class_name[label]}')
+    plt.imsave(save_path + '/result.jpg', img)
+
+    with open(save_path + '/result.log', 'w+') as in_f:
+        in_f.write(f'predict class {class_name[pred.item()]}\n')
+        in_f.write(f'correct class {class_name[label]}\n')
