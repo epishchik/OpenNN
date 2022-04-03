@@ -1,4 +1,7 @@
-from metrics import accuracy, precision, recall, f1_score
+from .accuracy import accuracy
+from .precision import precision
+from .recall import recall
+from .f1_score import f1_score
 
 
 def get_metrics(metrics, nc=None):

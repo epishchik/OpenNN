@@ -10,7 +10,7 @@ from setuptools import setup, Command
 NAME = 'opennn_pytorch'
 DESCRIPTION = 'Neural Networks library for image classification task.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
-DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v.0.0.1.zip'
+DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v1.0.0.tar.gz'
 EMAIL = 'evgeniipishchik@mail.ru'
 AUTHOR = 'Evgenii Pishchik'
 REQUIRES_PYTHON = '>=3.6.0'
@@ -18,11 +18,9 @@ VERSION = None
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-try:
-    with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
-        REQUIRED = f.read().split('\n')
-except Exception as e:
-    REQUIRED = []
+with open(os.path.join(here, 'requirments.txt'), encoding='utf-8') as f:
+    REQUIRED = f.read().split('\n')
+print(REQUIRED)
 
 try:
     with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:

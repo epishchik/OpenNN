@@ -11,3 +11,4 @@ LICENSE.txt
 dist/*
 *.egg-info/*
 *.egg
+build/*
