@@ -8,7 +8,7 @@ from shutil import rmtree
 from setuptools import setup, Command
 
 NAME = 'opennn'
-DESCRIPTION = 'Neural networks for different tasks.'
+DESCRIPTION = 'Neural Networks library for image classification task.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
 DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v0.0.0.zip'
 EMAIL = 'evgeniipishchik@mail.ru'
