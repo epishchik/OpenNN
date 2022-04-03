@@ -86,8 +86,8 @@ docker build -t opennn:latest .
 ```python
 import opennn_pytorch
   
-config = 'path to yaml config'
-transform = 'path to transform yaml config'
+config = 'path to yaml config'  # check configs folder
+transform = 'path to transform yaml config'  # check configs folder
 
 opennn_pytorch.run(config, transform)
 ```
