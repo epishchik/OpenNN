@@ -13,3 +13,4 @@ dist/*
 *.egg
 build/*
 test.py
+CUSTOM/*
