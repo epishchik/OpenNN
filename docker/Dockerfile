@@ -1,13 +1,7 @@
-FROM nvidia/cuda:11.5.1-cudnn8-runtime-ubuntu18.04
+FROM ubuntu18.04
 
-RUN apt-get update
-RUN apt-get install -y python3
-RUN apt-get update
-RUN apt-get install -y python3-pip
-RUN pip3 install -U pip
-RUN apt-get update
+RUN apt-get update && apt-get install -y python3.7 python3-pip
+RUN python -m pip install --upgrade pip
 
-COPY ../configs /app/configs
-
-RUN pip install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
-RUN pip install -U opennn_pytorch
+RUN pip install torch --extra-index-url https://download.pytorch.org/whl/cu113
+RUN pip install opennn_pytorch
