@@ -34,7 +34,7 @@ pip install -U opennn_pytorch
 #### 2. Dockerfile.
 ```bash
 cd docker/
-docker build .
+docker build -t opennn:latest .
 ```
   
 ### Encoders <a name="encoders"></a>
