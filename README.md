@@ -185,7 +185,7 @@ elif algorithm == 'test':
 ```
 
 ### Citation <a name="citing"></a>
-[Citation](https://github.com/Pe4enIks/OpenNN/blob/main/CITATION.ctf)
+Project [citation](https://github.com/Pe4enIks/OpenNN/blob/main/CITATION.ctf).
 
 ### License <a name="license"></a>
-Project is distributed under [MIT License](https://github.com/Pe4enIks/OpenNN/blob/main/LICENSE)
+Project is distributed under [MIT License](https://github.com/Pe4enIks/OpenNN/blob/main/LICENSE).
