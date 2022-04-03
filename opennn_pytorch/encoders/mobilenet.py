@@ -64,7 +64,7 @@ class DepthWiseSepConvBlock(nn.Module):
         self.depthwise = nn.Conv2d(inc, inc, kernel_size=(3, 3), padding=(1, 1), groups=inc, **kwargs)
         self.bn1 = nn.BatchNorm2d(inc)
         self.pointwise = nn.Conv2d(inc, outc, kernel_size=(1, 1))
-        self.bn2 = nn.BatchNorm2d(inc)
+        self.bn2 = nn.BatchNorm2d(outc)
         self.relu = nn.ReLU()
 
     def forward(self, x):
