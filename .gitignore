@@ -7,3 +7,4 @@ cifar-10-python.tar.gz
 cifar-100-python/**
 cifar-100-python.tar.gz
 .vscode/*
+LICENSE.txt
