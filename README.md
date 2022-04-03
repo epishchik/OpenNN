@@ -2,6 +2,7 @@
 
 **Open Neural Networks library for image classification.**
 
+[![PyPI](https://img.shields.io/pypi/v/opennn_pytorch?color=blue&style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/opennn-pytorch/) 
 [![Generic badge](https://img.shields.io/badge/License-MIT-<COLOR>.svg?style=for-the-badge)](https://github.com/Pe4enIks/OpeNN/LICENSE)
 
 </div>
@@ -23,9 +24,9 @@
 ```bash
 pip install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
 ```
-##### 1.2 Install opennn.
+##### 1.2 Install opennn_pytorch.
 ```bash
-pip install -U opennn
+pip install -U opennn_pytorch
 ```
 #### 2. Dockerfile.
 ```bash
@@ -34,63 +35,63 @@ docker build .
 ```
   
 ### Encoders <a name="encoders"></a>
-- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](opennn/encoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](opennn/encoders/alexnet.py)]
-- GoogleNet [[paper](https://arxiv.org/pdf/1409.4842.pdf)] [[code](opennn/encoders/googlenet.py)]
-- Resnet18 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn/encoders/resnet.py)]
-- Resnet34 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn/encoders/resnet.py)]
-- Resnet50 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn/encoders/resnet.py)]
-- Resnet101 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn/encoders/resnet.py)]
-- Resnet152 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn/encoders/resnet.py)]
+- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](opennn_pytorch/encoders/lenet.py)]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](opennn_pytorch/encoders/alexnet.py)]
+- GoogleNet [[paper](https://arxiv.org/pdf/1409.4842.pdf)] [[code](opennn_pytorch/encoders/googlenet.py)]
+- Resnet18 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn_pytorch/encoders/resnet.py)]
+- Resnet34 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn_pytorch/encoders/resnet.py)]
+- Resnet50 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn_pytorch/encoders/resnet.py)]
+- Resnet101 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn_pytorch/encoders/resnet.py)]
+- Resnet152 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](opennn_pytorch/encoders/resnet.py)]
   
 ### Decoders <a name="decoders"></a>
-- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](opennn/decoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](opennn/decoders/alexnet.py)]
+- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](opennn_pytorch/decoders/lenet.py)]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](opennn_pytorch/decoders/alexnet.py)]
 
 ### Datasets <a name="datasets"></a>
-- MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](opennn/datasets/mnist.py)]
-- CIFAR-10 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](opennn/datasets/cifar.py)]
-- CIFAR-100 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](opennn/datasets/cifar.py)]
+- MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](opennn_pytorch/datasets/mnist.py)]
+- CIFAR-10 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](opennn_pytorch/datasets/cifar.py)]
+- CIFAR-100 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](opennn_pytorch/datasets/cifar.py)]
 
 ### Losses <a name="losses"></a>
-- Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)] [[code](opennn/losses/celoss.py)]
-- Binary-Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html)] [[code](opennn/losses/bceloss.py)]
-- Binary-Cross-Entropy-With-Logits [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)] [[code](opennn/losses/bceloss.py)]
-- Mean-Squared-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)] [[code](opennn/losses/meanloss.py)]
-- Mean-Absolute-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html)] [[code](opennn/losses/meanloss.py)]
+- Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)] [[code](opennn_pytorch/losses/celoss.py)]
+- Binary-Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html)] [[code](opennn_pytorch/losses/bceloss.py)]
+- Binary-Cross-Entropy-With-Logits [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)] [[code](opennn_pytorch/losses/bceloss.py)]
+- Mean-Squared-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)] [[code](opennn_pytorch/losses/meanloss.py)]
+- Mean-Absolute-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html)] [[code](opennn_pytorch/losses/meanloss.py)]
 
 ### Metrics <a name="metrics"></a>
-- Accuracy [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn/metrics)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)] [[code](opennn/metrics/accuracy.py)]
-- Precision [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score)] [[code](opennn/metrics/precision.py)]
-- Recall [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score)] [[code](opennn/metrics/recall.py)]
-- F1 [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score)] [[code](opennn/metrics/f1_score.py)]
+- Accuracy [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/metrics)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)] [[code](opennn_pytorch/metrics/accuracy.py)]
+- Precision [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score)] [[code](opennn_pytorch/metrics/precision.py)]
+- Recall [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score)] [[code](opennn_pytorch/metrics/recall.py)]
+- F1 [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score)] [[code](opennn_pytorch/metrics/f1_score.py)]
 
 ### Optimizers <a name="optimizers"></a>
-- Adam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam)] [[code](opennn/optimizers/adam.py)]
-- AdamW [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html#torch.optim.AdamW)] [[code](opennn/optimizers/adam.py)]
-- Adamax [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adamax.html#torch.optim.Adamax)] [[code](opennn/optimizers/adam.py)]
-- RAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.RAdam.html#torch.optim.RAdam)] [[code](opennn/optimizers/adam.py)]
-- NAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.NAdam.html#torch.optim.NAdam)] [[code](opennn/optimizers/adam.py)]
+- Adam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam)] [[code](opennn_pytorch/optimizers/adam.py)]
+- AdamW [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html#torch.optim.AdamW)] [[code](opennn_pytorch/optimizers/adam.py)]
+- Adamax [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adamax.html#torch.optim.Adamax)] [[code](opennn_pytorch/optimizers/adam.py)]
+- RAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.RAdam.html#torch.optim.RAdam)] [[code](opennn_pytorch/optimizers/adam.py)]
+- NAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.NAdam.html#torch.optim.NAdam)] [[code](opennn_pytorch/optimizers/adam.py)]
 
 ### Schedulers <a name="schedulers"></a>
-- StepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](opennn/schedulers/steplr.py)]
-- MultiStepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](opennn/schedulers/steplr.py)]
+- StepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](opennn_pytorch/schedulers/steplr.py)]
+- MultiStepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](opennn_pytorch/schedulers/steplr.py)]
 
 ### Examples <a name="examples"></a>
   
 1. Run from yaml configs.
 ```python
-import opennn
+import opennn_pytorch
   
 config = 'path to yaml config'
 transform = 'path to transform yaml config'
 
-opennn.run(config, transform)
+opennn_pytorch.run(config, transform)
 ```
 
 2. Get encoder and decoder.
 ```python
-import opennn
+import opennn_pytorch
   
 encoder_name = 'resnet18'
 decoder_name = 'alexnet'
@@ -99,13 +100,13 @@ input_channels = 1
 number_classes = 10
 device = 'cuda'
 
-encoder = opennn.encoders.get_encoder(encoder_name, input_channels).to(device)
-model = opennn.decoders.get_decoder(decoder_name, encoder, number_classes, decoder_mode, device).to(device)
+encoder = opennn_pytorch.encoders.get_encoder(encoder_name, input_channels).to(device)
+model = opennn_pytorch.decoders.get_decoder(decoder_name, encoder, number_classes, decoder_mode, device).to(device)
 ```
   
 3. Get dataset.
 ```python
-import opennn
+import opennn_pytorch
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
@@ -113,54 +114,54 @@ dataset_name = 'mnist'
 train_part = 0.7
 valid_part = 0.2
 
-transform_lst = opennn.transforms_lst(transform_config)
+transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
   
-train_data, valid_data, test_data = opennn.datasets.get_dataset(dataset_name, train_part, valid_part, transform)
+train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform)
 ```
 
 4. Get optimizer.
 ```python
-import opennn
+import opennn_pytorch
 
 optim_name = 'adam'
 lr = 1e-3
 betas = (0.9, 0.999)
 eps = 1e-8
 weight_decay = 1e-6
-optimizer = opennn.optimizers.get_optimizer(optim_name, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=weight_decay)
+optimizer = opennn_pytorch.optimizers.get_optimizer(optim_name, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=weight_decay)
 ```
 
 5. Get scheduler.
 ```python
-import opennn
+import opennn_pytorch
 
 scheduler_name = 'steplr'
 step = 10
 gamma = 0.5
-scheduler = opennn.schedulers.get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=None)
+scheduler = opennn_pytorch.schedulers.get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=None)
 ```
 
 6. Get loss function.
 ```python
-import opennn
+import opennn_pytorch
 
 loss_fn = 'custom_mse'
-loss_fn, one_hot = opennn.losses.get_loss(loss_fn)
+loss_fn, one_hot = opennn_pytorch.losses.get_loss(loss_fn)
 ```
 
 7. Get metrics functions.
 ```python
-import opennn
+import opennn_pytorch
 
 metrics_names = ['accuracy', 'precision', 'recall', 'f1_score']
 number_classes = 10
-metrics_fn = opennn.metrics.get_metrics(metrics_names, nc=number_classes)
+metrics_fn = opennn_pytorch.metrics.get_metrics(metrics_names, nc=number_classes)
 ```
 
 8. Train/Test.
 ```python
-import opennn
+import opennn_pytorch
 
 algorithm = 'train'
 batch_size = 16
@@ -174,12 +175,12 @@ valid_dataloader = torch.utils.data.DataLoader(valid_data, batch_size=batch_size
 test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=1, shuffle=False)
 
 if algorithm == 'train':
-  opennn.algo.train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, save_every, one_hot, number_classes)
+  opennn_pytorch.algo.train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, save_every, one_hot, number_classes)
 elif algorithm == 'test':
-  opennn.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
+  opennn_pytorch.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
   if viz:
     for _ in range(10):
-      opennn.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)})
+      opennn_pytorch.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)})
 ```
 
 ### Citation <a name="citing"></a>
