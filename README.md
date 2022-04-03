@@ -4,6 +4,8 @@
 
 [![PyPI](https://img.shields.io/pypi/v/opennn_pytorch?color=blue&style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/opennn-pytorch/) 
 [![Generic badge](https://img.shields.io/badge/License-MIT-<COLOR>.svg?style=for-the-badge)](https://github.com/Pe4enIks/OpenNN/blob/main/LICENSE)
+<br>
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/Pe4enIks/OpenNN/blob/main/docker/Dockerfile)
 
 </div>
 
