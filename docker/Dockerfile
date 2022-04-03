@@ -10,4 +10,4 @@ RUN apt-get update
 COPY ../configs /app/configs
 
 RUN pip install -U torch --extra-index-url https://download.pytorch.org/whl/cu113
-RUN pip install -U opennn
+RUN pip install -U opennn_pytorch
