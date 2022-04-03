@@ -1,4 +1,4 @@
-FROM ubuntu18.04
+FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install -y python3.7 python3-pip
 RUN python -m pip install --upgrade pip
