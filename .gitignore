@@ -8,3 +8,6 @@ cifar-100-python/**
 cifar-100-python.tar.gz
 .vscode/*
 LICENSE.txt
+dist/*
+*.egg-info/*
+*.egg
