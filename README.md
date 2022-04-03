@@ -183,3 +183,9 @@ elif algorithm == 'test':
     for _ in range(10):
       opennn.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)})
 ```
+
+### Citation <a name="citing"></a>
+[Citation](https://github.com/Pe4enIks/OpenNN/blob/main/CITATION.ctf)
+
+### License <a name="license"></a>
+Project is distributed under [MIT License](https://github.com/Pe4enIks/OpenNN/blob/main/LICENSE)
