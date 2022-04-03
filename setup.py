@@ -10,7 +10,7 @@ from setuptools import setup, Command
 NAME = 'opennn_pytorch'
 DESCRIPTION = 'Neural Networks library for image classification task.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
-DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v1.0.3.tar.gz'
+DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v1.0.4.tar.gz'
 EMAIL = 'evgeniipishchik@mail.ru'
 AUTHOR = 'Evgenii Pishchik'
 REQUIRES_PYTHON = '>=3.6.0'
