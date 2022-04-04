@@ -85,6 +85,7 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
             preds = model(imgs)
             loss = loss_fn(preds, labels)
+
             for mi, metric in enumerate(metrics):
                 train_mvct[mi] += metric.calc(preds, labels).cpu()
 
@@ -106,8 +107,10 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
                 preds = model(imgs)
                 loss = loss_fn(preds, labels)
+
                 for mi, metric in enumerate(metrics):
                     valid_mvct[mi] += metric.calc(preds, labels).cpu()
+
                 valid_loss += loss.item()
 
         train_mvct = np.array(train_mvct) / len(train_dataloader)
@@ -203,6 +206,7 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
 
             preds = model(imgs)
             loss = loss_fn(preds, labels)
+
             for mi, metric in enumerate(metrics):
                 test_mvct[mi] += metric.calc(preds, labels).cpu()
 
