@@ -12,14 +12,15 @@
 
 ### Table of content
   1. [Quick start](#start)
-  2. [Encoders](#encoders)
-  3. [Decoders](#decoders)
-  4. [Datasets](#datasets)
-  5. [Losses](#losses)
-  6. [Metrics](#metrics)
-  7. [Optimizers](#optimizers)
-  8. [Schedulers](#schedulers)
-  9. [Examples](#examples)
+  2. [Warnings](#warnings)
+  3. [Encoders](#encoders)
+  4. [Decoders](#decoders)
+  5. [Datasets](#datasets)
+  6. [Losses](#losses)
+  7. [Metrics](#metrics)
+  8. [Optimizers](#optimizers)
+  9. [Schedulers](#schedulers)
+  10. [Examples](#examples)
 
 ### Quick start <a name="start"></a>
 #### 1. Straight install.
@@ -36,7 +37,13 @@ pip install -U opennn_pytorch
 cd docker/
 docker build -t opennn:latest .
 ```
-  
+
+### Warnings <a name="warnings"></a>
+1. Cuda is only supported for nvidia graphics cards.
+2. Alexnet doesn't support bce losses family.
+3. Sometimes combine of dataset/encoder/decoder/loss/optimizer/lr can give bad results, try to combine others.
+4. Custom cross-entropy support only mode when preds have (n, c) shape and labels have (n) shape.
+
 ### Encoders <a name="encoders"></a>
 - LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/lenet.py)]
 - AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/alexnet.py)]
@@ -53,7 +60,8 @@ docker build -t opennn:latest .
   
 ### Decoders <a name="decoders"></a>
 - LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)] [[warning] bce loss family doesn't support]
+- Linear [[docs](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/linear.py)]
 
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)]

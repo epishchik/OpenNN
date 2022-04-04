@@ -63,7 +63,7 @@ def run(yaml):
         [lenet, alexnet, googlenet, resnet18, resnet34, resnet50, resnet101, resnet152, mobilenet, vgg11, vgg16, vgg19]
 
     decoder : str, optional
-        [lenet, alexnet]
+        [lenet, alexnet, linear]
 
     multidecoder : list[decoder], optional
 
