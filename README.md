@@ -60,7 +60,7 @@ docker build -t opennn:latest .
   
 ### Decoders <a name="decoders"></a>
 - LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)] [[warning] bce loss family doesn't support]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)]
 - Linear [[docs](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/linear.py)]
 
 ### Datasets <a name="datasets"></a>
