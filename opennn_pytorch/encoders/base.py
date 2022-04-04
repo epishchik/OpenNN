@@ -3,7 +3,7 @@ from .lenet import LenetFeatures
 from .resnet import Resnet18Features, Resnet34Features, Resnet50Features, Resnet101Features, Resnet152Features
 from .googlenet import GoognetNoAuxFeatures
 from .mobilenet import MobilenetFeatures
-from .vgg import VGG11Features
+from .vgg import VGG11Features, VGG16Features, VGG19Features
 
 
 def get_encoder(name, inc):
@@ -38,5 +38,9 @@ def get_encoder(name, inc):
         return MobilenetFeatures(inc)
     elif name == 'vgg11':
         return VGG11Features(inc)
+    elif name == 'vgg16':
+        return VGG16Features(inc)
+    elif name == 'vgg19':
+        return VGG19Features(inc)
     else:
         raise ValueError(f'no encoder {name}')
