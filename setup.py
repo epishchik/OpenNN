@@ -5,12 +5,12 @@ import io
 import os
 import sys
 from shutil import rmtree
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
 
 NAME = 'opennn_pytorch'
 DESCRIPTION = 'Neural Networks library for image classification task.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
-DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v1.0.5.tar.gz'
+DOWNLOAD_URL = 'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v1.0.4.tar.gz'
 EMAIL = 'evgeniipishchik@mail.ru'
 AUTHOR = 'Evgenii Pishchik'
 REQUIRES_PYTHON = '>=3.6.0'
@@ -92,6 +92,7 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     py_modules=[f'{NAME}'],
+    packages=find_packages(),
     install_requires=REQUIRED,
     include_package_data=True,
     cmdclass={
