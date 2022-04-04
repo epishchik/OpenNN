@@ -92,9 +92,7 @@ docker build -t opennn:latest .
 import opennn_pytorch
   
 config = 'path to yaml config'  # check configs folder
-transform = 'path to transform yaml config'  # check configs folder
-
-opennn_pytorch.run(config, transform)
+opennn_pytorch.run(config)
 ```
 
 2. Get encoder and decoder.

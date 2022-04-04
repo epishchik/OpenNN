@@ -48,7 +48,7 @@ def transforms_lst(transform_config):
     return lst
 
 
-def run(yaml, transform_yaml):
+def run(yaml):
     '''
     Parse .yaml config and transforms .yaml config and generate full train/test pipeline.
 
@@ -56,8 +56,6 @@ def run(yaml, transform_yaml):
     -----------
     yaml : str
         main .yaml config with all basic parameters.
-    transform_yaml : str
-        help .yaml config with sequential transforms for image preprocessing.
 
     Config Attributes
     -----------------
@@ -139,6 +137,9 @@ def run(yaml, transform_yaml):
     checkpoint : str
         if specify this checkpoint will be loaded into model.
 
+    transform : str
+        auxiliary .yaml config with sequential transforms for image preprocessing.
+
 
     Transform Config Attributes
     ---------------------------
@@ -150,7 +151,7 @@ def run(yaml, transform_yaml):
     torch.cuda.empty_cache()
 
     config = parse_yaml(yaml)
-    transform_config = parse_yaml(transform_yaml)
+    transform_config = parse_yaml(config['transform'])
     transform_lst = transforms_lst(transform_config)
     transform = transforms.Compose(transform_lst)
 
