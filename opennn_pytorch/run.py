@@ -177,9 +177,15 @@ def run(yaml):
     bs = int(config['batch_size'])
     epochs = int(config['epochs'])
     logs = config['logs']
+    if not os.path.isdir(logs):
+        cwd = os.getcwd().replace('\\', '/')
+        os.mkdir(os.path.join(cwd, logs), 0o777)
     loss_fn = config['loss']
     metrics = config['metrics']
     checkpoints = config['checkpoints']
+    if not os.path.isdir(checkpoints):
+        cwd = os.getcwd().replace('\\', '/')
+        os.mkdir(os.path.join(cwd, checkpoints), 0o777)
     if algorithm == 'test' and 'class_names' in config.keys():
         names = config['class_names']
         viz = True
