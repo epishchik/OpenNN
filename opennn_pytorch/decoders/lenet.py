@@ -29,6 +29,7 @@ class LenetDecoder(nn.Module):
         self.fc3 = nn.Linear(84, nc, bias=True)
         self.drop = nn.Dropout(p=0.5)
         self.tanh = nn.Tanh()
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         '''
@@ -41,5 +42,5 @@ class LenetDecoder(nn.Module):
         '''
         b1 = self.tanh(self.fc1(self.drop(x.view(x.shape[0], -1))))
         b2 = self.tanh(self.fc2(self.drop(b1)))
-        b3 = self.fc3(b2)
+        b3 = self.softmax(self.fc3(b2))
         return b3
