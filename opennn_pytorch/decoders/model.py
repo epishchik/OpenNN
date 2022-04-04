@@ -2,6 +2,7 @@ import torch
 from torch import nn
 from .alexnet import AlexnetDecoder
 from .lenet import LenetDecoder
+from .linear import LinearDecoder
 
 
 class Model(nn.Module):
@@ -49,6 +50,8 @@ class Model(nn.Module):
             self.decoder = AlexnetDecoder(self.inf, nc).to(device)
         elif name == 'lenet':
             self.decoder = LenetDecoder(self.inf, nc).to(device)
+        elif name == 'linear':
+            self.decoder = LinearDecoder(self.inf, nc).to(device)
         else:
             raise ValueError(f'no decoder {name}')
 
@@ -116,6 +119,8 @@ class MultiDecModel(nn.Module):
                 self.decoders.append(AlexnetDecoder(self.inf, 1).to(device))
             elif name[i] == 'lenet':
                 self.decoders.append(LenetDecoder(self.inf, 1).to(device))
+            elif name == 'linear':
+                self.decoders.append(LinearDecoder(self.inf, 1).to(device))
             else:
                 raise ValueError(f'no decoder {name}')
 
