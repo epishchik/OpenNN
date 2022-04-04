@@ -112,20 +112,40 @@ encoder = opennn_pytorch.encoders.get_encoder(encoder_name, input_channels).to(d
 model = opennn_pytorch.decoders.get_decoder(decoder_name, encoder, number_classes, decoder_mode, device).to(device)
 ```
   
-3. Get dataset.
+3.1 Get dataset.
 ```python
 import opennn_pytorch
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
 dataset_name = 'mnist'
+datafiles = None
 train_part = 0.7
 valid_part = 0.2
 
 transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
   
-train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform)
+train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform, datafiles)
+```
+
+3.2 Get custom dataset.
+```python
+import opennn_pytorch
+from torchvision import transforms
+
+transform_config = 'path to transform yaml config'
+dataset_name = 'custom'
+images = 'path to folder with images'
+annotation = 'path to annotation yaml file with image: class structure'
+datafiles = (images, annotation)
+train_part = 0.7
+valid_part = 0.2
+
+transform_lst = opennn_pytorch.transforms_lst(transform_config)
+transform = transforms.Compose(transform_lst)
+  
+train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform, datafiles)
 ```
 
 4. Get optimizer.
