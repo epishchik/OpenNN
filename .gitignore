@@ -1,7 +1,8 @@
 *.todo
 **/__pycache__
 experiments/**
-MNIST/**
+*MNIST/**
+gtsrb/**
 cifar-*
 .vscode/*
 LICENSE.txt
