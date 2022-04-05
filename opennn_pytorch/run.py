@@ -41,8 +41,13 @@ def transforms_lst(transform_config):
         if el == 'tensor' and transform_config['tensor']:
             lst.append(transforms.ToTensor())
         elif el == 'resize':
-            size = int(transform_config['resize'])
+            size = int(transform_config[el])
             lst.append(transforms.Resize((size, size)))
+        elif el == 'normalize':
+            means_stds = transform_config[el]
+            means = list(map(float, means_stds[0]))
+            stds = list(map(float, means_stds[1]))
+            lst.append(transforms.Normalize(means, stds))
         else:
             raise ValueError(f'no augmentation {el}: {transform_config[el]}')
     return lst
@@ -146,6 +151,9 @@ def run(yaml):
     tensor : bool
 
     resize : int
+
+    normalize : list[list[float], list[float]]
+        [[means], [stds]] - where means and stds count = number of input channels
 
     '''
     torch.cuda.empty_cache()
