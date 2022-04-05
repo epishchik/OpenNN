@@ -15,12 +15,13 @@
   2. [Warnings](#warnings)
   3. [Encoders](#encoders)
   4. [Decoders](#decoders)
-  5. [Datasets](#datasets)
-  6. [Losses](#losses)
-  7. [Metrics](#metrics)
-  8. [Optimizers](#optimizers)
-  9. [Schedulers](#schedulers)
-  10. [Examples](#examples)
+  5. [Pretrained](#pretrained)
+  6. [Datasets](#datasets)
+  7. [Losses](#losses)
+  8. [Metrics](#metrics)
+  9. [Optimizers](#optimizers)
+  10. [Schedulers](#schedulers)
+  11. [Examples](#examples)
 
 ### Quick start <a name="start"></a>
 #### 1. Straight install.
@@ -63,6 +64,63 @@ docker build -t opennn:latest .
 - AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)]
 - Linear [[docs](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/linear.py)]
 
+### Pretrained <a name="pretrained"></a>
+<details>
+<summary style="margin-left: 25px;">LeNet</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|LeNet               |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/enZs/11VGi29af), [PLAN](https://cloud.mail.ru/public/JDLM/7eb3qhoY1)          |[CONFIG](https://cloud.mail.ru/public/5Ztd/vFESYuv81), [TRANSFORM](https://cloud.mail.ru/public/xuwr/665RBtYTM)               |[TRAINVAL](https://cloud.mail.ru/public/EHHp/mr4FzmiTX)               |
+
+</div>
+</details>
+
+<details>
+<summary style="margin-left: 25px;">AlexNet</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|AlexNet             |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/tZ5z/U8VS4MoAz), [PLAN](https://cloud.mail.ru/public/aCFj/sDC1yT1Wn)          |[CONFIG](https://cloud.mail.ru/public/jJqV/KpDFpUGPs), [TRANSFORM](https://cloud.mail.ru/public/SFf4/YsuC1Zdi4)               |[TRAINVAL](https://cloud.mail.ru/public/cD2M/6hLTaZdzo)               |
+
+</div>
+</details>
+  
+<details>
+<summary style="margin-left: 25px;">GoogleNet</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|GoogleNet           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/oTD1/xRa26UVaG), [PLAN](https://cloud.mail.ru/public/ByvC/y1oZ2icei)          |[CONFIG](https://cloud.mail.ru/public/Lt9M/WxiehNMwL), [TRANSFORM](https://cloud.mail.ru/public/hGb4/BanKp7YrQ)               |[TRAINVAL](https://cloud.mail.ru/public/5W22/SFLgwsVqu)               |
+
+</div>
+</details>
+  
+<details>
+<summary style="margin-left: 25px;">ResNet</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|ResNet18            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/T3gy/isbYZLYHT), [PLAN](https://cloud.mail.ru/public/np89/1ZKoTVruk)          |[CONFIG](https://cloud.mail.ru/public/bW8W/Xxmpk9r2a), [TRANSFORM](https://cloud.mail.ru/public/WxRb/YgwRkWjkA)               |[TRAINVAL](https://cloud.mail.ru/public/8zXr/6z4gY4Gsp)               |
+|ResNet34            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/5EEi/YsWpKz2kP), [PLAN](https://cloud.mail.ru/public/SoxA/gcWABVppm)          |[CONFIG](https://cloud.mail.ru/public/9bp6/G6q7ZPamn), [TRANSFORM](https://cloud.mail.ru/public/hG4D/xF9mTFF6P)               |[TRAINVAL](https://cloud.mail.ru/public/A97j/EKN2WKseA)               |
+
+</div>
+</details>
+
+<details>
+<summary style="margin-left: 25px;">VGG</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|VGG-19              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/sSiA/LkgFzMYiG), [PLAN](https://cloud.mail.ru/public/511c/aNaNHey5Q)          |[CONFIG](https://cloud.mail.ru/public/7bis/rPK5J5TCW), [TRANSFORM](https://cloud.mail.ru/public/QW62/XsnKCaQ7f)               |[TRAINVAL](https://cloud.mail.ru/public/ejz5/Uuhav4ZMA)               |
+
+</div>
+</details>
+  
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes:10]
 - FASHION MNIST [[files](https://github.com/zalandoresearch/fashion-mnist)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes:10]
