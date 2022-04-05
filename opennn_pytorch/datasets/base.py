@@ -1,4 +1,4 @@
-from .mnist import mnist
+from .mnist import mnist, fashion_mnist
 from .cifar import cifar10, cifar100
 from .custom import custom
 
@@ -23,6 +23,8 @@ def get_dataset(name, train_part, valid_part, transform, datafiles=None):
     '''
     if name == 'mnist':
         train_data, valid_data, test_data = mnist(train_part, valid_part, transform)
+    elif name == 'fashion_mnist':
+        train_data, valid_data, test_data = fashion_mnist(train_part, valid_part, transform)
     elif name == 'cifar10':
         train_data, valid_data, test_data = cifar10(train_part, valid_part, transform)
     elif name == 'cifar100':

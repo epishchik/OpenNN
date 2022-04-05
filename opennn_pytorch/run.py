@@ -78,7 +78,7 @@ def run(yaml):
     number_classes : int
 
     dataset : str
-        [mnist, cifar10, cifar100, custom]
+        [mnist, fashion_mnist, cifar10, cifar100, custom]
 
     images : str
         specify path to folder with images, only for custom dataset.
