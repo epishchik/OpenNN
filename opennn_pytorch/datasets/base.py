@@ -1,6 +1,7 @@
 from .mnist import mnist, fashion_mnist
 from .cifar import cifar10, cifar100
 from .custom import custom
+from .gtsrb import gtsrb
 
 
 def get_dataset(name, train_part, valid_part, transform, datafiles=None):
@@ -29,6 +30,8 @@ def get_dataset(name, train_part, valid_part, transform, datafiles=None):
         train_data, valid_data, test_data = cifar10(train_part, valid_part, transform)
     elif name == 'cifar100':
         train_data, valid_data, test_data = cifar100(train_part, valid_part, transform)
+    elif name == 'gtsrb':
+        train_data, valid_data, test_data = gtsrb(train_part, valid_part, transform)
     elif name == 'custom':
         train_data, valid_data, test_data = custom(datafiles[0], datafiles[1], train_part, valid_part, transform)
     else:
