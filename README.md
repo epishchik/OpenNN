@@ -82,6 +82,17 @@ docker build -t opennn:latest .
 </details>
 
 <details>
+<summary style="margin-left: 25px;">AlexNet</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|AlexNet             |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/N9nj/VeYTWXoyK), [PLAN](https://cloud.mail.ru/public/FyGQ/oLXxQDhYw)          |[CONFIG](https://cloud.mail.ru/public/ReTm/oMmkKVkmS), [TRANSFORM](https://cloud.mail.ru/public/fksy/B4tHCfQQf)               |[TRAINVAL](https://cloud.mail.ru/public/PvUP/Q3yubZu15)               |
+
+</div>
+</details>
+
+<details>
 <summary style="margin-left: 25px;">GoogleNet</summary>
 <div style="margin-left: 25px;">
 
@@ -111,6 +122,17 @@ docker build -t opennn:latest .
 |Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
 |MobileNet           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/1N8q/a7W615oHq), [PLAN](https://cloud.mail.ru/public/rje5/L4fdJr9BE)          |[CONFIG](https://cloud.mail.ru/public/whgD/ntaS6BebM), [TRANSFORM](https://cloud.mail.ru/public/h2Tm/mLaD4bYeN)               |[TRAINVAL](https://cloud.mail.ru/public/F6X1/jhDRPYoGb)               |
+
+</div>
+</details>
+
+<details>
+<summary style="margin-left: 25px;">VGG</summary>
+<div style="margin-left: 25px;">
+
+|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
+|--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|VGG-11              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/6wUm/vKJxLiHtJ), [PLAN](https://cloud.mail.ru/public/3rEd/MXwrSKPRE)          |[CONFIG](https://cloud.mail.ru/public/hTe5/jA8PrYgdN), [TRANSFORM](https://cloud.mail.ru/public/nUjx/PLKuqkNU4)               |[TRAINVAL](https://cloud.mail.ru/public/SceV/Mk4PHzg6n)               |
 
 </div>
 </details>
