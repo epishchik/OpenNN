@@ -13,7 +13,8 @@ def main():
     res_dct = dict()
     for i, val in enumerate(classes_numbers):
         for name in names_lst[start_val:start_val + val]:
-            res_dct[abspath + name] = i
+            res_name = (abspath + name).replace('\\', '/')
+            res_dct[res_name] = i
         start_val += val
 
     with open(here + os.sep + 'dataset.yaml', 'w+') as out_f:
