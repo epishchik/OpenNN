@@ -24,7 +24,7 @@ class ConvBlock(nn.Module):
         '''
         super().__init__()
         self.conv = nn.Conv2d(inc, outc, bias=False, **kwargs)
-        self.bn = nn.BatchNorm2d(outc, eps=0.001)
+        self.bn = nn.BatchNorm2d(outc)
         self.relu = nn.ReLU()
 
     def forward(self, x):
@@ -65,7 +65,7 @@ class VGG11Features(nn.Module):
             number of input channels [1, 3, 4].
         '''
         super().__init__()
-        self.features = 12800
+        self.features = 512
         self.conv1 = ConvBlock(inc, 64, kernel_size=(3, 3), padding=(1, 1))
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.conv2 = ConvBlock(64, 128, kernel_size=(3, 3), padding=(1, 1))
@@ -78,7 +78,7 @@ class VGG11Features(nn.Module):
         self.maxpool4 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.conv7 = ConvBlock(512, 512, kernel_size=(3, 3), padding=(1, 1))
         self.conv8 = ConvBlock(512, 512, kernel_size=(3, 3), padding=(1, 1))
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(5, 5))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
         '''
@@ -135,7 +135,7 @@ class VGG16Features(nn.Module):
             number of input channels [1, 3, 4].
         '''
         super().__init__()
-        self.features = 12800
+        self.features = 512
         self.conv1 = ConvBlock(inc, 64, kernel_size=(3, 3), padding=(1, 1))
         self.conv2 = ConvBlock(64, 64, kernel_size=(3, 3), padding=(1, 1))
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
@@ -153,7 +153,7 @@ class VGG16Features(nn.Module):
         self.conv11 = ConvBlock(512, 512, kernel_size=(3, 3), padding=(1, 1))
         self.conv12 = ConvBlock(512, 512, kernel_size=(3, 3), padding=(1, 1))
         self.conv13 = ConvBlock(512, 512, kernel_size=(1, 1), padding=(1, 1))
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(5, 5))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
         '''
@@ -210,7 +210,7 @@ class VGG19Features(nn.Module):
             number of input channels [1, 3, 4].
         '''
         super().__init__()
-        self.features = 12800
+        self.features = 512
         self.conv1 = ConvBlock(inc, 64, kernel_size=(3, 3), padding=(1, 1))
         self.conv2 = ConvBlock(64, 64, kernel_size=(3, 3), padding=(1, 1))
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
@@ -231,7 +231,7 @@ class VGG19Features(nn.Module):
         self.conv14 = ConvBlock(512, 512, kernel_size=(3, 3), padding=(1, 1))
         self.conv15 = ConvBlock(512, 512, kernel_size=(1, 1), padding=(1, 1))
         self.conv16 = ConvBlock(512, 512, kernel_size=(1, 1), padding=(1, 1))
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(5, 5))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
         '''

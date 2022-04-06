@@ -24,7 +24,7 @@ class ConvBlock(nn.Module):
         '''
         super().__init__()
         self.conv = nn.Conv2d(inc, outc, bias=False, **kwargs)
-        self.bn = nn.BatchNorm2d(outc, eps=0.001)
+        self.bn = nn.BatchNorm2d(outc)
         self.relu = nn.ReLU()
 
     def forward(self, x):
@@ -61,9 +61,9 @@ class DepthWiseSepConvBlock(nn.Module):
             number of output channels.
         '''
         super().__init__()
-        self.depthwise = nn.Conv2d(inc, inc, kernel_size=(3, 3), padding=(1, 1), groups=inc, **kwargs)
+        self.depthwise = nn.Conv2d(inc, inc, kernel_size=(3, 3), padding=(1, 1), groups=inc, bias=False, **kwargs)
         self.bn1 = nn.BatchNorm2d(inc)
-        self.pointwise = nn.Conv2d(inc, outc, kernel_size=(1, 1))
+        self.pointwise = nn.Conv2d(inc, outc, kernel_size=(1, 1), bias=False)
         self.bn2 = nn.BatchNorm2d(outc)
         self.relu = nn.ReLU()
 
@@ -107,7 +107,7 @@ class MobilenetFeatures(nn.Module):
             number of input channels [1, 3, 4].
         '''
         super().__init__()
-        self.features = 25600
+        self.features = 1024
         self.conv = ConvBlock(inc, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
         self.convdws1 = DepthWiseSepConvBlock(32, 64, stride=(1, 1))
         self.convdws2 = DepthWiseSepConvBlock(64, 128, stride=(2, 2))
@@ -122,7 +122,7 @@ class MobilenetFeatures(nn.Module):
         self.convdws11 = DepthWiseSepConvBlock(512, 512, stride=(1, 1))
         self.convdws12 = DepthWiseSepConvBlock(512, 1024, stride=(2, 2))
         self.convdws13 = DepthWiseSepConvBlock(1024, 1024, stride=(1, 1))
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(5, 5))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
 
     def forward(self, x):
         '''

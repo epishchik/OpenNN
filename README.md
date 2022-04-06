@@ -82,17 +82,6 @@ docker build -t opennn:latest .
 </details>
 
 <details>
-<summary style="margin-left: 25px;">AlexNet</summary>
-<div style="margin-left: 25px;">
-
-|Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
-|--------------------|--------------------|--------------------|------------------|------------------|------------------|
-|AlexNet             |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/tZ5z/U8VS4MoAz), [PLAN](https://cloud.mail.ru/public/aCFj/sDC1yT1Wn)          |[CONFIG](https://cloud.mail.ru/public/jJqV/KpDFpUGPs), [TRANSFORM](https://cloud.mail.ru/public/SFf4/YsuC1Zdi4)               |[TRAINVAL](https://cloud.mail.ru/public/cD2M/6hLTaZdzo)               |
-
-</div>
-</details>
-  
-<details>
 <summary style="margin-left: 25px;">GoogleNet</summary>
 <div style="margin-left: 25px;">
 
@@ -116,16 +105,16 @@ docker build -t opennn:latest .
 </details>
 
 <details>
-<summary style="margin-left: 25px;">VGG</summary>
+<summary style="margin-left: 25px;">MobileNet</summary>
 <div style="margin-left: 25px;">
 
 |Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
-|VGG-19              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/sSiA/LkgFzMYiG), [PLAN](https://cloud.mail.ru/public/511c/aNaNHey5Q)          |[CONFIG](https://cloud.mail.ru/public/7bis/rPK5J5TCW), [TRANSFORM](https://cloud.mail.ru/public/QW62/XsnKCaQ7f)               |[TRAINVAL](https://cloud.mail.ru/public/ejz5/Uuhav4ZMA)               |
+|MobileNet           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/1N8q/a7W615oHq), [PLAN](https://cloud.mail.ru/public/rje5/L4fdJr9BE)          |[CONFIG](https://cloud.mail.ru/public/whgD/ntaS6BebM), [TRANSFORM](https://cloud.mail.ru/public/h2Tm/mLaD4bYeN)               |[TRAINVAL](https://cloud.mail.ru/public/F6X1/jhDRPYoGb)               |
 
 </div>
 </details>
-  
+
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
 - FASHION-MNIST [[files](https://github.com/zalandoresearch/fashion-mnist)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.2859], std=[0.3530]]
