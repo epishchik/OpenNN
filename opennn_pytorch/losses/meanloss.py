@@ -67,6 +67,7 @@ class CustomMSELoss(nn.Module):
         -----------
         inputs : torch.tensor
             model predictions.
+
         targets : torch.tensor
             ground-truth labels.
         '''
@@ -111,6 +112,7 @@ class CustomMAELoss(nn.Module):
         -----------
         inputs : torch.tensor
             model predictions.
+
         targets : torch.tensor
             ground-truth labels.
         '''

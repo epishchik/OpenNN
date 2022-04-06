@@ -58,6 +58,7 @@ class CustomCrossEntropyLoss(nn.Module):
         -----------
         inputs : torch.tensor
             model predictions.
+
         targets : torch.tensor
             ground-truth labels.
         '''

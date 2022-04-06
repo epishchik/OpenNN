@@ -9,14 +9,19 @@ def get_optimizer(name, model, lr=None, betas=None, eps=None, weight_decay=None)
     -----------
     name : str
         optimizer name ['adam', 'adamw', 'adamax', 'radam', 'nadam'].
+
     model : Any
         pytorch model.
+
     lr : float, optional
         learning rate.
+
     betas : tuple(float, float), optional
         betas.
+
     eps : float, optional
         eps.
+
     weight_decay : float, optional
         l2 regularization.
     '''

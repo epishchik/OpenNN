@@ -10,12 +10,16 @@ def adam(parameters, lr, betas, eps, weight_decay):
     -----------
     parameters : Any
         model.parameters()
+
     lr : float
         learning rate
+
     betas : tuple(float, float)
         betas
+
     eps : float
         eps
+
     weight_decay : float
         l2 regularization
     '''
@@ -31,12 +35,16 @@ def nadam(parameters, lr, betas, eps, weight_decay):
     -----------
     parameters : Any
         model.parameters().
+
     lr : float
         learning rate.
+
     betas : tuple(float, float)
         betas.
+
     eps : float
         eps.
+
     weight_decay : float
         l2 regularization.
     '''
@@ -52,12 +60,16 @@ def radam(parameters, lr, betas, eps, weight_decay):
     -----------
     parameters : Any
         model.parameters().
+
     lr : float
         learning rate.
+
     betas : tuple(float, float)
         betas.
+
     eps : float
         eps.
+
     weight_decay : float
         l2 regularization.
     '''
@@ -73,12 +85,16 @@ def adamw(parameters, lr, betas, eps, weight_decay):
     -----------
     parameters : Any
         model.parameters().
+
     lr : float
         learning rate.
+
     betas : tuple(float, float)
         betas.
+
     eps : float
         eps.
+
     weight_decay : float
         l2 regularization.
     '''
@@ -94,12 +110,16 @@ def adamax(parameters, lr, betas, eps, weight_decay):
     -----------
     parameters : Any
         model.parameters().
+
     lr : float
         learning rate.
+
     betas : tuple(float, float)
         betas.
+
     eps : float
         eps.
+
     weight_decay : float
         l2 regularization.
     '''

@@ -18,6 +18,7 @@ class accuracy():
         -----------
         preds : torch.tensor
             model predictions.
+
         labels : torch.tensor
             ground-truth labels.
         '''

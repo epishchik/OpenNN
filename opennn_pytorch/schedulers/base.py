@@ -9,12 +9,16 @@ def get_scheduler(name, optim, step=None, gamma=None, milestones=None):
     -----------
     name : str
         scheduler name ['steplr', 'multisteplr']
+
     optim : Optimizer
         optimizer object.
+
     step : int, optional
         every step epochs do scheduler step.
+
     gamma : float, optional
         lr will be multiplied to this value each step epochs.
+
     milestones : list[int], optional
         checkpoints for lr * gamma.
     '''

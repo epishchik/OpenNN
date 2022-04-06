@@ -36,6 +36,7 @@ class recall():
         -----------
         preds : torch.tensor
             model predictions.
+
         labels : torch.tensor
             ground-truth labels.
         '''

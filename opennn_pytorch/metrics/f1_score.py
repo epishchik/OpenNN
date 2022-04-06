@@ -36,6 +36,7 @@ class f1_score():
         -----------
         preds : torch.tensor
             model predictions.
+
         labels : torch.tensor
             ground-truth labels.
         '''

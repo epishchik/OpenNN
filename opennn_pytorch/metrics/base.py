@@ -12,6 +12,7 @@ def get_metrics(metrics, nc=None):
     -----------
     metrics : list[str]
         list of metrics names.
+
     nc : int
         number classes.
     '''

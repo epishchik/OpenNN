@@ -28,8 +28,10 @@ def multisteplr(optimizer, milestones, gamma):
     -----------
     optimizer : Optimizer
         optimizer object.
+
     milestones : list[int]
         checkpoints for lr * gamma.
+
     gamma : float
         lr will be multiplied to this value each step epochs.
     '''
