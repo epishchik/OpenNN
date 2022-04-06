@@ -42,7 +42,7 @@ docker build -t opennn:latest .
 ### Warnings <a name="warnings"></a>
 1. Cuda is only supported for nvidia graphics cards.
 2. Alexnet decoder doesn't support bce losses family.
-3. Sometimes combine of dataset/encoder/decoder/loss/optimizer/lr can give bad results, try to combine others.
+3. Sometimes combination of dataset/encoder/decoder/loss/optimizer/lr can give bad results, try to combine others.
 4. Custom cross-entropy support only mode when preds have (n, c) shape and labels have (n) shape.
 5. Not all options in transform.yaml and config.yaml are required.
 6. Mean and std in datasets section must be used in transform.yaml, for example [mean=[0.2859], std=[0.3530]] -> normalize: [[0.2859], [0.3530]]
