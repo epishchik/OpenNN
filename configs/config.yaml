@@ -26,5 +26,6 @@ gamma: 0.5
 milestones: [10, 20, 30]  # optional
 metrics: ['accuracy', 'precision', 'recall', 'f1_score']
 loss: ce
+transform: /transform.yaml
 class_names: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']  # comment this if you won't vizualize
 checkpoint: /checkpoints/best_0.05.pt  # comment this if train from scratch, but you must specify this for test mode

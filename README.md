@@ -73,7 +73,10 @@ docker build -t opennn:latest .
 
 |Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|LeNet               |LeNet               |MNIST               |[BEST](https://cloud.mail.ru/public/Xr5z/42Mx6gC7p), [PLAN](https://cloud.mail.ru/public/eAgN/iPFm2v4UG)          |[CONFIG](https://cloud.mail.ru/public/sCvP/UWXwUJxeb), [TRANSFORM](https://cloud.mail.ru/public/L8tj/kKEf5bKiA)               |[TRAINVAL](https://cloud.mail.ru/public/c2BY/6BnctFNWd)               |
+|LeNet               |LeNet               |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/TDuA/86rXD6yNV), [PLAN](https://cloud.mail.ru/public/RtcL/81CTm8doR)          |[CONFIG](https://cloud.mail.ru/public/fZgh/FMzWYiDGS), [TRANSFORM](https://cloud.mail.ru/public/H2ic/j8gnpMGKV)               |[TRAINVAL](https://cloud.mail.ru/public/5c1r/GsRgkFBsX)               |
 |LeNet               |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/enZs/11VGi29af), [PLAN](https://cloud.mail.ru/public/JDLM/7eb3qhoY1)          |[CONFIG](https://cloud.mail.ru/public/5Ztd/vFESYuv81), [TRANSFORM](https://cloud.mail.ru/public/xuwr/665RBtYTM)               |[TRAINVAL](https://cloud.mail.ru/public/EHHp/mr4FzmiTX)               |
+|LeNet               |Linear              |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/5oFr/YgrEuCjwY), [PLAN](https://cloud.mail.ru/public/cau1/17FS5Ab8L)          |[CONFIG](https://cloud.mail.ru/public/iNrh/oLbWHydYW), [TRANSFORM](https://cloud.mail.ru/public/5mAj/fPWjDGZjb)               |[TRAINVAL](https://cloud.mail.ru/public/2WUX/VZXsvBs8Z)               |
 
 </div>
 </details>
