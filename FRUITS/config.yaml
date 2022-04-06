@@ -1,0 +1,24 @@
+encoder: googlenet
+decoder: linear
+algorithm: train
+device: cuda
+in_channels: 3
+number_classes: 5
+dataset: custom
+images: /FRUITS/imgs
+annotation: /FRUITS/dataset.yaml
+train_part: 0.80
+valid_part: 0.15
+seed: 42
+batch_size: 24
+epochs: 20
+logs: /logs
+checkpoints: /checkpoints
+save_every: 5
+optimizer: adam
+learning_rate: 0.001
+scheduler: steplr
+gamma: 0.5
+metrics: ['accuracy', 'precision', 'recall', 'f1_score']
+loss: ce
+transform: /transform.yaml

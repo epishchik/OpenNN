@@ -89,7 +89,7 @@ class CustomDataset(Dataset):
             image file path.
         '''
         image = Image.open(file)
-        return (np.array(image) / 255.0)
+        return image
 
     def __len__(self):
         '''
