@@ -134,6 +134,7 @@ docker build -t opennn:latest .
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
 |VGG-11              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/6wUm/vKJxLiHtJ), [PLAN](https://cloud.mail.ru/public/3rEd/MXwrSKPRE)          |[CONFIG](https://cloud.mail.ru/public/hTe5/jA8PrYgdN), [TRANSFORM](https://cloud.mail.ru/public/nUjx/PLKuqkNU4)               |[TRAINVAL](https://cloud.mail.ru/public/SceV/Mk4PHzg6n)               |
 |VGG-16              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/mGsd/SY83ovV1R), [PLAN](https://cloud.mail.ru/public/fStQ/Xn5eRRgXo)          |[CONFIG](https://cloud.mail.ru/public/F4q4/Qc7FWLHeq), [TRANSFORM](https://cloud.mail.ru/public/tDAy/K1E3Gix3B)               |[TRAINVAL](https://cloud.mail.ru/public/w3ed/HLSCjA9NU)               |
+|VGG-19              |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/mMUk/a5VWw8PN1), [PLAN](https://cloud.mail.ru/public/BfZb/ps46dKYgy)          |[CONFIG](https://cloud.mail.ru/public/2ZQJ/6BeeqB1rj), [TRANSFORM](https://cloud.mail.ru/public/Nhya/QFxGiRdvG)               |[TRAINVAL](https://cloud.mail.ru/public/urow/wbKkV6uyv)               |
 
 </div>
 </details>
