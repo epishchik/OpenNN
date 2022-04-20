@@ -175,7 +175,7 @@ docker build -t opennn:latest .
 
 ### Examples <a name="examples"></a>
   
-1. Run from yaml configs.
+1. Run from yaml config.
 ```python
 import opennn_pytorch
   
