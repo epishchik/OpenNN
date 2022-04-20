@@ -112,6 +112,7 @@ docker build -t opennn:latest .
 |ResNet18            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/T3gy/isbYZLYHT), [PLAN](https://cloud.mail.ru/public/np89/1ZKoTVruk)          |[CONFIG](https://cloud.mail.ru/public/bW8W/Xxmpk9r2a), [TRANSFORM](https://cloud.mail.ru/public/WxRb/YgwRkWjkA)               |[TRAINVAL](https://cloud.mail.ru/public/8zXr/6z4gY4Gsp)               |
 |ResNet34            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/5EEi/YsWpKz2kP), [PLAN](https://cloud.mail.ru/public/SoxA/gcWABVppm)          |[CONFIG](https://cloud.mail.ru/public/9bp6/G6q7ZPamn), [TRANSFORM](https://cloud.mail.ru/public/hG4D/xF9mTFF6P)               |[TRAINVAL](https://cloud.mail.ru/public/A97j/EKN2WKseA)               |
 |ResNet50            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/m6dS/dEphhQGq7), [PLAN](https://cloud.mail.ru/public/Uu4W/3fEtherM7)          |[CONFIG](https://cloud.mail.ru/public/Bzzg/igi13GBuD), [TRANSFORM](https://cloud.mail.ru/public/LMRU/Tuo1Abc9j)               |[TRAINVAL](https://cloud.mail.ru/public/ednt/o5MTGJQxX)               |
+|ResNet101           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/GFT9/METVBdbLG), [PLAN](https://cloud.mail.ru/public/o2sL/CvKQw9Dde)          |[CONFIG](https://cloud.mail.ru/public/dgCC/Ead9DPqiq), [TRANSFORM](https://cloud.mail.ru/public/CRzw/1oWVSkjEt)               |[TRAINVAL](https://cloud.mail.ru/public/1drh/eonZo69jx)               |
 
 </div>
 </details>
