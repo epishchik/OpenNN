@@ -77,6 +77,8 @@ docker build -t opennn:latest .
 |LeNet               |LeNet               |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/TDuA/86rXD6yNV), [PLAN](https://cloud.mail.ru/public/RtcL/81CTm8doR)          |[CONFIG](https://cloud.mail.ru/public/fZgh/FMzWYiDGS), [TRANSFORM](https://cloud.mail.ru/public/H2ic/j8gnpMGKV)               |[TRAINVAL](https://cloud.mail.ru/public/5c1r/GsRgkFBsX)               |
 |LeNet               |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/enZs/11VGi29af), [PLAN](https://cloud.mail.ru/public/JDLM/7eb3qhoY1)          |[CONFIG](https://cloud.mail.ru/public/5Ztd/vFESYuv81), [TRANSFORM](https://cloud.mail.ru/public/xuwr/665RBtYTM)               |[TRAINVAL](https://cloud.mail.ru/public/EHHp/mr4FzmiTX)               |
 |LeNet               |Linear              |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/5oFr/YgrEuCjwY), [PLAN](https://cloud.mail.ru/public/cau1/17FS5Ab8L)          |[CONFIG](https://cloud.mail.ru/public/iNrh/oLbWHydYW), [TRANSFORM](https://cloud.mail.ru/public/5mAj/fPWjDGZjb)               |[TRAINVAL](https://cloud.mail.ru/public/2WUX/VZXsvBs8Z)               |
+|LeNet               |AlexNet             |MNIST               |[BEST](https://cloud.mail.ru/public/oX7D/YkvXxgftt), [PLAN](https://cloud.mail.ru/public/wjSw/woE5Zh2NS)          |[CONFIG](https://cloud.mail.ru/public/vo77/xiGPwELZu), [TRANSFORM](https://cloud.mail.ru/public/k12g/UoHHx3iBJ)               |[TRAINVAL](https://cloud.mail.ru/public/5nQ3/FfnmxPZws)               |
+|LeNet               |AlexNet             |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/MUeQ/yFo7Rsrgo), [PLAN](https://cloud.mail.ru/public/BSG8/xtMqCR6mt)          |[CONFIG](https://cloud.mail.ru/public/TCDL/SiXjmaDSV), [TRANSFORM](https://cloud.mail.ru/public/y3iw/5choydKkM)               |[TRAINVAL](https://cloud.mail.ru/public/f9k3/ZMpjAgStT)               |
 
 </div>
 </details>
@@ -87,7 +89,10 @@ docker build -t opennn:latest .
 
 |Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
+|AlexNet             |LeNet               |MNIST               |[BEST](https://cloud.mail.ru/public/KiVr/TAe8EV3yf), [PLAN](https://cloud.mail.ru/public/PHRA/jZtdVdWPP)          |[CONFIG](https://cloud.mail.ru/public/np4t/A43jgb1oY), [TRANSFORM](https://cloud.mail.ru/public/FJ6x/SniuHZfEK)               |[TRAINVAL](https://cloud.mail.ru/public/nq7F/kBV9NeVEq)               |
+|AlexNet             |LeNet               |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/85R1/EWneatiSy), [PLAN](https://cloud.mail.ru/public/ZrgH/joJn5xhsn)          |[CONFIG](https://cloud.mail.ru/public/bpFo/Vjmm7Dd4e), [TRANSFORM](https://cloud.mail.ru/public/Uqjw/P4BnF1xeQ)               |[TRAINVAL](https://cloud.mail.ru/public/7DAu/ygnrhn5X7)               |
 |AlexNet             |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/N9nj/VeYTWXoyK), [PLAN](https://cloud.mail.ru/public/FyGQ/oLXxQDhYw)          |[CONFIG](https://cloud.mail.ru/public/ReTm/oMmkKVkmS), [TRANSFORM](https://cloud.mail.ru/public/fksy/B4tHCfQQf)               |[TRAINVAL](https://cloud.mail.ru/public/PvUP/Q3yubZu15)               |
+|AlexNet             |AlexNet             |MNIST               |[BEST](https://cloud.mail.ru/public/RUsN/dHia5LgKP), [PLAN](https://cloud.mail.ru/public/bKjQ/Jot1gWoLu)          |[CONFIG](https://cloud.mail.ru/public/iPJX/rtcFg7c8n), [TRANSFORM](https://cloud.mail.ru/public/HUxD/jkdVQ8gt4)               |[TRAINVAL](https://cloud.mail.ru/public/7Y5x/92fZTtd1A)               |
 
 </div>
 </details>
@@ -113,6 +118,7 @@ docker build -t opennn:latest .
 |ResNet34            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/5EEi/YsWpKz2kP), [PLAN](https://cloud.mail.ru/public/SoxA/gcWABVppm)          |[CONFIG](https://cloud.mail.ru/public/9bp6/G6q7ZPamn), [TRANSFORM](https://cloud.mail.ru/public/hG4D/xF9mTFF6P)               |[TRAINVAL](https://cloud.mail.ru/public/A97j/EKN2WKseA)               |
 |ResNet50            |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/m6dS/dEphhQGq7), [PLAN](https://cloud.mail.ru/public/Uu4W/3fEtherM7)          |[CONFIG](https://cloud.mail.ru/public/Bzzg/igi13GBuD), [TRANSFORM](https://cloud.mail.ru/public/LMRU/Tuo1Abc9j)               |[TRAINVAL](https://cloud.mail.ru/public/ednt/o5MTGJQxX)               |
 |ResNet101           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/GFT9/METVBdbLG), [PLAN](https://cloud.mail.ru/public/o2sL/CvKQw9Dde)          |[CONFIG](https://cloud.mail.ru/public/dgCC/Ead9DPqiq), [TRANSFORM](https://cloud.mail.ru/public/CRzw/1oWVSkjEt)               |[TRAINVAL](https://cloud.mail.ru/public/1drh/eonZo69jx)               |
+|ResNet152           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/cp6D/YGM7rqFQk), [PLAN](https://cloud.mail.ru/public/BJsM/yi34akeYU)          |[CONFIG](https://cloud.mail.ru/public/c9iD/b2U9TTU54), [TRANSFORM](https://cloud.mail.ru/public/kYvR/y2EscgW3d)               |[TRAINVAL](https://cloud.mail.ru/public/XCNJ/f9Z1F8D8C)               |
 
 </div>
 </details>
