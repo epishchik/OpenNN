@@ -153,7 +153,6 @@ def run(yaml):
 
     normalize : list[list[float], list[float]]
         [[means], [stds]] - where means and stds count = number of input channels
-
     '''
     torch.cuda.empty_cache()
 
