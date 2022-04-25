@@ -106,6 +106,7 @@ docker build -t opennn:latest .
 |Encoder             |Decoder             |Dataset             |Weights           |Configs           |Logs              |
 |--------------------|--------------------|--------------------|------------------|------------------|------------------|
 |GoogleNet           |Linear              |MNIST               |[BEST](https://cloud.mail.ru/public/oTD1/xRa26UVaG), [PLAN](https://cloud.mail.ru/public/ByvC/y1oZ2icei)          |[CONFIG](https://cloud.mail.ru/public/Lt9M/WxiehNMwL), [TRANSFORM](https://cloud.mail.ru/public/hGb4/BanKp7YrQ)               |[TRAINVAL](https://cloud.mail.ru/public/5W22/SFLgwsVqu)               |
+|GoogleNet           |Linear              |FASHION-MNIST       |[BEST](https://cloud.mail.ru/public/rhKv/ATwGUW3bQ), [PLAN](https://cloud.mail.ru/public/TDCf/Txpg8HY3c)          |[CONFIG](https://cloud.mail.ru/public/zkaJ/WB8Zp2c7E), [TRANSFORM](https://cloud.mail.ru/public/Y1GU/5KzEgDdug)               |[TRAINVAL](https://cloud.mail.ru/public/q9PD/7Sk3rHVp8)               |
 
 </div>
 </details>
