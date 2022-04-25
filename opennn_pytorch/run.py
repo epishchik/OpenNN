@@ -145,7 +145,6 @@ def run(yaml):
     transform : str
         auxiliary .yaml config with sequential transforms for image preprocessing.
 
-
     Transform Config Attributes
     ---------------------------
     tensor : bool
