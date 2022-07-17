@@ -12,7 +12,7 @@ DESCRIPTION = 'Neural Networks library for image classification task.'
 URL = 'https://github.com/Pe4enIks/OpenNN'
 EMAIL = 'evgeniipishchik@mail.ru'
 AUTHOR = 'Evgenii Pishchik'
-REQUIRES_PYTHON = '>=3.6.0'
+REQUIRES_PYTHON = '>=3.9.0'
 VERSION = None
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -89,7 +89,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.9',
     ],
     py_modules=[f'{NAME}'],
     packages=find_packages(),
