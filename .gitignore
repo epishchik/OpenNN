@@ -13,3 +13,5 @@ build/*
 test.py
 CUSTOM*/*
 README_*
+/.idea/modules.xml
+/.idea/OpenNN.iml
