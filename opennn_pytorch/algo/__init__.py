@@ -1,2 +1,2 @@
 from .traintest import train, test
-from .vizualize import vizualize
+from .prediction import prediction

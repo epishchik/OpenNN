@@ -10,8 +10,10 @@ def steplr(optimizer, step, gamma):
     -----------
     optimizer : Optimizer
         optimizer object.
+
     step : int
         every step epochs do scheduler step.
+
     gamma : float
         lr will be multiplied to this value each step epochs.
     '''

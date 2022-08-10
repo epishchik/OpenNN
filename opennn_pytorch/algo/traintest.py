@@ -3,6 +3,7 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 
 
 def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics, epochs, checkpoints, logs, device, save_every, one_hot, nc):
@@ -66,8 +67,9 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
     tqdm_iter = tqdm(range(epochs))
     best_loss = 99999999.0
     best_epoch = 0
+    diagrams = [[[] for _ in range(2 * (len(metrics) + 1) + 1)], [[] for _ in range(2 * (len(metrics) + 1) + 1)], []]
 
-    for epoch in tqdm_iter:
+    for ne, epoch in enumerate(tqdm_iter):
         model.train()
         train_loss = 0.0
         valid_loss = 0.0
@@ -133,12 +135,24 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         valid_str = ''
 
         tqdm_dct['train loss'] = train_loss
+        diagrams[1][0].append(train_loss)
+        if ne == 0:
+            diagrams[2].append('train_loss')
         for i, metric in enumerate(train_mvct):
+            diagrams[1][i + 1].append(metric)
+            if ne == 0:
+                diagrams[2].append(f'train_{metric_names[i]}')
             tqdm_dct[f'train_{metric_names[i]}'] = metric
             train_str += f'train_{metric_names[i]}: {metric} '
 
         tqdm_dct['valid loss'] = valid_loss
+        diagrams[1][len(metrics) + 1].append(valid_loss)
+        if ne == 0:
+            diagrams[2].append('valid_loss')
         for i, metric in enumerate(valid_mvct):
+            diagrams[1][i + len(metrics) + 2].append(metric)
+            if ne == 0:
+                diagrams[2].append(f'valid_{metric_names[i]}')
             tqdm_dct[f'valid_{metric_names[i]}'] = metric
             if i != len(valid_mvct) - 1:
                 valid_str += f'valid_{metric_names[i]}: {metric} '
@@ -150,8 +164,20 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         with open(logs + '/trainval.log', 'a') as in_f:
             in_f.write(f'epoch: {epoch + 1}/{epochs} train loss: {train_loss} valid loss: {valid_loss} ' + train_str + valid_str)
 
+        diagrams[1][-1].append(optimizer.param_groups[0]['lr'])
+        for k in range(len(diagrams[0])):
+            diagrams[0][k].append(ne)
+        if ne == 0:
+            diagrams[2].append('lr')
+
         scheduler.step()
         tqdm_iter.refresh()
+
+    for ind, name in enumerate(diagrams[2]):
+        plt.plot(diagrams[0][ind], diagrams[1][ind])
+        plt.savefig(logs + f'/{name}.png')
+        plt.close()
+
     os.rename(checkpoints + '/best.pt', checkpoints + '/best_{}_{:.2f}.pt'.format(best_epoch, best_loss))
 
 

@@ -1,6 +1,4 @@
-import yaml
-
-from opennn_pytorch.algo import train, test, vizualize
+from opennn_pytorch.algo import train, test, prediction
 from opennn_pytorch.optimizers import get_optimizer
 from opennn_pytorch.schedulers import get_scheduler
 from opennn_pytorch.datasets import get_dataset
@@ -9,6 +7,8 @@ from opennn_pytorch.losses import get_loss
 from opennn_pytorch.encoders import get_encoder
 from opennn_pytorch.decoders import get_decoder
 
+import yaml
+import random
 import numpy as np
 import torch
 from torchvision import transforms
@@ -121,13 +121,19 @@ def run(yaml):
     weight_decay : float, optional
 
     scheduler : str
-        [steplr, multisteplr]
+        [steplr, multisteplr, polylr]
 
     step : int, optional
 
     gamma : float, optional
 
     milestones : list[int], optional
+
+    max_decay_steps : int, optional
+
+    end_lr : float, optional
+
+    power : float, optional
 
     metrics : list[str]
         str : [accuracy, precision, recall, f1_score]
@@ -179,6 +185,7 @@ def run(yaml):
         datafiles = None
     train_part = float(config['train_part'])
     valid_part = float(config['valid_part'])
+    test_part = float(config['test_part'])
     seed = int(config['seed'])
     bs = int(config['batch_size'])
     epochs = int(config['epochs'])
@@ -194,9 +201,9 @@ def run(yaml):
         os.mkdir(os.path.join(cwd, checkpoints), 0o777)
     if algorithm == 'test' and 'class_names' in config.keys():
         names = config['class_names']
-        viz = True
+        pred = True
     else:
-        viz = False
+        pred = False
     if 'checkpoint' in config.keys():
         checkpoint = config['checkpoint']
     else:
@@ -229,6 +236,18 @@ def run(yaml):
         milestones = list(map(int, config['milestones']))
     else:
         milestones = [10, 30, 70, 150]
+    if 'max_decay_steps' in config.keys():
+        mdsteps = int(config['max_decay_steps'])
+    else:
+        mdsteps = 100
+    if 'end_lr' in config.keys():
+        end_lr = float(config['end_lr'])
+    else:
+        end_lr = 0.00001
+    if 'power' in config.keys():
+        power = float(config['power'])
+    else:
+        power = 1.0
 
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -243,9 +262,9 @@ def run(yaml):
         state_dict = torch.load(checkpoint)
         model.load_state_dict(state_dict)
 
-    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, transform, datafiles)
+    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, test_part, transform, datafiles)
     optimizer = get_optimizer(optim, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=wd)
-    scheduler = get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=milestones)
+    scheduler = get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=milestones, max_decay_steps=mdsteps, end_lr=end_lr, power=power)
     loss_fn, one_hot = get_loss(loss_fn)
     metrics_fn = get_metrics(metrics, nc=nc)
 
@@ -257,10 +276,10 @@ def run(yaml):
         train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se, one_hot, nc)
     elif algorithm == 'test':
         test_logs = test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, nc)
-        if viz:
-            os.mkdir(test_logs + '/vizualize', 0o777)
+        if pred:
+            indices = random.sample(range(0, len(test_data)), 10)
+            os.mkdir(test_logs + '/prediction', 0o777)
             for i in range(10):
-                os.mkdir(test_logs + f'/vizualize/{i}', 0o777)
-                vizualize(valid_data, model, device, {i: names[i] for i in range(nc)}, test_logs + f'/vizualize/{i}')
+                prediction(test_data, model, device, {i: names[i] for i in range(nc)}, test_logs + f'/prediction/{i}', indices[i])
     else:
         raise ValueError(f'no algorithm {algorithm}')

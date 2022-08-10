@@ -16,12 +16,13 @@
   3. [Encoders](#encoders)
   4. [Decoders](#decoders)
   5. [Pretrained](#pretrained)
-  6. [Datasets](#datasets)
-  7. [Losses](#losses)
-  8. [Metrics](#metrics)
-  9. [Optimizers](#optimizers)
-  10. [Schedulers](#schedulers)
-  11. [Examples](#examples)
+  6. [Pretrained old configs fixes](#pretrained_old)
+  7. [Datasets](#datasets)
+  8. [Losses](#losses)
+  9. [Metrics](#metrics)
+  10. [Optimizers](#optimizers)
+  11. [Schedulers](#schedulers)
+  12. [Examples](#examples)
 
 ### Quick start <a name="start"></a>
 #### 1. Straight install.
@@ -150,6 +151,9 @@ docker build -t opennn:latest .
 </div>
 </details>
 
+### Pretrained old configs fixes <a name="pretrained_old"></a>
+1. Config must include test_part value, (train_part + valid_part + test_part) value can be not equal to 1.0.
+
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
 - FASHION-MNIST [[files](https://github.com/zalandoresearch/fashion-mnist)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.2859], std=[0.3530]]
@@ -181,13 +185,14 @@ docker build -t opennn:latest .
 ### Schedulers <a name="schedulers"></a>
 - StepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/steplr.py)]
 - MultiStepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/steplr.py)]
+- PolynomialLRDecay [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/schedulers)] [[docs](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/custom.py)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/custom.py)]
 
 ### Examples <a name="examples"></a>
-  
+
 1. Run from yaml config.
 ```python
 import opennn_pytorch
-  
+
 config = 'path to yaml config'  # check configs folder
 opennn_pytorch.run(config)
 ```
@@ -206,7 +211,7 @@ device = 'cuda'
 encoder = opennn_pytorch.encoders.get_encoder(encoder_name, input_channels).to(device)
 model = opennn_pytorch.decoders.get_decoder(decoder_name, encoder, number_classes, decoder_mode, device).to(device)
 ```
-  
+
 3.1 Get dataset.
 ```python
 import opennn_pytorch
@@ -217,11 +222,12 @@ dataset_name = 'mnist'
 datafiles = None
 train_part = 0.7
 valid_part = 0.2
+test_part = 0.05
 
 transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
-  
-train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform, datafiles)
+
+train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, test_part, transform, datafiles)
 ```
 
 3.2 Get custom dataset.
@@ -236,11 +242,12 @@ annotation = 'path to annotation yaml file with image: class structure'
 datafiles = (images, annotation)
 train_part = 0.7
 valid_part = 0.2
+test_part = 0.05
 
 transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
-  
-train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, transform, datafiles)
+
+train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, test_part, transform, datafiles)
 ```
 
 4. Get optimizer.
@@ -262,7 +269,7 @@ import opennn_pytorch
 scheduler_name = 'steplr'
 step = 10
 gamma = 0.5
-scheduler = opennn_pytorch.schedulers.get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=None)
+scheduler = opennn_pytorch.schedulers.get_scheduler(sched, optimizer, step=step, gamma=gamma)
 ```
 
 6. Get loss function.
@@ -285,6 +292,7 @@ metrics_fn = opennn_pytorch.metrics.get_metrics(metrics_names, nc=number_classes
 8. Train/Test.
 ```python
 import opennn_pytorch
+import random
 
 algorithm = 'train'
 batch_size = 16
@@ -301,11 +309,11 @@ if algorithm == 'train':
   opennn_pytorch.algo.train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, save_every, one_hot, number_classes)
 elif algorithm == 'test':
   test_logs = opennn_pytorch.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
-  if viz:
-    os.mkdir(test_logs + '/vizualize', 0o777)
+  if pred:
+    indices = random.sample(range(0, len(test_data)), 10)
+    os.mkdir(test_logs + '/prediction', 0o777)
     for i in range(10):
-      os.mkdir(test_logs + f'/vizualize/{i}', 0o777)
-      opennn_pytorch.algo.vizualize(valid_data, model, device, {i: class_names[i] for i in range(number_classes)}, test_logs + f'/vizualize/{i}')
+      prediction(test_data, model, device, {i: names[i] for i in range(number_classes)}, test_logs + f'/prediction/{i}', indices[i])
 ```
 
 ### Citation <a name="citing"></a>

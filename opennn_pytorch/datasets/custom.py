@@ -6,7 +6,7 @@ import numpy as np
 import torch
 
 
-def custom(img_dir, annotation, tr_part, va_part, transform):
+def custom(img_dir, annotation, tr_part, va_part, te_part, transform):
     '''
     Return splited into train, val, test parts your custom dataset.
 
@@ -24,13 +24,23 @@ def custom(img_dir, annotation, tr_part, va_part, transform):
     va_part : float
         percent of valid data.
 
+    te_part : float
+        percent of test data.
+
     transform : torchvision.transforms
         torchvision transforms object with augmentations.
     '''
     dataset = CustomDataset(img_dir, annotation, transform)
+
     tr_part = int(tr_part * len(dataset))
     va_part = int(va_part * len(dataset))
-    train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset, [tr_part, va_part, len(dataset) - tr_part - va_part])
+    te_part = int(te_part * len(dataset))
+
+    if tr_part + va_part + te_part != len(dataset):
+        train_dataset, valid_dataset, test_dataset, _ = torch.utils.data.random_split(dataset, [tr_part, va_part, te_part, len(dataset) - tr_part - va_part - te_part])
+    else:
+        train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset, [tr_part, va_part, te_part])
+
     return train_dataset, valid_dataset, test_dataset
 
 
@@ -55,10 +65,10 @@ class CustomDataset(Dataset):
         calculate length of dataset.
 
     getitem(idx)
-        get dataset element by idx, needed for dataloader
+        get dataset element by idx, needed for dataloader.
 
     load_sample(file)
-        load image file into normalized np.array
+        load image file into normalized np.array.
     '''
     def __init__(self, img_dir, annotation_file, transform):
         '''
@@ -70,7 +80,7 @@ class CustomDataset(Dataset):
         annotation_file : str
             yaml file with image - class.
 
-        transform
+        transform : Any
             torchvision transforms object with augmentations.
         '''
         images_files = os.listdir(img_dir)

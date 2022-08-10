@@ -1,7 +1,8 @@
 from .steplr import steplr, multisteplr
+from .custom import polylr
 
 
-def get_scheduler(name, optim, step=None, gamma=None, milestones=None):
+def get_scheduler(name, optim, step=None, gamma=None, milestones=None, max_decay_steps=None, end_lr=None, power=None):
     '''
     Return scheduler by name.
 
@@ -26,6 +27,8 @@ def get_scheduler(name, optim, step=None, gamma=None, milestones=None):
         scheduler = steplr(optim, step, gamma)
     elif name == 'multisteplr':
         scheduler = multisteplr(optim, milestones, gamma)
+    elif name == 'polylr':
+        scheduler = polylr(optim, max_decay_steps, end_lr, power)
     else:
         raise ValueError(f'no scheduler {name}')
     return scheduler
