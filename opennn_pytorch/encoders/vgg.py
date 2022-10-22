@@ -10,6 +10,7 @@ class ConvBlock(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc, **kwargs):
         '''
         Create convolution block layers.
@@ -55,6 +56,7 @@ class VGG11Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create vgg-11 encoder layers.
@@ -125,6 +127,7 @@ class VGG16Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create vgg-16 encoder layers.
@@ -200,6 +203,7 @@ class VGG19Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create vgg-19 encoder layers.
@@ -245,8 +249,10 @@ class VGG19Features(nn.Module):
         b1 = self.maxpool1(self.conv2(self.conv1(x)))
         b2 = self.maxpool2(self.conv4(self.conv3(b1)))
         b3 = self.maxpool3(self.conv8(self.conv7(self.conv6(self.conv5(b2)))))
-        b4 = self.maxpool4(self.conv12(self.conv11(self.conv10(self.conv9(b3)))))
-        b5 = self.avgpool(self.conv16(self.conv15(self.conv14(self.conv13(b4)))))
+        b4 = self.maxpool4(self.conv12(self.conv11(
+            self.conv10(self.conv9(b3)))))
+        b5 = self.avgpool(self.conv16(self.conv15(
+            self.conv14(self.conv13(b4)))))
         return b5
 
     def out_features(self):

@@ -48,6 +48,7 @@ class PolynomialLRDecay(_LRScheduler):
     step(step : int, optional)
         do scheduler step, change lr.
     '''
+
     def __init__(self, optimizer, max_decay_steps, end_learning_rate, power):
         '''
         Parameters
@@ -77,7 +78,13 @@ class PolynomialLRDecay(_LRScheduler):
         if self.last_step > self.max_decay_steps:
             return [self.end_learning_rate for _ in self.base_lrs]
 
-        return [(base_lr - self.end_learning_rate) * ((1 - self.last_step / self.max_decay_steps) ** (self.power)) + self.end_learning_rate for base_lr in self.base_lrs]
+        end_lr = self.end_learning_rate
+        mult_val = ((1 - self.last_step / self.max_decay_steps)
+                    ** (self.power))
+        res_lst = [(base_lr - self.end_learning_rate) *
+                   mult_val + end_lr for base_lr in self.base_lrs]
+
+        return res_lst
 
     def step(self, step=None):
         '''
@@ -93,7 +100,11 @@ class PolynomialLRDecay(_LRScheduler):
         self.last_step = step if step != 0 else 1
 
         if self.last_step <= self.max_decay_steps:
-            decay_lrs = [(base_lr - self.end_learning_rate) * ((1 - self.last_step / self.max_decay_steps) ** (self.power)) + self.end_learning_rate for base_lr in self.base_lrs]
+            end_lr = self.end_learning_rate
+            mult_val = ((1 - self.last_step / self.max_decay_steps)
+                        ** (self.power))
+            decay_lrs = [(base_lr - self.end_learning_rate) * mult_val +
+                         end_lr for base_lr in self.base_lrs]
 
             for param_group, lr in zip(self.optimizer.param_groups, decay_lrs):
                 param_group['lr'] = lr

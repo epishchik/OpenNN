@@ -19,6 +19,7 @@ class f1_score():
     name()
         return metric name.
     '''
+
     def __init__(self, nc):
         '''
         Parameters
@@ -51,8 +52,12 @@ class f1_score():
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        pr = precision_score(labels.detach().cpu(), preds.detach().cpu(), average='micro')
-        re = recall_score(labels.detach().cpu(), preds.detach().cpu(), average='micro')
+        pr = precision_score(labels.detach().cpu(),
+                             preds.detach().cpu(),
+                             average='micro')
+        re = recall_score(labels.detach().cpu(),
+                          preds.detach().cpu(),
+                          average='micro')
         f1 = 2 * re * pr / (re + pr + 1e-7)
         return torch.tensor(f1)
 

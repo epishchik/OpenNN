@@ -11,6 +11,7 @@ class ConvBlock(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc, **kwargs):
         '''
         Create convolution block layers.
@@ -49,6 +50,7 @@ class InceptionBlock(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, c1x1, cr3x3, c3x3, cr5x5, c5x5, pool):
         '''
         Create inception block layers.
@@ -124,6 +126,7 @@ class GoognetNoAuxFeatures(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create googlenet encoder layers.
@@ -136,7 +139,11 @@ class GoognetNoAuxFeatures(nn.Module):
         super().__init__()
         self.features = 1024
 
-        self.conv1 = ConvBlock(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3))
+        self.conv1 = ConvBlock(inc,
+                               64,
+                               kernel_size=(7, 7),
+                               stride=(2, 2),
+                               padding=(3, 3))
         self.maxpool1 = nn.MaxPool2d(kernel_size=3, stride=2)
         self.conv2 = ConvBlock(64, 64, kernel_size=(1, 1))
         self.conv3 = ConvBlock(64, 192, kernel_size=(3, 3), padding=(1, 1))
@@ -167,9 +174,11 @@ class GoognetNoAuxFeatures(nn.Module):
         x : torch.tensor
             input image.
         '''
-        pr = self.maxpool2(self.conv3(self.conv2(self.maxpool1(self.conv1(x)))))
+        pr = self.maxpool2(self.conv3(
+            self.conv2(self.maxpool1(self.conv1(x)))))
         inc3 = self.maxpool3(self.inception3b(self.inception3a(pr)))
-        inc4 = self.maxpool4(self.inception4e(self.inception4d(self.inception4c((self.inception4b(self.inception4a(inc3)))))))
+        inc4 = self.maxpool4(self.inception4e(self.inception4d(
+            self.inception4c((self.inception4b(self.inception4a(inc3)))))))
         inc5 = self.avgpool(self.inception5b(self.inception5a(inc4)))
         return inc5
 

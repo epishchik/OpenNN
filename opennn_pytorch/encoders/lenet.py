@@ -17,6 +17,7 @@ class LenetFeatures(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create lenet encoder layers.
@@ -30,7 +31,11 @@ class LenetFeatures(nn.Module):
         self.features = 400
         self.conv1 = nn.Conv2d(inc, 6, kernel_size=(5, 5), padding='same')
         self.conv2 = nn.Conv2d(6, 16, kernel_size=(5, 5))
-        self.maxpool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(kernel_size=2,
+                                    stride=2,
+                                    padding=0,
+                                    dilation=1,
+                                    ceil_mode=False)
         self.avgpool = nn.AdaptiveAvgPool2d(output_size=(5, 5))
         self.tanh = nn.Tanh()
 

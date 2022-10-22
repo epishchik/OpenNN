@@ -7,7 +7,8 @@ from .linear import LinearDecoder
 
 class Model(nn.Module):
     '''
-    Class used to combine encoder and decoder models. One encoder - one decoder.
+    Class used to combine encoder and decoder models.
+    One encoder - one decoder.
 
     Attributes
     ----------
@@ -18,13 +19,15 @@ class Model(nn.Module):
         decoder model.
 
     inf : int
-        number of encoder output features, used as number input features for decoder.
+        number of encoder output features,
+        used as number input features for decoder.
 
     Methods
     -------
     forward(x)
         encode input image x into features, decode features into output.
     '''
+
     def __init__(self, name, encoder, nc, device):
         '''
         Create model by combine one encoder and one decoder.
@@ -70,7 +73,8 @@ class Model(nn.Module):
 
 class MultiDecModel(nn.Module):
     '''
-    Class used to combine encoder and decoder models. One encoder - nc decoders.
+    Class used to combine encoder and decoder models.
+    One encoder - nc decoders.
 
     Attributes
     ----------
@@ -81,7 +85,8 @@ class MultiDecModel(nn.Module):
         list with decoder models.
 
     inf : int
-        number of encoder output features, used as number input features for decoder.
+        number of encoder output features,
+        used as number input features for decoder.
 
     nc : int
         classes number.
@@ -91,6 +96,7 @@ class MultiDecModel(nn.Module):
     forward(x)
         encode input image x into features, decode features into output.
     '''
+
     def __init__(self, name, encoder, nc, device):
         '''
         Create model by combine one encoder and nc decoders.
@@ -134,5 +140,6 @@ class MultiDecModel(nn.Module):
             input image.
         '''
         features = self.encoder(x)
-        res = torch.cat([self.decoders[i](features) for i in range(self.nc)], dim=1)
+        res = torch.cat([self.decoders[i](features)
+                        for i in range(self.nc)], dim=1)
         return res

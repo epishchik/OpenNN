@@ -36,6 +36,7 @@ class CustomCrossEntropyLoss(nn.Module):
     forward(inputs, targets)
         calculate cross-entropy loss between inputs and targets.
     '''
+
     def __init__(self, weight=1.0, reduction='mean'):
         '''
         Parameters

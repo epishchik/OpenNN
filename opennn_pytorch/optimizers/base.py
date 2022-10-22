@@ -1,7 +1,12 @@
 from .adam import adam, adamw, adamax, radam, nadam
 
 
-def get_optimizer(name, model, lr=None, betas=None, eps=None, weight_decay=None):
+def get_optimizer(name,
+                  model,
+                  lr=None,
+                  betas=None,
+                  eps=None,
+                  weight_decay=None):
     '''
     Return optimizer by name.
 

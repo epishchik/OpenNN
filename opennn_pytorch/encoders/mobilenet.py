@@ -10,6 +10,7 @@ class ConvBlock(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc, **kwargs):
         '''
         Create convolution block layers.
@@ -48,6 +49,7 @@ class DepthWiseSepConvBlock(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc, **kwargs):
         '''
         Create depth wise separable convolution layers.
@@ -61,7 +63,13 @@ class DepthWiseSepConvBlock(nn.Module):
             number of output channels.
         '''
         super().__init__()
-        self.depthwise = nn.Conv2d(inc, inc, kernel_size=(3, 3), padding=(1, 1), groups=inc, bias=False, **kwargs)
+        self.depthwise = nn.Conv2d(inc,
+                                   inc,
+                                   kernel_size=(3, 3),
+                                   padding=(1, 1),
+                                   groups=inc,
+                                   bias=False,
+                                   **kwargs)
         self.bn1 = nn.BatchNorm2d(inc)
         self.pointwise = nn.Conv2d(inc, outc, kernel_size=(1, 1), bias=False)
         self.bn2 = nn.BatchNorm2d(outc)
@@ -97,6 +105,7 @@ class MobilenetFeatures(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create mobilenet encoder layers.
@@ -108,7 +117,11 @@ class MobilenetFeatures(nn.Module):
         '''
         super().__init__()
         self.features = 1024
-        self.conv = ConvBlock(inc, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        self.conv = ConvBlock(inc,
+                              32,
+                              kernel_size=(3, 3),
+                              stride=(2, 2),
+                              padding=(1, 1))
         self.convdws1 = DepthWiseSepConvBlock(32, 64, stride=(1, 1))
         self.convdws2 = DepthWiseSepConvBlock(64, 128, stride=(2, 2))
         self.convdws3 = DepthWiseSepConvBlock(128, 128, stride=(1, 1))
@@ -133,9 +146,12 @@ class MobilenetFeatures(nn.Module):
         x : torch.tensor
             input image.
         '''
-        b1 = self.convdws4(self.convdws3(self.convdws2(self.convdws1(self.conv(x)))))
-        b2 = self.convdws9(self.convdws8(self.convdws7(self.convdws6(self.convdws5(b1)))))
-        b3 = self.avgpool(self.convdws13(self.convdws12(self.convdws11(self.convdws10(b2)))))
+        b1 = self.convdws4(self.convdws3(
+            self.convdws2(self.convdws1(self.conv(x)))))
+        b2 = self.convdws9(self.convdws8(
+            self.convdws7(self.convdws6(self.convdws5(b1)))))
+        b3 = self.avgpool(self.convdws13(
+            self.convdws12(self.convdws11(self.convdws10(b2)))))
         return b3
 
     def out_features(self):

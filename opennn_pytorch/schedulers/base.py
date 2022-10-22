@@ -2,7 +2,14 @@ from .steplr import steplr, multisteplr
 from .custom import polylr
 
 
-def get_scheduler(name, optim, step=None, gamma=None, milestones=None, max_decay_steps=None, end_lr=None, power=None):
+def get_scheduler(name,
+                  optim,
+                  step=None,
+                  gamma=None,
+                  milestones=None,
+                  max_decay_steps=None,
+                  end_lr=None,
+                  power=None):
     '''
     Return scheduler by name.
 

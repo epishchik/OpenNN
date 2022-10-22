@@ -10,6 +10,7 @@ class ResidualBlock1(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc):
         '''
         Create residual block type 1 layers.
@@ -24,13 +25,28 @@ class ResidualBlock1(nn.Module):
         '''
         super().__init__()
         if outc == inc:
-            self.conv1 = nn.Conv2d(inc, outc, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            self.conv1 = nn.Conv2d(inc,
+                                   outc,
+                                   kernel_size=(3, 3),
+                                   stride=(1, 1),
+                                   padding=(1, 1),
+                                   bias=False)
             self.downsample = None
         else:
-            self.conv1 = nn.Conv2d(inc, outc, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            self.conv1 = nn.Conv2d(inc,
+                                   outc,
+                                   kernel_size=(3, 3),
+                                   stride=(2, 2),
+                                   padding=(1, 1),
+                                   bias=False)
             self.downsample = Downsample(inc, outc)
         self.bn1 = nn.BatchNorm2d(outc)
-        self.conv2 = nn.Conv2d(outc, outc, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        self.conv2 = nn.Conv2d(outc,
+                               outc,
+                               kernel_size=(3, 3),
+                               stride=(1, 1),
+                               padding=(1, 1),
+                               bias=False)
         self.bn2 = nn.BatchNorm2d(outc)
         self.relu = nn.ReLU()
 
@@ -59,6 +75,7 @@ class ResidualBlock2(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc):
         '''
         Create residual block type 2 layers.
@@ -72,16 +89,35 @@ class ResidualBlock2(nn.Module):
             number of output channels.
         '''
         super().__init__()
-        self.conv1 = nn.Conv2d(inc, outc, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        self.conv1 = nn.Conv2d(inc,
+                               outc,
+                               kernel_size=(1, 1),
+                               stride=(1, 1),
+                               bias=False)
         self.bn1 = nn.BatchNorm2d(outc)
         if inc == outc or inc == int(outc * 4):
-            self.conv2 = nn.Conv2d(outc, outc, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            self.downsample = Downsample(inc, int(outc * 4), stride=(1, 1)) if inc == outc else None
+            self.conv2 = nn.Conv2d(outc,
+                                   outc,
+                                   kernel_size=(3, 3),
+                                   stride=(1, 1),
+                                   padding=(1, 1),
+                                   bias=False)
+            tmp_down = Downsample(inc, int(outc * 4), stride=(1, 1))
+            self.downsample = tmp_down if inc == outc else None
         else:
-            self.conv2 = nn.Conv2d(outc, outc, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            self.conv2 = nn.Conv2d(outc,
+                                   outc,
+                                   kernel_size=(3, 3),
+                                   stride=(2, 2),
+                                   padding=(1, 1),
+                                   bias=False)
             self.downsample = Downsample(inc, int(outc * 4))
         self.bn2 = nn.BatchNorm2d(outc)
-        self.conv3 = nn.Conv2d(outc, int(outc * 4), kernel_size=(1, 1), stride=(1, 1), bias=False)
+        self.conv3 = nn.Conv2d(outc,
+                               int(outc * 4),
+                               kernel_size=(1, 1),
+                               stride=(1, 1),
+                               bias=False)
         self.bn3 = nn.BatchNorm2d(int(outc * 4))
         self.relu = nn.ReLU()
 
@@ -111,6 +147,7 @@ class Downsample(nn.Module):
     forward(x)
         calculate features from input image x.
     '''
+
     def __init__(self, inc, outc, stride=(2, 2)):
         '''
         Create downsample block layers.
@@ -127,7 +164,11 @@ class Downsample(nn.Module):
             stride for convolution layer.
         '''
         super().__init__()
-        self.conv = nn.Conv2d(inc, outc, kernel_size=(1, 1), stride=stride, bias=False)
+        self.conv = nn.Conv2d(inc,
+                              outc,
+                              kernel_size=(1, 1),
+                              stride=stride,
+                              bias=False)
         self.bn = nn.BatchNorm2d(outc)
 
     def forward(self, x):
@@ -158,6 +199,7 @@ class Resnet18Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create resnet18 encoder layers.
@@ -169,10 +211,19 @@ class Resnet18Features(nn.Module):
         '''
         super().__init__()
         self.features = 512
-        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.conv1 = nn.Conv2d(inc,
+                               64,
+                               kernel_size=(7, 7),
+                               stride=(2, 2),
+                               padding=(3, 3),
+                               bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(kernel_size=3,
+                                    stride=2,
+                                    padding=1,
+                                    dilation=1,
+                                    ceil_mode=False)
         self.resblock11 = ResidualBlock1(64, 64)
         self.resblock12 = ResidualBlock1(64, 64)
         self.resblock21 = ResidualBlock1(64, 128)
@@ -229,6 +280,7 @@ class Resnet34Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create resnet34 encoder layers.
@@ -240,10 +292,19 @@ class Resnet34Features(nn.Module):
         '''
         super().__init__()
         self.features = 512
-        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.conv1 = nn.Conv2d(inc,
+                               64,
+                               kernel_size=(7, 7),
+                               stride=(2, 2),
+                               padding=(3, 3),
+                               bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(kernel_size=3,
+                                    stride=2,
+                                    padding=1,
+                                    dilation=1,
+                                    ceil_mode=False)
         self.resblock11 = ResidualBlock1(64, 64)
         self.resblock12 = ResidualBlock1(64, 64)
         self.resblock13 = ResidualBlock1(64, 64)
@@ -273,8 +334,10 @@ class Resnet34Features(nn.Module):
         '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
-        b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
-        b3 = self.resblock36(self.resblock35(self.resblock34(self.resblock33(self.resblock32(self.resblock31(b2))))))
+        b2 = self.resblock24(self.resblock23(
+            self.resblock22(self.resblock21(b1))))
+        b3 = self.resblock36(self.resblock35(self.resblock34(
+            self.resblock33(self.resblock32(self.resblock31(b2))))))
         b4 = self.resblock43(self.resblock42(self.resblock41(b3)))
         b5 = self.avgpool(b4)
         return b5
@@ -308,6 +371,7 @@ class Resnet50Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create resnet50 encoder layers.
@@ -319,10 +383,12 @@ class Resnet50Features(nn.Module):
         '''
         super().__init__()
         self.features = 2048
-        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(
+            7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(
+            kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
         self.resblock11 = ResidualBlock2(64, 64)
         self.resblock12 = ResidualBlock2(256, 64)
         self.resblock13 = ResidualBlock2(256, 64)
@@ -352,8 +418,10 @@ class Resnet50Features(nn.Module):
         '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
-        b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
-        b3 = self.resblock36(self.resblock35(self.resblock34(self.resblock33(self.resblock32(self.resblock31(b2))))))
+        b2 = self.resblock24(self.resblock23(
+            self.resblock22(self.resblock21(b1))))
+        b3 = self.resblock36(self.resblock35(self.resblock34(
+            self.resblock33(self.resblock32(self.resblock31(b2))))))
         b4 = self.resblock43(self.resblock42(self.resblock41(b3)))
         b5 = self.avgpool(b4)
         return b5
@@ -387,6 +455,7 @@ class Resnet101Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create resnet101 encoder layers.
@@ -398,10 +467,12 @@ class Resnet101Features(nn.Module):
         '''
         super().__init__()
         self.features = 2048
-        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(
+            7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(
+            kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
         self.resblock11 = ResidualBlock2(64, 64)
         self.resblock12 = ResidualBlock2(256, 64)
         self.resblock13 = ResidualBlock2(256, 64)
@@ -448,11 +519,16 @@ class Resnet101Features(nn.Module):
         '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
-        b2 = self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))
-        b3 = self.resblock36(self.resblock35(self.resblock34(self.resblock33(self.resblock32(self.resblock31(b2))))))
-        b4 = self.resblock312(self.resblock311(self.resblock310(self.resblock39(self.resblock38(self.resblock37(b3))))))
-        b5 = self.resblock318(self.resblock317(self.resblock316(self.resblock315(self.resblock314(self.resblock313(b4))))))
-        b6 = self.resblock323(self.resblock322(self.resblock321(self.resblock320(self.resblock319(b5)))))
+        b2 = self.resblock24(self.resblock23(
+            self.resblock22(self.resblock21(b1))))
+        b3 = self.resblock36(self.resblock35(self.resblock34(
+            self.resblock33(self.resblock32(self.resblock31(b2))))))
+        b4 = self.resblock312(self.resblock311(self.resblock310(
+            self.resblock39(self.resblock38(self.resblock37(b3))))))
+        b5 = self.resblock318(self.resblock317(self.resblock316(
+            self.resblock315(self.resblock314(self.resblock313(b4))))))
+        b6 = self.resblock323(self.resblock322(
+            self.resblock321(self.resblock320(self.resblock319(b5)))))
         b7 = self.resblock43(self.resblock42(self.resblock41(b6)))
         b8 = self.avgpool(b7)
         return b8
@@ -486,6 +562,7 @@ class Resnet152Features(nn.Module):
     name()
         return name of encoder.
     '''
+
     def __init__(self, inc):
         '''
         Create resnet152 encoder layers.
@@ -497,10 +574,12 @@ class Resnet152Features(nn.Module):
         '''
         super().__init__()
         self.features = 2048
-        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.conv1 = nn.Conv2d(inc, 64, kernel_size=(
+            7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        self.maxpool = nn.MaxPool2d(
+            kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
         self.resblock11 = ResidualBlock2(64, 64)
         self.resblock12 = ResidualBlock2(256, 64)
         self.resblock13 = ResidualBlock2(256, 64)
@@ -564,13 +643,21 @@ class Resnet152Features(nn.Module):
         '''
         pr = self.maxpool(self.relu(self.bn1(self.conv1(x))))
         b1 = self.resblock13(self.resblock12(self.resblock11(pr)))
-        b2 = self.resblock28(self.resblock27(self.resblock26(self.resblock25(self.resblock24(self.resblock23(self.resblock22(self.resblock21(b1))))))))
-        b3 = self.resblock36(self.resblock35(self.resblock34(self.resblock33(self.resblock32(self.resblock31(b2))))))
-        b4 = self.resblock312(self.resblock311(self.resblock310(self.resblock39(self.resblock38(self.resblock37(b3))))))
-        b5 = self.resblock318(self.resblock317(self.resblock316(self.resblock315(self.resblock314(self.resblock313(b4))))))
-        b6 = self.resblock324(self.resblock323(self.resblock322(self.resblock321(self.resblock320(self.resblock319(b5))))))
-        b7 = self.resblock330(self.resblock329(self.resblock328(self.resblock327(self.resblock326(self.resblock325(b6))))))
-        b8 = self.resblock336(self.resblock335(self.resblock334(self.resblock333(self.resblock332(self.resblock331(b7))))))
+        b2 = self.resblock28(self.resblock27(self.resblock26(self.resblock25(
+            self.resblock24(self.resblock23(
+                self.resblock22(self.resblock21(b1))))))))
+        b3 = self.resblock36(self.resblock35(self.resblock34(
+            self.resblock33(self.resblock32(self.resblock31(b2))))))
+        b4 = self.resblock312(self.resblock311(self.resblock310(
+            self.resblock39(self.resblock38(self.resblock37(b3))))))
+        b5 = self.resblock318(self.resblock317(self.resblock316(
+            self.resblock315(self.resblock314(self.resblock313(b4))))))
+        b6 = self.resblock324(self.resblock323(self.resblock322(
+            self.resblock321(self.resblock320(self.resblock319(b5))))))
+        b7 = self.resblock330(self.resblock329(self.resblock328(
+            self.resblock327(self.resblock326(self.resblock325(b6))))))
+        b8 = self.resblock336(self.resblock335(self.resblock334(
+            self.resblock333(self.resblock332(self.resblock331(b7))))))
         b9 = self.resblock43(self.resblock42(self.resblock41(b8)))
         b10 = self.avgpool(b9)
         return b10

@@ -6,7 +6,19 @@ import os
 import matplotlib.pyplot as plt
 
 
-def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics, epochs, checkpoints, logs, device, save_every, one_hot, nc):
+def train(train_dataloader,
+          valid_dataloader,
+          model, optimizer,
+          scheduler,
+          loss_fn,
+          metrics,
+          epochs,
+          checkpoints,
+          logs,
+          device,
+          save_every,
+          one_hot,
+          nc):
     '''
     Train pipeline.
 
@@ -55,7 +67,8 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         classes number.
     '''
     checkpoints_folder = list(map(int, os.listdir(checkpoints)))
-    checkpoints_folder = max(checkpoints_folder) + 1 if checkpoints_folder != [] else 0
+    checkpoints_folder = max(checkpoints_folder) + \
+        1 if checkpoints_folder != [] else 0
     os.mkdir(f'{checkpoints}/{checkpoints_folder}', mode=0o777)
     checkpoints = f'{checkpoints}/{checkpoints_folder}'
 
@@ -67,7 +80,12 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
     tqdm_iter = tqdm(range(epochs))
     best_loss = 99999999.0
     best_epoch = 0
-    diagrams = [[[] for _ in range(2 * (len(metrics) + 1) + 1)], [[] for _ in range(2 * (len(metrics) + 1) + 1)], []]
+
+    range_daigrams = range(2 * (len(metrics) + 1) + 1)
+    diagrams0 = [[] for _ in range_daigrams]
+    diagrams1 = [[]for _ in range_daigrams]
+
+    diagrams = [diagrams0, diagrams1, []]
 
     for ne, epoch in enumerate(tqdm_iter):
         model.train()
@@ -122,7 +140,8 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
 
         if epoch % save_every == 0 or epoch == epochs - 1:
             state_dict = model.state_dict()
-            torch.save(state_dict, checkpoints + '/plan_{}_{:.2f}.pt'.format(epoch, valid_loss))
+            torch.save(state_dict, checkpoints +
+                       '/plan_{}_{:.2f}.pt'.format(epoch, valid_loss))
 
         if valid_loss < best_loss:
             best_epoch = epoch
@@ -162,7 +181,9 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         tqdm_iter.set_postfix(tqdm_dct, refresh=True)
 
         with open(logs + '/trainval.log', 'a') as in_f:
-            in_f.write(f'epoch: {epoch + 1}/{epochs} train loss: {train_loss} valid loss: {valid_loss} ' + train_str + valid_str)
+            in_f.write(
+                f'epoch: {epoch + 1}/{epochs} train loss: {train_loss} \
+                    valid loss: {valid_loss} ' + train_str + valid_str)
 
         diagrams[1][-1].append(optimizer.param_groups[0]['lr'])
         for k in range(len(diagrams[0])):
@@ -178,7 +199,8 @@ def train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_
         plt.savefig(logs + f'/{name}.png')
         plt.close()
 
-    os.rename(checkpoints + '/best.pt', checkpoints + '/best_{}_{:.2f}.pt'.format(best_epoch, best_loss))
+    os.rename(checkpoints + '/best.pt', checkpoints +
+              '/best_{}_{:.2f}.pt'.format(best_epoch, best_loss))
 
 
 def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):

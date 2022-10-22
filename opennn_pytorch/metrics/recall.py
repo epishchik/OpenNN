@@ -19,6 +19,7 @@ class recall():
     name()
         return metric name.
     '''
+
     def __init__(self, nc):
         '''
         Parameters
@@ -51,7 +52,9 @@ class recall():
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        return torch.tensor(recall_score(labels.detach().cpu(), preds.detach().cpu(), average='micro'))
+        return torch.tensor(recall_score(labels.detach().cpu(),
+                                         preds.detach().cpu(),
+                                         average='micro'))
 
     def name(self):
         '''

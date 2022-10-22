@@ -29,7 +29,8 @@ def custombce():
 
 def custombcelogits():
     '''
-    Return custom binary-cross-entropy-with-logits loss object from CustomBCEWithLogitsLoss class.
+    Return custom binary-cross-entropy-with-logits loss object
+    from CustomBCEWithLogitsLoss class.
     https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html
     '''
     return CustomBCEWithLogitsLoss()
@@ -52,6 +53,7 @@ class CustomBCELoss(nn.Module):
     forward(inputs, targets)
         calculate binary-cross-entropy loss between inputs and targets.
     '''
+
     def __init__(self, weight=1.0, reduction='mean'):
         '''
         Parameters
@@ -107,8 +109,10 @@ class CustomBCEWithLogitsLoss(nn.Module):
     Methods
     -------
     forward(inputs, targets)
-        calculate binary-cross-entropy-with-logits loss between inputs and targets.
+        calculate binary-cross-entropy-with-logits loss
+        between inputs and targets.
     '''
+
     def __init__(self, weight=1.0, reduction='mean'):
         '''
         Parameters
@@ -126,7 +130,8 @@ class CustomBCEWithLogitsLoss(nn.Module):
 
     def forward(self, inputs, targets):
         '''
-        Calculate binary-cross-entropy-with-logits loss between inputs and targets.
+        Calculate binary-cross-entropy-with-logits loss
+        between inputs and targets.
 
         Parameterts
         -----------
@@ -140,7 +145,8 @@ class CustomBCEWithLogitsLoss(nn.Module):
         targets = targets.view(-1)
         sigm_inps = self.sigm(inputs)
         logx = torch.clamp(torch.log2(sigm_inps), min=-100.0, max=100.0)
-        loginvx = torch.clamp(torch.log2(1.0 - sigm_inps), min=-100.0, max=100.0)
+        loginvx = torch.clamp(torch.log2(1.0 - sigm_inps),
+                              min=-100.0, max=100.0)
         loss = -self.weight * (targets * logx + (1.0 - targets) * loginvx)
         if self.reduction == 'mean':
             return loss.mean()

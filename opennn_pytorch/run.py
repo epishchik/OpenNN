@@ -55,7 +55,8 @@ def transforms_lst(transform_config):
 
 def run(yaml):
     '''
-    Parse .yaml config and transforms .yaml config and generate full train/test pipeline.
+    Parse .yaml config and transforms .yaml config
+    and generate full train/test pipeline.
 
     Parameterts
     -----------
@@ -65,7 +66,8 @@ def run(yaml):
     Config Attributes
     -----------------
     encoder : str
-        [lenet, alexnet, googlenet, resnet18, resnet34, resnet50, resnet101, resnet152, mobilenet, vgg11, vgg16, vgg19]
+        [lenet, alexnet, googlenet, resnet18, resnet34, resnet50, resnet101,
+         resnet152, mobilenet, vgg11, vgg16, vgg19]
 
     decoder : str, optional
         [lenet, alexnet, linear]
@@ -89,7 +91,8 @@ def run(yaml):
         specify path to folder with images, only for custom dataset.
 
     annotation : str
-        specify path to yaml file with labels - images specification, only for custom dataset.
+        specify path to yaml file with labels - images specification,
+        only for custom dataset.
 
     train_part : float
         [0.0 - 1.0]
@@ -140,7 +143,8 @@ def run(yaml):
         len(str) : [1 - 4]
 
     loss : str
-        [ce, custom_ce, bce, custom_bce, bce_logits, custom_bce_logits, mse, custom_mse, mae, custom_mae]
+        [ce, custom_ce, bce, custom_bce, bce_logits, custom_bce_logits, mse,
+         custom_mse, mae, custom_mae]
 
     class_names : list[str], optional
         if specify 10 random images will be vizualized.
@@ -149,7 +153,8 @@ def run(yaml):
         if specify this checkpoint will be loaded into model.
 
     transform : str
-        auxiliary .yaml config with sequential transforms for image preprocessing.
+        auxiliary .yaml config with sequential transforms
+        for image preprocessing.
 
     Transform Config Attributes
     ---------------------------
@@ -158,7 +163,8 @@ def run(yaml):
     resize : int
 
     normalize : list[list[float], list[float]]
-        [[means], [stds]] - where means and stds count = number of input channels
+        [[means], [stds]] - where means and stds count
+        = number of input channels
     '''
     torch.cuda.empty_cache()
 
@@ -256,30 +262,89 @@ def run(yaml):
         raise ValueError(f'no device {device}')
 
     encoder = get_encoder(encoder_name, inc).to(device)
-    model = get_decoder(decoder_name, encoder, nc, decoder_mode, device).to(device)
+    model = get_decoder(decoder_name,
+                        encoder,
+                        nc,
+                        decoder_mode,
+                        device).to(device)
 
     if checkpoint is not None:
         state_dict = torch.load(checkpoint)
         model.load_state_dict(state_dict)
 
-    train_data, valid_data, test_data = get_dataset(dataset, train_part, valid_part, test_part, transform, datafiles)
-    optimizer = get_optimizer(optim, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=wd)
-    scheduler = get_scheduler(sched, optimizer, step=step, gamma=gamma, milestones=milestones, max_decay_steps=mdsteps, end_lr=end_lr, power=power)
+    train_data, valid_data, test_data = get_dataset(dataset,
+                                                    train_part,
+                                                    valid_part,
+                                                    test_part,
+                                                    transform,
+                                                    datafiles)
+
+    optimizer = get_optimizer(optim,
+                              model,
+                              lr=lr,
+                              betas=betas,
+                              eps=opt_eps,
+                              weight_decay=wd)
+
+    scheduler = get_scheduler(sched,
+                              optimizer,
+                              step=step,
+                              gamma=gamma,
+                              milestones=milestones,
+                              max_decay_steps=mdsteps,
+                              end_lr=end_lr,
+                              power=power)
+
     loss_fn, one_hot = get_loss(loss_fn)
     metrics_fn = get_metrics(metrics, nc=nc)
 
-    train_dataloader = torch.utils.data.DataLoader(train_data, batch_size=bs, shuffle=True)
-    valid_dataloader = torch.utils.data.DataLoader(valid_data, batch_size=bs, shuffle=False)
-    test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=1, shuffle=False)
+    train_dataloader = torch.utils.data.DataLoader(train_data,
+                                                   batch_size=bs,
+                                                   shuffle=True)
+
+    valid_dataloader = torch.utils.data.DataLoader(valid_data,
+                                                   batch_size=bs,
+                                                   shuffle=False)
+
+    test_dataloader = torch.utils.data.DataLoader(test_data,
+                                                  batch_size=1,
+                                                  shuffle=False)
 
     if algorithm == 'train':
-        train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, se, one_hot, nc)
+        train(train_dataloader,
+              valid_dataloader,
+              model,
+              optimizer,
+              scheduler,
+              loss_fn,
+              metrics_fn,
+              epochs,
+              checkpoints,
+              logs,
+              device,
+              se,
+              one_hot,
+              nc)
     elif algorithm == 'test':
-        test_logs = test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, nc)
+        test_logs = test(test_dataloader,
+                         model,
+                         loss_fn,
+                         metrics_fn,
+                         logs,
+                         device,
+                         one_hot,
+                         nc)
         if pred:
             indices = random.sample(range(0, len(test_data)), 10)
             os.mkdir(test_logs + '/prediction', 0o777)
             for i in range(10):
-                prediction(test_data, model, device, {i: names[i] for i in range(nc)}, test_logs + f'/prediction/{i}', indices[i])
+                tmp_range = range(nc)
+                tmp_dct = {i: names[i] for i in tmp_range}
+                prediction(test_data,
+                           model,
+                           device,
+                           tmp_dct,
+                           test_logs + f'/prediction/{i}',
+                           indices[i])
     else:
         raise ValueError(f'no algorithm {algorithm}')
