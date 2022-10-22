@@ -174,82 +174,104 @@ def run(yaml):
     transform = transforms.Compose(transform_lst)
 
     encoder_name = config['encoder']
+
     if 'decoder' in config.keys():
         decoder_name = config['decoder']
         decoder_mode = None
     else:
         decoder_name = config['multidecoder']
         decoder_mode = 'multidecoder'
+
     inc = int(config['in_channels'])
     nc = int(config['number_classes'])
+
     device = config['device']
+
     algorithm = config['algorithm']
     dataset = config['dataset']
     if dataset == 'custom':
         datafiles = (config['images'], config['annotation'])
     else:
         datafiles = None
+
     train_part = float(config['train_part'])
     valid_part = float(config['valid_part'])
     test_part = float(config['test_part'])
     seed = int(config['seed'])
+
     bs = int(config['batch_size'])
     epochs = int(config['epochs'])
+
     logs = config['logs']
     if not os.path.isdir(logs):
         cwd = os.getcwd().replace('\\', '/')
         os.mkdir(os.path.join(cwd, logs), 0o777)
+
     loss_fn = config['loss']
     metrics = config['metrics']
+
     checkpoints = config['checkpoints']
     if not os.path.isdir(checkpoints):
         cwd = os.getcwd().replace('\\', '/')
         os.mkdir(os.path.join(cwd, checkpoints), 0o777)
+
     if algorithm == 'test' and 'class_names' in config.keys():
         names = config['class_names']
         pred = True
     else:
         pred = False
+
     if 'checkpoint' in config.keys():
         checkpoint = config['checkpoint']
     else:
         checkpoint = None
+
     se = int(config['save_every'])
     lr = float(config['learning_rate'])
+
     if 'weight_decay' in config.keys():
         wd = float(config['weight_decay'])
     else:
         wd = 0.0
+
     if 'optimizer_eps' in config.keys():
         opt_eps = float(config['optimizer_eps'])
     else:
         opt_eps = 1e-8
+
     if 'optimizer_betas' in config.keys():
         betas = tuple(list(map(float, config['optimizer_betas'])))
     else:
         betas = (0.9, 0.999)
+
     optim = config['optimizer']
     sched = config['scheduler']
+
     if 'step' in config.keys():
         step = int(config['step'])
     else:
         step = 10
+
     if 'gamma' in config.keys():
         gamma = float(config['gamma'])
     else:
         gamma = 0.1
+
     if 'milestones' in config.keys():
         milestones = list(map(int, config['milestones']))
     else:
         milestones = [10, 30, 70, 150]
+
     if 'max_decay_steps' in config.keys():
         mdsteps = int(config['max_decay_steps'])
     else:
         mdsteps = 100
+
     if 'end_lr' in config.keys():
         end_lr = float(config['end_lr'])
     else:
         end_lr = 0.00001
+
     if 'power' in config.keys():
         power = float(config['power'])
     else:
