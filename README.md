@@ -398,12 +398,13 @@ elif algorithm == 'test':
 ```
 
 ### Wandb <a name="wandb"></a>
+
+[Wandb](https://wandb.ai/) is very powerful logging tool, you will able to log metrics, hyperparamets, model hooks etc.
+
 ```bash
 wandb login
 <your api token from wandb.ai>
 ```
-
-[Wandb](https://wandb.ai/) is very powerful logging tool, you will able to log metrics, hyperparamets, model hooks etc.
 
 ![Workspace](images/wandb1.png)
 
