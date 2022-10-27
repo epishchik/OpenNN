@@ -19,13 +19,13 @@ dataset:
     train_size: 0.05
     valid_size: 0.01
     test_size: 0.01
-  transform: c:/Users/SuperPC/Downloads/OpenNN/experiments/transform.yaml
+  transform: ./transform.yaml
 
 save:
   logs:
-    path: c:/Users/SuperPC/Downloads/OpenNN/experiments/logs
+    path: ./logs
   checkpoints:
-    path: c:/Users/SuperPC/Downloads/OpenNN/experiments/checkpoints
+    path: ./checkpoints
     save_every: 5
 
 optimizer:
