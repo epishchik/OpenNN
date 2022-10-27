@@ -13,6 +13,7 @@ import numpy as np
 import torch
 from torchvision import transforms
 import os
+import wandb
 
 
 def parse_yaml(config):
@@ -156,6 +157,14 @@ def run(yaml):
         auxiliary .yaml config with sequential transforms
         for image preprocessing.
 
+    wandb: structure
+        project_name : str
+            name of wandb project.
+        run_name : str
+            name of run in wandb project.
+        metrics : list[str]
+            metric names which will be logged by wandb.
+
     Transform Config Attributes
     ---------------------------
     tensor : bool
@@ -247,10 +256,7 @@ def run(yaml):
     optim = config['optimizer']
     sched = config['scheduler']
 
-    if 'step' in config.keys():
-        step = int(config['step'])
-    else:
-        step = 10
+    step = int(config['step']) if 'step' in config.keys() else 10
 
     if 'gamma' in config.keys():
         gamma = float(config['gamma'])
@@ -276,6 +282,38 @@ def run(yaml):
         power = float(config['power'])
     else:
         power = 1.0
+
+    wandb_flag = False
+    wandb_metrics = None
+
+    if 'wandb' in config.keys():
+        wandb_flag = True
+        wandb_dct = {}
+
+        wandb_dct['algorithm'] = algorithm
+        wandb_dct['seed'] = seed
+        wandb_dct['encoder'] = encoder_name
+        wandb_dct['decoder'] = decoder_name
+        wdm = 'single' if decoder_mode is None else 'multi'
+        wandb_dct['decoder mode'] = wdm
+        wandb_dct['input channels'] = inc
+        wandb_dct['number classes'] = nc
+        wandb_dct['device'] = device
+        wandb_dct['initial learning rate'] = lr
+        wandb_dct['weight decay'] = wd
+        wandb_dct['batch size'] = bs
+        wandb_dct['dataset name'] = config['dataset']
+        wandb_dct['train size'] = train_part
+        wandb_dct['valid size'] = valid_part
+        wandb_dct['test size'] = test_part
+        wandb_dct['loss function'] = config['loss']
+        wandb_dct['optimizer'] = config['optimizer']
+        wandb_dct['scheduler'] = config['scheduler']
+
+        wandb.init(project=config['wandb']['project_name'],
+                   name=config['wandb']['run_name'],
+                   config=wandb_dct)
+        wandb_metrics = config['wandb']['metrics']
 
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -346,7 +384,9 @@ def run(yaml):
               device,
               se,
               one_hot,
-              nc)
+              nc,
+              wandb_flag,
+              wandb_metrics)
     elif algorithm == 'test':
         test_logs = test(test_dataloader,
                          model,
@@ -355,7 +395,9 @@ def run(yaml):
                          logs,
                          device,
                          one_hot,
-                         nc)
+                         nc,
+                         wandb_flag,
+                         wandb_metrics)
         if pred:
             indices = random.sample(range(0, len(test_data)), 10)
             os.mkdir(test_logs + '/prediction', 0o777)

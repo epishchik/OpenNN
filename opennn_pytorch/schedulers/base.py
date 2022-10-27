@@ -29,6 +29,15 @@ def get_scheduler(name,
 
     milestones : list[int], optional
         checkpoints for lr * gamma.
+
+    max_decay_steps : int
+        maximum number of decay steps.
+
+    end_lr : float
+        minimal lr.
+
+    power : float
+        power value.
     '''
     if name == 'steplr':
         scheduler = steplr(optim, step, gamma)

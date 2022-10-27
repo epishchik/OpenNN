@@ -5,27 +5,33 @@ device: cuda
 in_channels: 1
 number_classes: 10
 dataset: mnist
-images: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/imgs  # specify path to folder with images, only for custom dataset.
-annotation: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/dataset.yaml  # specify path to yaml file with labels - images specification, only for custom dataset.
+images: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/imgs # specify path to folder with images, only for custom dataset.
+annotation: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/dataset.yaml # specify path to yaml file with labels - images specification, only for custom dataset.
 train_part: 0.7
 valid_part: 0.2
 seed: 42
 batch_size: 32
 epochs: 20
-logs: /logs  # specify your logs folder, must be different from checkpoints
-checkpoints: /checkpoints  # specify your checkpoints folder, must be different from logs
+logs: /logs # specify your logs folder, must be different from checkpoints
+checkpoints: /checkpoints # specify your checkpoints folder, must be different from logs
 save_every: 5
-optimizer: 'adam'
+optimizer: "adam"
 learning_rate: 0.001
-optimizer_betas: [0.9, 0.999]  # optional
-optimizer_eps: 0.00000001  # optional
-weight_decay: 0.000001  # optional
+optimizer_betas: [0.9, 0.999] # optional
+optimizer_eps: 0.00000001 # optional
+weight_decay: 0.000001 # optional
 scheduler: steplr
-step: 15  # optional
+step: 15 # optional
 gamma: 0.5
-milestones: [10, 20, 30]  # optional
-metrics: ['accuracy', 'precision', 'recall', 'f1_score']
+milestones: [10, 20, 30] # optional
+metrics: ["accuracy", "precision", "recall", "f1_score"]
 loss: ce
 transform: /transform.yaml
-class_names: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']  # comment this if you won't vizualize
-checkpoint: /checkpoints/best_0.05.pt  # comment this if train from scratch, but you must specify this for test mode
+class_names: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] # comment this if you won't vizualize
+checkpoint: /checkpoints/best_0.05.pt # comment this if train from scratch, but you must specify this for test mode
+
+# wandb logging tool
+wandb:
+  project_name: OpenNN
+  run_name: cuda-run
+  metrics: ["precision", "recall"]

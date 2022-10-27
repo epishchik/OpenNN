@@ -1,5 +1,5 @@
 *.todo
-**/__pycache__
+**__pycache__**
 experiments/**
 *MNIST/**
 gtsrb/**
@@ -13,5 +13,6 @@ build/*
 test.py
 CUSTOM*/*
 README_*
-/.idea/*
+.idea/*
 todo.*
+wandb

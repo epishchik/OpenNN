@@ -4,11 +4,13 @@ import torch.nn.functional as F
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+import wandb
 
 
 def train(train_dataloader,
           valid_dataloader,
-          model, optimizer,
+          model,
+          optimizer,
           scheduler,
           loss_fn,
           metrics,
@@ -18,7 +20,9 @@ def train(train_dataloader,
           device,
           save_every,
           one_hot,
-          nc):
+          nc,
+          wandb_flag,
+          wandb_metrics):
     '''
     Train pipeline.
 
@@ -65,6 +69,12 @@ def train(train_dataloader,
 
     nc : int
         classes number.
+
+    wandb_flag : bool
+        use wandb for logging.
+
+    wandb_metrics: list[str]
+        metric names which will be logged by wandb.
     '''
     checkpoints_folder = list(map(int, os.listdir(checkpoints)))
     checkpoints_folder = max(checkpoints_folder) + \
@@ -138,6 +148,11 @@ def train(train_dataloader,
         train_loss /= len(train_dataloader)
         valid_loss /= len(valid_dataloader)
 
+        if wandb_flag:
+            wandb.log({'train loss': train_loss,
+                       'valid loss': valid_loss,
+                       'learning rate': optimizer.param_groups[0]['lr']})
+
         if epoch % save_every == 0 or epoch == epochs - 1:
             state_dict = model.state_dict()
             torch.save(state_dict, checkpoints +
@@ -155,23 +170,35 @@ def train(train_dataloader,
 
         tqdm_dct['train loss'] = train_loss
         diagrams[1][0].append(train_loss)
+
         if ne == 0:
             diagrams[2].append('train_loss')
+
         for i, metric in enumerate(train_mvct):
+            if wandb_metrics is not None and metric_names[i] in wandb_metrics:
+                wandb.log({f'{metric_names[i]}': metric})
+
             diagrams[1][i + 1].append(metric)
             if ne == 0:
                 diagrams[2].append(f'train_{metric_names[i]}')
+
             tqdm_dct[f'train_{metric_names[i]}'] = metric
             train_str += f'train_{metric_names[i]}: {metric} '
 
         tqdm_dct['valid loss'] = valid_loss
         diagrams[1][len(metrics) + 1].append(valid_loss)
+
         if ne == 0:
             diagrams[2].append('valid_loss')
+
         for i, metric in enumerate(valid_mvct):
+            if wandb_metrics is not None and metric_names[i] in wandb_metrics:
+                wandb.log({f'{metric_names[i]}': metric})
+
             diagrams[1][i + len(metrics) + 2].append(metric)
             if ne == 0:
                 diagrams[2].append(f'valid_{metric_names[i]}')
+
             tqdm_dct[f'valid_{metric_names[i]}'] = metric
             if i != len(valid_mvct) - 1:
                 valid_str += f'valid_{metric_names[i]}: {metric} '
@@ -181,9 +208,10 @@ def train(train_dataloader,
         tqdm_iter.set_postfix(tqdm_dct, refresh=True)
 
         with open(logs + '/trainval.log', 'a') as in_f:
-            in_f.write(
-                f'epoch: {epoch + 1}/{epochs} train loss: {train_loss} \
-                    valid loss: {valid_loss} ' + train_str + valid_str)
+            epoch_log = f'epoch: {epoch + 1}/{epochs} '
+            loss_log = f'train loss: {train_loss} valid loss: {valid_loss} '
+            metric_log = train_str + valid_str
+            in_f.write(epoch_log + loss_log + metric_log)
 
         diagrams[1][-1].append(optimizer.param_groups[0]['lr'])
         for k in range(len(diagrams[0])):
@@ -203,7 +231,16 @@ def train(train_dataloader,
               '/best_{}_{:.2f}.pt'.format(best_epoch, best_loss))
 
 
-def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
+def test(test_dataloader,
+         model,
+         loss_fn,
+         metrics,
+         logs,
+         device,
+         one_hot,
+         nc,
+         wandb_flag,
+         wandb_metrics):
     '''
     Test pipeline.
 
@@ -232,6 +269,12 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
 
     nc : int
         classes number.
+
+    wandb_flag : bool
+        use wandb for logging.
+
+    wandb_metrics: list[str]
+        metric names which will be logged by wandb.
     '''
     logs_folder = list(map(int, os.listdir(logs)))
     logs_folder = max(logs_folder) + 1 if logs_folder != [] else 0
@@ -264,7 +307,13 @@ def test(test_dataloader, model, loss_fn, metrics, logs, device, one_hot, nc):
     test_loss /= len(test_dataloader)
     test_str = ''
 
+    if wandb_flag:
+        wandb.log({'test loss': test_loss})
+
     for i, metric in enumerate(test_mvct):
+        if wandb_metrics is not None and metric_names[i] in wandb_metrics:
+            wandb.log({f'{metric_names[i]}': metric})
+
         if i != len(test_mvct) - 1:
             test_str += f'{metric_names[i]}: {metric} '
         else:

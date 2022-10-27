@@ -23,6 +23,7 @@
   10. [Optimizers](#optimizers)
   11. [Schedulers](#schedulers)
   12. [Examples](#examples)
+  13. [Wandb](#wandb)
 
 ### Quick start <a name="start"></a>
 #### 1. Straight install.
@@ -152,7 +153,9 @@ docker build -t opennn:latest .
 </details>
 
 ### Pretrained old configs fixes <a name="pretrained_old"></a>
+Config changed, check configs folder!!!
 1. Config must include test_part value, (train_part + valid_part + test_part) value can be not equal to 1.0.
+2. You can add wandb structure for logging in wandb.
 
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
@@ -315,6 +318,18 @@ elif algorithm == 'test':
     for i in range(10):
       prediction(test_data, model, device, {i: names[i] for i in range(number_classes)}, test_logs + f'/prediction/{i}', indices[i])
 ```
+
+### Wandb <a name="wandb"></a>
+
+You can use wandb for visual logging.
+
+Install wandb via pip, run "wandb login", insert api token from your profile at wandb.ai.
+
+Wandb is very powerful logging tool, you can log metrics, hyperparamets, model hooks etc.
+
+![Workspace](images/wandb1.png)
+
+![Table](images/wandb2.png)
 
 ### Citation <a name="citing"></a>
 Project [citation](https://github.com/Pe4enIks/OpenNN/blob/main/CITATION.cff).
