@@ -152,7 +152,7 @@ docker build -t opennn:latest .
 </div>
 </details>
 
-### Pretrained old configs fixes <a name="pretrained_old"></a>
+### Pretrained configs issues <a name="pretrained_old"></a>
 Config file changed, check configs folder!!!
 1. Config must include test_part value, (train_part + valid_part + test_part) value can be < 1.0.
 2. You will able to add wandb structure for logging in wandb.
