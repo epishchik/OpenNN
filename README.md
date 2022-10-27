@@ -156,6 +156,7 @@ docker build -t opennn:latest .
 Config file changed, check configs folder!!!
 1. Config must include test_part value, (train_part + valid_part + test_part) value can be < 1.0.
 2. You will able to add wandb structure for logging in wandb.
+3. Full restructure into branches structure.
 
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
@@ -398,9 +399,9 @@ elif algorithm == 'test':
 
 ### Wandb <a name="wandb"></a>
 
-You will able to use wandb for visual logging.
+Wandb is very powerful logging tool, you will able to log metrics, hyperparamets, model hooks etc.
 
-Wandb is very powerful logging tool, you can log metrics, hyperparamets, model hooks etc.
+[Wandb](https://wandb.ai/)
 
 ![Workspace](images/wandb1.png)
 
