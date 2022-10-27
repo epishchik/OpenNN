@@ -66,102 +66,120 @@ def run(yaml):
 
     Config Attributes
     -----------------
-    encoder : str
-        [lenet, alexnet, googlenet, resnet18, resnet34, resnet50, resnet101,
-         resnet152, mobilenet, vgg11, vgg16, vgg19]
+    model : structure
+        architecture : structure
+            encoder : str
+                [lenet, alexnet, googlenet, resnet18, resnet34, resnet50,
+                 resnet101, resnet152, mobilenet, vgg11, vgg16, vgg19]
 
-    decoder : str, optional
-        [lenet, alexnet, linear]
+            decoder : str, optional
+                [lenet, alexnet, linear]
 
-    multidecoder : list[decoder], optional
+            multidecoder : list[decoder], optional
 
-    algorithm : str
-        [train, test]
+        features : structure
+            in_channels : int
 
-    device : str
-        [cpu, cuda]
+            number_classes : int
 
-    in_channels : int
+        checkpoint : str, optional
+            if specify this checkpoint will be loaded into model.
 
-    number_classes : int
+    algorithm : structure
+        name : str
+            [train, test]
 
-    dataset : str
-        [mnist, fashion_mnist, cifar10, cifar100, gtsrb, custom]
+        device : str
+            [cpu, cuda]
 
-    images : str
-        specify path to folder with images, only for custom dataset.
+        epochs : int
 
-    annotation : str
-        specify path to yaml file with labels - images specification,
-        only for custom dataset.
+        seed : int
 
-    train_part : float
-        [0.0 - 1.0]
+    dataset : structure
+        name : str
+            [mnist, fashion_mnist, cifar10, cifar100, gtsrb, custom]
 
-    valid_part : float
-        [0.0 - 1.0]
+        images : str, optional
+            specify path to folder with images, only for custom dataset.
 
-    seed : int
+        annotation : str, optional
+            specify path to yaml file with labels - images specification,
+            only for custom dataset.
 
-    batch_size : int
+        batch_size : int
 
-    epochs : int
+        sizes : structure
+            train_size : float
+                [0.0 - 1.0]
 
-    logs : str
+            valid_size : float
+                [0.0 - 1.0]
 
-    checkpoints : str
+            test_size : float
+                [0.0 - 1.0]
 
-    save_every : int
+        transform : str
+            auxiliary .yaml config with sequential transforms
+            for image preprocessing.
 
-    optimizer : str
-        [adam, adamw, adamax, radam, nadam]
+    save : structure
+        logs : structure
+            path : str
 
-    learning_rate : float
+        checkpoints : structure
+            path : str
 
-    optimizer_betas : list[float, float], optional
+            save_every : int
 
-    optimizer_eps : float, optional
+    optimizer : structure
+        nane : str
+            [adam, adamw, adamax, radam, nadam]
 
-    weight_decay : float, optional
+        params : structure
+            learning_rate : float
 
-    scheduler : str
-        [steplr, multisteplr, polylr]
+            betas : list[float, float], optional
 
-    step : int, optional
+            eps : float, optional
 
-    gamma : float, optional
+            weight_decay : float, optional
 
-    milestones : list[int], optional
+    scheduler : structure
+        name : str
+            [steplr, multisteplr, polylr]
 
-    max_decay_steps : int, optional
+        params : structure
+            step : int, optional
 
-    end_lr : float, optional
+            gamma : float, optional
 
-    power : float, optional
+            milestones : list[int], optional
+
+            max_decay_steps : int, optional
+
+            end_lr : float, optional
+
+            power : float, optional
+
+    loss_function : str
+        [ce, custom_ce, bce, custom_bce, bce_logits, custom_bce_logits, mse,
+         custom_mse, mae, custom_mae]
 
     metrics : list[str]
         str : [accuracy, precision, recall, f1_score]
         len(str) : [1 - 4]
 
-    loss : str
-        [ce, custom_ce, bce, custom_bce, bce_logits, custom_bce_logits, mse,
-         custom_mse, mae, custom_mae]
-
     class_names : list[str], optional
         if specify 10 random images will be vizualized.
 
-    checkpoint : str
-        if specify this checkpoint will be loaded into model.
-
-    transform : str
-        auxiliary .yaml config with sequential transforms
-        for image preprocessing.
-
-    wandb: structure
+    wandb: structure, optional
         project_name : str
             name of wandb project.
+
         run_name : str
             name of run in wandb project.
+
         metrics : list[str]
             metric names which will be logged by wandb.
 
@@ -178,48 +196,50 @@ def run(yaml):
     torch.cuda.empty_cache()
 
     config = parse_yaml(yaml)
-    transform_config = parse_yaml(config['transform'])
+    transform_config = parse_yaml(config['dataset']['transform'])
     transform_lst = transforms_lst(transform_config)
     transform = transforms.Compose(transform_lst)
 
-    encoder_name = config['encoder']
+    encoder_name = config['model']['architecture']['encoder']
 
-    if 'decoder' in config.keys():
-        decoder_name = config['decoder']
+    if 'decoder' in config['model']['architecture'].keys():
+        decoder_name = config['model']['architecture']['decoder']
         decoder_mode = None
     else:
-        decoder_name = config['multidecoder']
+        decoder_name = config['model']['architecture']['multidecoder']
         decoder_mode = 'multidecoder'
 
-    inc = int(config['in_channels'])
-    nc = int(config['number_classes'])
+    inc = int(config['model']['features']['in_channels'])
+    nc = int(config['model']['features']['number_classes'])
 
-    device = config['device']
+    device = config['algorithm']['device']
 
-    algorithm = config['algorithm']
-    dataset = config['dataset']
+    algorithm = config['algorithm']['name']
+
+    dataset = config['dataset']['name']
     if dataset == 'custom':
-        datafiles = (config['images'], config['annotation'])
+        datafiles = (config['dataset']['images'],
+                     config['dataset']['annotation'])
     else:
         datafiles = None
 
-    train_part = float(config['train_part'])
-    valid_part = float(config['valid_part'])
-    test_part = float(config['test_part'])
-    seed = int(config['seed'])
+    train_part = float(config['dataset']['sizes']['train_size'])
+    valid_part = float(config['dataset']['sizes']['valid_size'])
+    test_part = float(config['dataset']['sizes']['test_size'])
+    seed = int(config['algorithm']['seed'])
 
-    bs = int(config['batch_size'])
-    epochs = int(config['epochs'])
+    bs = int(config['dataset']['batch_size'])
+    epochs = int(config['algorithm']['epochs'])
 
-    logs = config['logs']
+    logs = config['save']['logs']['path']
     if not os.path.isdir(logs):
         cwd = os.getcwd().replace('\\', '/')
         os.mkdir(os.path.join(cwd, logs), 0o777)
 
-    loss_fn = config['loss']
+    loss_fn = config['loss_function']
     metrics = config['metrics']
 
-    checkpoints = config['checkpoints']
+    checkpoints = config['save']['checkpoints']['path']
     if not os.path.isdir(checkpoints):
         cwd = os.getcwd().replace('\\', '/')
         os.mkdir(os.path.join(cwd, checkpoints), 0o777)
@@ -230,56 +250,60 @@ def run(yaml):
     else:
         pred = False
 
-    if 'checkpoint' in config.keys():
-        checkpoint = config['checkpoint']
+    if 'checkpoint' in config['model'].keys():
+        checkpoint = config['model']['checkpoint']
     else:
         checkpoint = None
 
-    se = int(config['save_every'])
-    lr = float(config['learning_rate'])
+    se = int(config['save']['checkpoints']['save_every'])
+    lr = float(config['optimizer']['params']['learning_rate'])
 
-    if 'weight_decay' in config.keys():
-        wd = float(config['weight_decay'])
+    if 'weight_decay' in config['optimizer']['params'].keys():
+        wd = float(config['optimizer']['params']['weight_decay'])
     else:
         wd = 0.0
 
-    if 'optimizer_eps' in config.keys():
-        opt_eps = float(config['optimizer_eps'])
+    if 'eps' in config['optimizer']['params'].keys():
+        opt_eps = float(config['optimizer']['params']['eps'])
     else:
         opt_eps = 1e-8
 
-    if 'optimizer_betas' in config.keys():
-        betas = tuple(list(map(float, config['optimizer_betas'])))
+    if 'betas' in config.keys():
+        betas = tuple(list(map(float, config['optimizer']['params']['betas'])))
     else:
         betas = (0.9, 0.999)
 
-    optim = config['optimizer']
-    sched = config['scheduler']
+    optim = config['optimizer']['name']
+    sched = config['scheduler']['name']
 
-    step = int(config['step']) if 'step' in config.keys() else 10
+    if 'step' in config['scheduler']['params'].keys():
+        step = int(config['scheduler']['params']['step'])
+    else:
+        step = 10
 
-    if 'gamma' in config.keys():
-        gamma = float(config['gamma'])
+    if 'gamma' in config['scheduler']['params'].keys():
+        gamma = float(config['scheduler']['params']['gamma'])
     else:
         gamma = 0.1
 
-    if 'milestones' in config.keys():
-        milestones = list(map(int, config['milestones']))
+    if 'milestones' in config['scheduler']['params'].keys():
+        milestones = list(
+            map(int, config['scheduler']['params']['milestones']))
     else:
         milestones = [10, 30, 70, 150]
 
-    if 'max_decay_steps' in config.keys():
-        mdsteps = int(config['max_decay_steps'])
+    if 'max_decay_steps' in config['scheduler']['params'].keys():
+        mdsteps = int(config['scheduler']['params']['max_decay_steps'])
     else:
         mdsteps = 100
 
     if 'end_lr' in config.keys():
-        end_lr = float(config['end_lr'])
+        end_lr = float(config['scheduler']['params']['end_lr'])
     else:
         end_lr = 0.00001
 
-    if 'power' in config.keys():
-        power = float(config['power'])
+    if 'power' in config['scheduler']['params'].keys():
+        power = float(config['scheduler']['params']['power'])
     else:
         power = 1.0
 
@@ -302,13 +326,13 @@ def run(yaml):
         wandb_dct['initial learning rate'] = lr
         wandb_dct['weight decay'] = wd
         wandb_dct['batch size'] = bs
-        wandb_dct['dataset name'] = config['dataset']
+        wandb_dct['dataset name'] = config['dataset']['name']
         wandb_dct['train size'] = train_part
         wandb_dct['valid size'] = valid_part
         wandb_dct['test size'] = test_part
-        wandb_dct['loss function'] = config['loss']
-        wandb_dct['optimizer'] = config['optimizer']
-        wandb_dct['scheduler'] = config['scheduler']
+        wandb_dct['loss function'] = config['loss_function']
+        wandb_dct['optimizer'] = config['optimizer']['name']
+        wandb_dct['scheduler'] = config['scheduler']['name']
 
         wandb.init(project=config['wandb']['project_name'],
                    name=config['wandb']['run_name'],

@@ -44,7 +44,7 @@ docker build -t opennn:latest .
 ### Warnings <a name="warnings"></a>
 1. Cuda is only supported for nvidia graphics cards.
 2. Alexnet decoder doesn't support bce losses family.
-3. Sometimes combination of dataset/encoder/decoder/loss can give bad results, try to combine others.
+3. Sometimes combination of dataset/encoder/decoder/loss will give bad results, try to combine others.
 4. Custom cross-entropy support only mode when preds have (n, c) shape and labels have (n) shape.
 5. Not all options in transform.yaml and config.yaml are required.
 6. Mean and std in datasets section must be used in transform.yaml, for example [mean=[0.2859], std=[0.3530]] -> normalize: [[0.2859], [0.3530]]
@@ -153,9 +153,9 @@ docker build -t opennn:latest .
 </details>
 
 ### Pretrained old configs fixes <a name="pretrained_old"></a>
-Config changed, check configs folder!!!
-1. Config must include test_part value, (train_part + valid_part + test_part) value can be not equal to 1.0.
-2. You can add wandb structure for logging in wandb.
+Config file changed, check configs folder!!!
+1. Config must include test_part value, (train_part + valid_part + test_part) value can be < 1.0.
+2. You will able to add wandb structure for logging in wandb.
 
 ### Datasets <a name="datasets"></a>
 - MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
@@ -194,15 +194,16 @@ Config changed, check configs folder!!!
 
 1. Run from yaml config.
 ```python
-import opennn_pytorch
+from opennn_pytorch import run
 
 config = 'path to yaml config'  # check configs folder
-opennn_pytorch.run(config)
+run(config)
 ```
 
 2. Get encoder and decoder.
 ```python
-import opennn_pytorch
+from opennn_pytorch.encoders import get_encoder
+from opennn_pytorch.decoders import get_decoder
   
 encoder_name = 'resnet18'
 decoder_name = 'alexnet'
@@ -211,13 +212,19 @@ input_channels = 1
 number_classes = 10
 device = 'cuda'
 
-encoder = opennn_pytorch.encoders.get_encoder(encoder_name, input_channels).to(device)
-model = opennn_pytorch.decoders.get_decoder(decoder_name, encoder, number_classes, decoder_mode, device).to(device)
+encoder = get_encoder(encoder_name, 
+                       input_channels).to(device)
+
+model = get_decoder(decoder_name, 
+                    encoder, 
+                    number_classes, 
+                    decoder_mode, 
+                    device).to(device)
 ```
 
 3.1 Get dataset.
 ```python
-import opennn_pytorch
+from opennn_pytorch.datasets import get_dataset
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
@@ -230,12 +237,17 @@ test_part = 0.05
 transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
 
-train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, test_part, transform, datafiles)
+train_data, valid_data, test_data = get_dataset(dataset_name,
+                                                train_part, 
+                                                valid_part, 
+                                                test_part, 
+                                                transform, 
+                                                datafiles)
 ```
 
 3.2 Get custom dataset.
 ```python
-import opennn_pytorch
+from opennn_pytorch.datasets import get_dataset
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
@@ -250,51 +262,75 @@ test_part = 0.05
 transform_lst = opennn_pytorch.transforms_lst(transform_config)
 transform = transforms.Compose(transform_lst)
 
-train_data, valid_data, test_data = opennn_pytorch.datasets.get_dataset(dataset_name, train_part, valid_part, test_part, transform, datafiles)
+train_data, valid_data, test_data = get_dataset(dataset_name,
+                                                train_part, 
+                                                valid_part, 
+                                                test_part, 
+                                                transform, 
+                                                datafiles)
 ```
 
 4. Get optimizer.
 ```python
-import opennn_pytorch
+from opennn_pytorch.optimizers import get_optimizer
 
 optim_name = 'adam'
 lr = 1e-3
 betas = (0.9, 0.999)
 eps = 1e-8
 weight_decay = 1e-6
-optimizer = opennn_pytorch.optimizers.get_optimizer(optim_name, model, lr=lr, betas=betas, eps=opt_eps, weight_decay=weight_decay)
+
+optimizer = get_optimizer(optim_name, 
+                          model, 
+                          lr=lr, 
+                          betas=betas, 
+                          eps=opt_eps, 
+                          weight_decay=weight_decay)
 ```
 
 5. Get scheduler.
 ```python
-import opennn_pytorch
+from opennn_pytorch.schedulers import get_scheduler
 
 scheduler_name = 'steplr'
 step = 10
 gamma = 0.5
-scheduler = opennn_pytorch.schedulers.get_scheduler(sched, optimizer, step=step, gamma=gamma)
+milestones = None
+max_decay_steps = None
+end_lr = None
+power = None
+
+scheduler = get_scheduler(scheduler_name,
+                          optimizer,
+                          step=step,
+                          gamma=gamma,
+                          milestones=milestones,
+                          max_decay_steps=mdsteps,
+                          end_lr=end_lr,
+                          power=power)
 ```
 
 6. Get loss function.
 ```python
-import opennn_pytorch
+from opennn_pytorch.losses import get_loss
 
 loss_fn = 'custom_mse'
-loss_fn, one_hot = opennn_pytorch.losses.get_loss(loss_fn)
+loss_fn, one_hot = get_loss(loss_fn)
 ```
 
 7. Get metrics functions.
 ```python
-import opennn_pytorch
+from opennn_pytorch.metrics import get_metrics
 
 metrics_names = ['accuracy', 'precision', 'recall', 'f1_score']
 number_classes = 10
-metrics_fn = opennn_pytorch.metrics.get_metrics(metrics_names, nc=number_classes)
+metrics_fn = get_metrics(metrics_names, 
+                         nc=number_classes)
 ```
 
 8. Train/Test.
 ```python
-import opennn_pytorch
+from opennn_pytorch.algo import train, test, prediction
 import random
 
 algorithm = 'train'
@@ -303,27 +339,66 @@ class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 number_classes = 10
 save_every = 5
 epochs = 20
+wandb_flag = True
+wandb_metrics = ['accuracy', 'f1_score']
 
-train_dataloader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True)
-valid_dataloader = torch.utils.data.DataLoader(valid_data, batch_size=batch_size, shuffle=False)
-test_dataloader = torch.utils.data.DataLoader(test_data, batch_size=1, shuffle=False)
+train_dataloader = torch.utils.data.DataLoader(train_data, 
+                                               batch_size=batch_size, 
+                                               shuffle=True)
+
+valid_dataloader = torch.utils.data.DataLoader(valid_data, 
+                                               batch_size=batch_size, 
+                                               shuffle=False)
+
+test_dataloader = torch.utils.data.DataLoader(test_data, 
+                                              batch_size=1, 
+                                              shuffle=False)
 
 if algorithm == 'train':
-  opennn_pytorch.algo.train(train_dataloader, valid_dataloader, model, optimizer, scheduler, loss_fn, metrics_fn, epochs, checkpoints, logs, device, save_every, one_hot, number_classes)
+  train(train_dataloader, 
+        valid_dataloader, 
+        model, 
+        optimizer, 
+        scheduler, 
+        loss_fn, 
+        metrics_fn, 
+        epochs, 
+        checkpoints, 
+        logs, 
+        device, 
+        save_every, 
+        one_hot, 
+        number_classes,
+        wandb_flag,
+        wandb_metrics)
 elif algorithm == 'test':
-  test_logs = opennn_pytorch.algo.test(test_dataloader, model, loss_fn, metrics_fn, logs, device, one_hot, number_classes)
+  test_logs = test(test_dataloader, 
+                   model, 
+                   loss_fn, 
+                   metrics_fn, 
+                   logs, 
+                   device, 
+                   one_hot, 
+                   number_classes,
+                   wandb_flag,
+                   wandb_metrics)
   if pred:
     indices = random.sample(range(0, len(test_data)), 10)
     os.mkdir(test_logs + '/prediction', 0o777)
     for i in range(10):
-      prediction(test_data, model, device, {i: names[i] for i in range(number_classes)}, test_logs + f'/prediction/{i}', indices[i])
+      tmp_range = range(number_classes)
+      tmp_dct = {i: names[i] for i in tmp_range}
+      prediction(test_data,
+                 model,
+                 device,
+                 tmp_dct,
+                 test_logs + f'/prediction/{i}',
+                 indices[i])
 ```
 
 ### Wandb <a name="wandb"></a>
 
-You can use wandb for visual logging.
-
-Install wandb via pip, run "wandb login", insert api token from your profile at wandb.ai.
+You will able to use wandb for visual logging.
 
 Wandb is very powerful logging tool, you can log metrics, hyperparamets, model hooks etc.
 

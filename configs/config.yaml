@@ -1,36 +1,49 @@
-encoder: resnet18
-decoder: alexnet
-algorithm: train
-device: cuda
-in_channels: 1
-number_classes: 10
-dataset: mnist
-images: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/imgs # specify path to folder with images, only for custom dataset.
-annotation: C:/Users/SuperPC/Downloads/OpenNN/CUSTOM/dataset.yaml # specify path to yaml file with labels - images specification, only for custom dataset.
-train_part: 0.7
-valid_part: 0.2
-seed: 42
-batch_size: 32
-epochs: 20
-logs: /logs # specify your logs folder, must be different from checkpoints
-checkpoints: /checkpoints # specify your checkpoints folder, must be different from logs
-save_every: 5
-optimizer: "adam"
-learning_rate: 0.001
-optimizer_betas: [0.9, 0.999] # optional
-optimizer_eps: 0.00000001 # optional
-weight_decay: 0.000001 # optional
-scheduler: steplr
-step: 15 # optional
-gamma: 0.5
-milestones: [10, 20, 30] # optional
-metrics: ["accuracy", "precision", "recall", "f1_score"]
-loss: ce
-transform: /transform.yaml
-class_names: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] # comment this if you won't vizualize
-checkpoint: /checkpoints/best_0.05.pt # comment this if train from scratch, but you must specify this for test mode
+model:
+  architecture:
+    encoder: googlenet
+    decoder: linear
+  features:
+    in_channels: 1
+    number_classes: 10
 
-# wandb logging tool
+algorithm:
+  name: train
+  device: cuda
+  epochs: 20
+  seed: 42
+
+dataset:
+  name: mnist
+  batch_size: 16
+  sizes:
+    train_size: 0.05
+    valid_size: 0.01
+    test_size: 0.01
+  transform: c:/Users/SuperPC/Downloads/OpenNN/experiments/transform.yaml
+
+save:
+  logs:
+    path: c:/Users/SuperPC/Downloads/OpenNN/experiments/logs
+  checkpoints:
+    path: c:/Users/SuperPC/Downloads/OpenNN/experiments/checkpoints
+    save_every: 5
+
+optimizer:
+  name: radam
+  params:
+    learning_rate: 0.01
+    weight_decay: 0.0001
+
+scheduler:
+  name: polylr
+  params:
+    max_decay_steps: 20
+    power: 0.9
+    end_lr: 0.0005
+
+loss_function: ce
+metrics: ["precision", "recall", "f1_score"]
+
 wandb:
   project_name: OpenNN
   run_name: cuda-run
