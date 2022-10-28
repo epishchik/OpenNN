@@ -33,7 +33,10 @@ if not VERSION:
         exec(f.read(), about)
 else:
     about['__version__'] = VERSION
-DOWNLOAD_URL = f'https://github.com/Pe4enIks/OpenNN/archive/refs/tags/v{about["__version__"]}.tar.gz'
+
+GITHUB_URL = 'https://github.com/Pe4enIks/OpenNN'
+DOWNLOAD_URL = GITHUB_URL + \
+    f'/archive/refs/tags/v{about["__version__"]}.tar.gz'
 
 
 class UploadCommand(Command):
@@ -61,7 +64,9 @@ class UploadCommand(Command):
             pass
 
         self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        build_str = '{0} '.format(sys.executable)
+        build_str += 'setup.py sdist bdist_wheel --universal'
+        os.system(build_str)
 
         self.status('Uploading the package to PyPI via Twine…')
         os.system('twine upload dist/*')
