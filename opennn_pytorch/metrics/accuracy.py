@@ -27,7 +27,6 @@ class accuracy():
         labels : torch.tensor
             ground-truth labels.
         '''
-        # np = 1
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
@@ -38,11 +37,6 @@ class accuracy():
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        # for shape in labels.shape:
-        #     np *= shape
-
-        # acc = (preds == labels).sum() / np
-        # return acc
         return torch.tensor(accuracy_score(labels.detach().cpu(),
                                            preds.detach().cpu()))
 
