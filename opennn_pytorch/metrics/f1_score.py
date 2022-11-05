@@ -1,4 +1,4 @@
-from sklearn.metrics import recall_score, precision_score
+from sklearn.metrics import f1_score as sklearn_f1
 import torch
 
 
@@ -52,13 +52,9 @@ class f1_score():
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        pr = precision_score(labels.detach().cpu(),
-                             preds.detach().cpu(),
-                             average='micro')
-        re = recall_score(labels.detach().cpu(),
-                          preds.detach().cpu(),
-                          average='micro')
-        f1 = 2 * re * pr / (re + pr + 1e-7)
+        f1 = sklearn_f1(labels.detach().cpu(),
+                        preds.detach().cpu(),
+                        average='weighted')
         return torch.tensor(f1)
 
     def name(self):

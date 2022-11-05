@@ -54,7 +54,7 @@ class recall():
 
         return torch.tensor(recall_score(labels.detach().cpu(),
                                          preds.detach().cpu(),
-                                         average='micro'))
+                                         average='weighted'))
 
     def name(self):
         '''

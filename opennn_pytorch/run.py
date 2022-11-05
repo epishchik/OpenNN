@@ -15,6 +15,9 @@ from torchvision import transforms
 import os
 import wandb
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def parse_yaml(config):
     '''

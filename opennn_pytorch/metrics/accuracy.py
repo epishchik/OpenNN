@@ -1,3 +1,7 @@
+from sklearn.metrics import accuracy_score
+import torch
+
+
 class accuracy():
     '''
     Class used to calculate accuracy metric.
@@ -10,6 +14,7 @@ class accuracy():
     name()
         return metric name.
     '''
+
     def calc(self, preds, labels):
         '''
         Calculate accuracy metric.
@@ -22,7 +27,7 @@ class accuracy():
         labels : torch.tensor
             ground-truth labels.
         '''
-        np = 1
+        # np = 1
         shapes = preds.shape
 
         if len(shapes) == len(labels.shape) and shapes[1] != labels.shape[1]:
@@ -33,11 +38,13 @@ class accuracy():
             preds = preds.argmax(dim=1).float()
             labels = labels.argmax(dim=1).float()
 
-        for shape in labels.shape:
-            np *= shape
+        # for shape in labels.shape:
+        #     np *= shape
 
-        acc = (preds == labels).sum() / np
-        return acc
+        # acc = (preds == labels).sum() / np
+        # return acc
+        return torch.tensor(accuracy_score(labels.detach().cpu(),
+                                           preds.detach().cpu()))
 
     def name(self):
         '''

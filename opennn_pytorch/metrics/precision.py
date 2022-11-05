@@ -54,7 +54,7 @@ class precision():
 
         return torch.tensor(precision_score(labels.detach().cpu(),
                                             preds.detach().cpu(),
-                                            average='micro'))
+                                            average='weighted'))
 
     def name(self):
         '''

@@ -176,14 +176,14 @@ def train(train_dataloader,
 
         for i, metric in enumerate(train_mvct):
             if wandb_metrics is not None and metric_names[i] in wandb_metrics:
-                wandb.log({f'{metric_names[i]}': metric})
+                wandb.log({f'train_{metric_names[i]}': metric})
 
             diagrams[1][i + 1].append(metric)
             if ne == 0:
                 diagrams[2].append(f'train_{metric_names[i]}')
 
             tqdm_dct[f'train_{metric_names[i]}'] = metric
-            train_str += f'train_{metric_names[i]}: {metric} '
+            train_str += f'train_{metric_names[i]}: {metric:.3f} '
 
         tqdm_dct['valid loss'] = valid_loss
         diagrams[1][len(metrics) + 1].append(valid_loss)
@@ -193,7 +193,7 @@ def train(train_dataloader,
 
         for i, metric in enumerate(valid_mvct):
             if wandb_metrics is not None and metric_names[i] in wandb_metrics:
-                wandb.log({f'{metric_names[i]}': metric})
+                wandb.log({f'valid_{metric_names[i]}': metric})
 
             diagrams[1][i + len(metrics) + 2].append(metric)
             if ne == 0:
@@ -201,15 +201,16 @@ def train(train_dataloader,
 
             tqdm_dct[f'valid_{metric_names[i]}'] = metric
             if i != len(valid_mvct) - 1:
-                valid_str += f'valid_{metric_names[i]}: {metric} '
+                valid_str += f'valid_{metric_names[i]}: {metric:.3f} '
             else:
-                valid_str += f'valid_{metric_names[i]}: {metric}\n'
+                valid_str += f'valid_{metric_names[i]}: {metric:.3f}\n'
 
         tqdm_iter.set_postfix(tqdm_dct, refresh=True)
 
         with open(logs + '/trainval.log', 'a') as in_f:
             epoch_log = f'epoch: {epoch + 1}/{epochs} '
-            loss_log = f'train loss: {train_loss} valid loss: {valid_loss} '
+            loss_log = f'train loss: {train_loss:.3f} '
+            loss_log += f'valid loss: {valid_loss:.3f} '
             metric_log = train_str + valid_str
             in_f.write(epoch_log + loss_log + metric_log)
 
@@ -312,14 +313,14 @@ def test(test_dataloader,
 
     for i, metric in enumerate(test_mvct):
         if wandb_metrics is not None and metric_names[i] in wandb_metrics:
-            wandb.log({f'{metric_names[i]}': metric})
+            wandb.log({f'test_{metric_names[i]}': metric})
 
         if i != len(test_mvct) - 1:
-            test_str += f'{metric_names[i]}: {metric} '
+            test_str += f'{metric_names[i]}: {metric:.3f} '
         else:
-            test_str += f'{metric_names[i]}: {metric}\n'
+            test_str += f'{metric_names[i]}: {metric:.3f}\n'
 
     with open(logs + '/test.log', 'a') as in_f:
-        in_f.write(f'test loss: {test_loss} ' + test_str)
+        in_f.write(f'test loss: {test_loss:.3f} ' + test_str)
 
     return logs
