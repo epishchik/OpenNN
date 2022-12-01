@@ -1,8 +1,9 @@
 from . import algo
-from . import losses
-from . import metrics
-from . import datasets
-from . import optimizers
-from . import encoders
-from . import decoders
+from . import loss
+from . import metric
+from . import dataset
+from . import optimizer
+from . import scheduler
+from . import encoder
+from . import decoder
 from .run import run, transforms_lst, parse_yaml
