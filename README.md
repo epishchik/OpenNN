@@ -291,7 +291,7 @@ from opennn_pytorch.scheduler import get_scheduler
 scheduler_name = 'PolynomialLRDecay'
 scheduler_type = 'custom'
 scheduler_params = {'max_decay_steps': 20,
-                    'end_learning_rate': 0.0005
+                    'end_learning_rate': 0.0005,
                     'power': 0.9}
 
 scheduler = get_scheduler(scheduler_name,
