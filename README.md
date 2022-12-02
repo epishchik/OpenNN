@@ -203,18 +203,18 @@ run(config)
 
 2. Get encoder and decoder.
 ```python
-from opennn_pytorch.encoders import get_encoder
-from opennn_pytorch.decoders import get_decoder
+from opennn_pytorch.encoder import get_encoder
+from opennn_pytorch.decoder import get_decoder
   
-encoder_name = 'resnet18'
-decoder_name = 'alexnet'
-decoder_mode = 'decoder'
+encoder_name = 'ResNet18'
+decoder_name = 'AlexNet'
+decoder_mode = 'Single'
 input_channels = 1
 number_classes = 10
-device = 'cuda'
+device = 'cuda:0'
 
 encoder = get_encoder(encoder_name, 
-                       input_channels).to(device)
+                      input_channels).to(device)
 
 model = get_decoder(decoder_name, 
                     encoder, 
@@ -225,11 +225,11 @@ model = get_decoder(decoder_name,
 
 3.1 Get dataset.
 ```python
-from opennn_pytorch.datasets import get_dataset
+from opennn_pytorch.dataset import get_dataset
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
-dataset_name = 'mnist'
+dataset_name = 'MNIST'
 datafiles = None
 train_part = 0.7
 valid_part = 0.2
@@ -248,11 +248,11 @@ train_data, valid_data, test_data = get_dataset(dataset_name,
 
 3.2 Get custom dataset.
 ```python
-from opennn_pytorch.datasets import get_dataset
+from opennn_pytorch.dataset import get_dataset
 from torchvision import transforms
 
 transform_config = 'path to transform yaml config'
-dataset_name = 'custom'
+dataset_name = 'CUSTOM'
 images = 'path to folder with images'
 annotation = 'path to annotation yaml file with image: class structure'
 datafiles = (images, annotation)
@@ -273,60 +273,48 @@ train_data, valid_data, test_data = get_dataset(dataset_name,
 
 4. Get optimizer.
 ```python
-from opennn_pytorch.optimizers import get_optimizer
+from opennn_pytorch.optimizer import get_optimizer
 
-optim_name = 'adam'
+optimizer_name = 'RAdam'
 lr = 1e-3
-betas = (0.9, 0.999)
-eps = 1e-8
-weight_decay = 1e-6
+weight_decay = 1e-5
+optimizer_params = {'lr': lr,
+                    'weight_decay': weight_decay}
 
-optimizer = get_optimizer(optim_name, 
-                          model, 
-                          lr=lr, 
-                          betas=betas, 
-                          eps=opt_eps, 
-                          weight_decay=weight_decay)
+optimizer = get_optimizer(optimizer_name, model, optimizer_params)
 ```
 
 5. Get scheduler.
 ```python
-from opennn_pytorch.schedulers import get_scheduler
+from opennn_pytorch.scheduler import get_scheduler
 
-scheduler_name = 'steplr'
-step = 10
-gamma = 0.5
-milestones = None
-max_decay_steps = None
-end_lr = None
-power = None
+scheduler_name = 'PolynomialLRDecay'
+scheduler_type = 'custom'
+scheduler_params = {'max_decay_steps': 20,
+                    'end_learning_rate': 0.0005
+                    'power': 0.9}
 
 scheduler = get_scheduler(scheduler_name,
                           optimizer,
-                          step=step,
-                          gamma=gamma,
-                          milestones=milestones,
-                          max_decay_steps=mdsteps,
-                          end_lr=end_lr,
-                          power=power)
+                          scheduler_params,
+                          scheduler_type)
 ```
 
 6. Get loss function.
 ```python
-from opennn_pytorch.losses import get_loss
+from opennn_pytorch.loss import get_loss
 
-loss_fn = 'custom_mse'
+loss_fn = 'L1Loss'
 loss_fn, one_hot = get_loss(loss_fn)
 ```
 
 7. Get metrics functions.
 ```python
-from opennn_pytorch.metrics import get_metrics
+from opennn_pytorch.metric import get_metric
 
 metrics_names = ['accuracy', 'precision', 'recall', 'f1_score']
 number_classes = 10
-metrics_fn = get_metrics(metrics_names, 
-                         nc=number_classes)
+metrics_fn = get_metric(metrics_names, nc=number_classes)
 ```
 
 8. Train/Test.
