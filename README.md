@@ -50,23 +50,23 @@ docker build -t opennn:latest .
 6. Mean and std in datasets section must be used in transform.yaml, for example [mean=[0.2859], std=[0.3530]] -> normalize: [[0.2859], [0.3530]]
 
 ### Encoders <a name="encoders"></a>
-- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/alexnet.py)]
-- GoogleNet [[paper](https://arxiv.org/pdf/1409.4842.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/googlenet.py)]
-- ResNet18 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/resnet.py)]
-- ResNet34 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/resnet.py)]
-- ResNet50 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/resnet.py)]
-- ResNet101 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/resnet.py)]
-- ResNet152 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/resnet.py)]
-- MobileNet [[paper](https://arxiv.org/pdf/1704.04861.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/mobilenet.py)]
-- VGG-11 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/vgg.py)]
-- VGG-16 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/vgg.py)]
-- VGG-19 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoders/vgg.py)]
+- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/lenet.py)]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/alexnet.py)]
+- GoogleNet [[paper](https://arxiv.org/pdf/1409.4842.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/googlenet.py)]
+- ResNet18 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/resnet.py)]
+- ResNet34 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/resnet.py)]
+- ResNet50 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/resnet.py)]
+- ResNet101 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/resnet.py)]
+- ResNet152 [[paper](https://arxiv.org/pdf/1512.03385.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/resnet.py)]
+- MobileNet [[paper](https://arxiv.org/pdf/1704.04861.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/mobilenet.py)]
+- VGG-11 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/vgg.py)]
+- VGG-16 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/vgg.py)]
+- VGG-19 [[paper](https://arxiv.org/pdf/1409.1556.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/encoder/vgg.py)]
   
 ### Decoders <a name="decoders"></a>
-- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/lenet.py)]
-- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/alexnet.py)]
-- Linear [[docs](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoders/linear.py)]
+- LeNet [[paper](http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoder/decoder.py)]
+- AlexNet [[paper](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoder/decoder.py)]
+- Linear [[docs](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/decoder/decoder.py)]
 
 ### Pretrained <a name="pretrained"></a>
 <details>
@@ -159,37 +159,28 @@ Config file changed, check configs folder!!!
 3. Full restructure into branches structure.
 
 ### Datasets <a name="datasets"></a>
-- MNIST [[files](http://yann.lecun.com/exdb/mnist/)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.1307], std=[0.3801]]
-- FASHION-MNIST [[files](https://github.com/zalandoresearch/fashion-mnist)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/mnist.py)] [classes=10] [mean=[0.2859], std=[0.3530]]
-- CIFAR-10 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/cifar.py)] [classes=10] [mean=[0.491, 0.482, 0.446], std=[0.247, 0.243, 0.261]]
-- CIFAR-100 [[files](https://www.cs.toronto.edu/~kriz/cifar.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/cifar.py)] [classes=100] [mean=[0.5071, 0.4867, 0.4408], std=[0.2675, 0.2565, 0.2761]]
-- GTSRB [[files](https://benchmark.ini.rub.de/gtsrb_news.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/gtsrb.py)] [classes=43] [mean=unknown, std=unknown]
-- CUSTOM [[docs](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/datasets/custom.py)] [[example](https://cloud.mail.ru/public/PyuH/sNiZrFGK4)] [classes=nc] [mean=unknown, std=unknown]
+- Any torchvision dataset [[torchvision](https://pytorch.org/vision/stable/index.html)] [[docs](https://pytorch.org/vision/stable/datasets.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/dataset/base.py)]
+- Custom dataset [[custom](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/dataset)] [[example](https://cloud.mail.ru/public/PyuH/sNiZrFGK4)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/dataset/custom.py)]
+
+Dataset parameters:
+- MNIST [classes=10] [mean=[0.1307], std=[0.3801]]
+- FASHION-MNIST [classes=10] [mean=[0.2859], std=[0.3530]]
+- CIFAR-10 [classes=10] [mean=[0.491, 0.482, 0.446], std=[0.247, 0.243, 0.261]]
+- CIFAR-100 [classes=100] [mean=[0.5071, 0.4867, 0.4408], std=[0.2675, 0.2565, 0.2761]]
 
 ### Losses <a name="losses"></a>
-- Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/losses/celoss.py)]
-- Binary-Cross-Entropy [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/losses/bceloss.py)]
-- Binary-Cross-Entropy-With-Logits [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/losses/bceloss.py)]
-- Mean-Squared-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/losses/meanloss.py)]
-- Mean-Absolute-Error [[pytorch](https://pytorch.org), [custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/losses)] [[docs](https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/losses/meanloss.py)]
+- Any pytorch loss [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/nn.html#loss-functions)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/loss/base.py)]
+- Custom loss [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/loss)] [[docs](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/loss/custom.py)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/loss/custom.py)]
 
 ### Metrics <a name="metrics"></a>
-- Accuracy [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/metrics/accuracy.py)]
-- Precision [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html#sklearn.metrics.precision_score)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/metrics/precision.py)]
-- Recall [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/metrics/recall.py)]
-- F1 [[sklearn](https://scikit-learn.org/stable/)] [[docs](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/metrics/f1_score.py)]
+- Any sklearn metric [[sklearn](https://scikit-learn.org/stable/index.html)] [[docs](https://scikit-learn.org/stable/modules/model_evaluation.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/metric/sklearn_metric.py)]
 
 ### Optimizers <a name="optimizers"></a>
-- Adam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizers/adam.py)]
-- AdamW [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html#torch.optim.AdamW)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizers/adam.py)]
-- Adamax [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.Adamax.html#torch.optim.Adamax)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizers/adam.py)]
-- RAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.RAdam.html#torch.optim.RAdam)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizers/adam.py)]
-- NAdam [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.NAdam.html#torch.optim.NAdam)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizers/adam.py)]
+- Any pytorch optimizer [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/optim.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/optimizer/base.py)]
 
 ### Schedulers <a name="schedulers"></a>
-- StepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.StepLR.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/steplr.py)]
-- MultiStepLR [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.MultiStepLR.html#torch.optim.lr_scheduler.MultiStepLR)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/steplr.py)]
-- PolynomialLRDecay [[custom](https://github.com/Pe4enIks/OpenNN/tree/main/opennn_pytorch/schedulers)] [[docs](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/custom.py)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/schedulers/custom.py)]
+- Any pytorch scheduler [[pytorch](https://pytorch.org)] [[docs](https://pytorch.org/docs/stable/optim.html)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/scheduler/base.py)]
+- PolynomialLRDecay [[custom](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/scheduler)] [[docs](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/scheduler/custom.py)] [[code](https://github.com/Pe4enIks/OpenNN/blob/main/opennn_pytorch/scheduler/custom.py)]
 
 ### Examples <a name="examples"></a>
 
